@@ -5,7 +5,7 @@ module.exports = {
   updateUser,
   deleteUser
 };
-const info = require("../models/models")
+const info = require("../schema/Userprofile")
 const users = [];
 
 async function getUsers() {

@@ -1,20 +1,23 @@
 const { user } = require("../models");
-
 module.exports = {
   getUsers,
   createUser,
   updateUser,
-  deleteUser,
-};
+  deleteUser
+}
 
-  async function getUsers(req, res) {
+async function getUsers(req, res) {
   const response = await user.getUsers();
+  console.log(response);
   res.send(response);
-  }
+}
 
-function createUser(req, res) {
-  const body = req.body;
-  users.push(body);
+async function createUser(req, res) {
+  await user.createUser(req,res);
+  //console.log(res);
+  //res.send(JSON.stringify(response))
+  //const body = req.body;
+  //users.push(body);
 
   res.send({
     status: 200,
@@ -23,27 +26,15 @@ function createUser(req, res) {
   });
 }
 
-function updateUser(req, res) {
-  const body = req.body;
-  const id = req.query.id;
+async function updateUser(req, res) {
+  const response= await user.updateUser(req,res);
+  res.send(response);
 }
-  console.log(id);
 
-  for (let key in body) {
-    users[id][key] = body[key];
-  }
-
-  res.send({
-    status: 200,
-    statusText: "OK",
-    message: "Client Updated!"
-  });
-
-function deleteUser(req, res) {
+async function deleteUser(req, res) {
   const id = req.query.id;
-
-  users.pop(id);
-
+  console.log(id)
+  await user.deleteUser(req,res)
   res.send({
     status: 200,
     statusText: "OK",
