@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 var signUpSignInSchema = new mongoose.Schema({
     email    : String,
     password : String
