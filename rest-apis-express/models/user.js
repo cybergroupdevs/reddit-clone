@@ -32,7 +32,7 @@ function updateUser(req, res) {
   const body = req.body;
   const id = req.query.id;
 
-  console.log(id);
+  //console.log(id);
 
   for (let key in body) {
     users[id][key] = body[key];
