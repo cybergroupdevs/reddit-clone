@@ -1,58 +1,73 @@
+
 module.exports = {
   getUsers,
   createUser,
   updateUser,
   deleteUser
 };
-
+const info = require("../models/models")
 const users = [];
 
 async function getUsers() {
-  return new Promise((resolve, reject) => {
-    resolve({
-      status: 200,
-      statusText: "OK",
-      data: users
-    });
-  });
-}
-
-function createUser(req, res) {
-  const body = req.body;
-  users.push(body);
-
-  res.send({
-    status: 200,
-    statusText: "OK",
-    message: "Client Inserted!"
-  });
-}
-
-function updateUser(req, res) {
-  const body = req.body;
-  const id = req.query.id;
-
-  console.log(id);
-
-  for (let key in body) {
-    users[id][key] = body[key];
+  //console.log(ObjectId().getTimestamp())
+  try{
+    const det=await info.find();
+    return det;
   }
+  catch(err)
+  {
+    console.log(err);
+  }
+}
 
-  res.send({
+async function createUser(req, res) {
+    let response;
+    let body,details;
+    body=req.body
+    details= new info(body)
+    console.log(details)
+    try{
+      response=await details.save()
+      return response
+
+    }
+    catch(err)
+    {
+      response={error:err}
+      return response
+      }
+    
+}
+
+async function updateUser(req, res) {
+  const body = req.body;
+  const _id = req.query.id;
+  // console.log(id);
+  console.log(body);
+  await info.findByIdAndUpdate(_id,body)
+  return({
     status: 200,
     statusText: "OK",
     message: "Client Updated!"
   });
 }
 
-function deleteUser(req, res) {
-  const id = req.query.id;
-
-  users.pop(id);
+async function deleteUser(req, res) {
+  const id = req.query.email;
+  console.log(id);
+  await info.findOneAndDelete(id);
 
   res.send({
     status: 200,
     statusText: "OK",
-    message: "Client Deleted!"
+    message: "Client deleted!"
   });
+
+  // users.pop(id);
+
+  // res.send({
+  //   status: 200,
+  //   statusText: "OK",
+  //   message: "Client Deleted!"
+  // });
 }
