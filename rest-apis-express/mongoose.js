@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/testdb', {
+mongoose.connect('mongodb://127.0.0.1:27017/reddit', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -10,5 +10,4 @@ db.once('open', function() {
     // we're connected!
     console.log("connected");
 });
-
 exports.db = db;
