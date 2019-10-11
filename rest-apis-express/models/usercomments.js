@@ -9,7 +9,7 @@ const info = require("../schema/UserComments");
 const users = []; 
 
 async function getUsers() {
- //2 console.log(info.find());
+ // console.log(info.find());
   try{
     const det= await info.find();
     return det;

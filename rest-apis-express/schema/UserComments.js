@@ -1,7 +1,7 @@
 //const Schema =mongoose.Schema;
 //const mongoose = require("mongoose");
 const {mongoose}=require('../models/models')
-const User = new mongoose.Schema(
+const Usercomments = new mongoose.Schema(
   {
   Comments: [{
     _id: String,
@@ -18,4 +18,4 @@ const User = new mongoose.Schema(
   }]
 }
 );
-module.exports= mongoose.model("user",User);
+module.exports= mongoose.model("usercommentinfo",Usercomments);
