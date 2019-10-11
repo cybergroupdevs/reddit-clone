@@ -16,7 +16,7 @@ server.use(bodyParser({
   extended: true
 }));
 
-//server.use(auth);
+server.use(auth);
 server.use(apiRouter());
 
 server.listen(PORT, HOST, err => {
