@@ -1,4 +1,4 @@
-const { mongoose } = require('../models/models')
+const { mongoose } = require('../mongoose')
 const User = new mongoose.Schema({
     _id: String,
     post: [{
@@ -18,4 +18,4 @@ const User = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model("user", User);
+module.exports = mongoose.model("userPostInfo", User);

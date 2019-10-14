@@ -20,7 +20,8 @@ async function createUser(req, res) {
     let response;
     let body, details;
     body = req.body
-    details = new info(body)
+        // details = new info(body)
+    info.create(body)
     console.log(details)
     try {
         response = await details.save()
