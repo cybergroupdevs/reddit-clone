@@ -1,0 +1,29 @@
+<html>
+    <head>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </head>
+    <title>Testing</title>
+    <button type="button" onclick="fun()">Click here</button>
+    <script>
+        function fun(){
+         $(document).ready(function(){
+         $.ajax({
+           type:"GET",
+           url:"http://localhost:9000/api/comments",
+           contentType:"application/json;charset=utf-8",
+           dataType:"json",
+           recent:localStorage.getItem('data'),
+           success:function(recent){
+               console.log("Authorized User");
+           },
+           error:function(xhr,textStatus,errorThrown){
+               console.log("UnAunthorized User");
+           }
+         });
+        });
+    }
+    </script>
+    <body>
+        <p>aaa</p>
+    </body>
+</html>

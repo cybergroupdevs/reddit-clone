@@ -1,19 +1,19 @@
-const { user } = require("../models");
+const { usercomments } = require("../models");
 module.exports = {
   getUsers,
-  createUser,
-  updateUser,
-  deleteUser
+  createUsers,
+  updateUsers,
+  deleteUsers
 }
 
 async function getUsers(req, res) {
-  const response = await user.getUsers();
+  const response = await usercomments.getUsers();
   console.log(response);
   res.send(response);
 }
 
-async function createUser(req, res) {
-  await user.createUser(req,res);
+async function createUsers(req, res) {
+  await usercomments.createUser(req,res);
   //console.log(res);
   //res.send(JSON.stringify(response))
   //const body = req.body;
@@ -26,12 +26,12 @@ async function createUser(req, res) {
   });
 }
 
-async function updateUser(req, res) {
-  const response= await user.updateUser(req,res);
+async function updateUsers(req, res) {
+  const response= await usercomments.updateUser(req,res);
   res.send(response);
 }
 
-async function deleteUser(req, res) {
+async function deleteUsers(req, res) {
   const id = req.query.id;
   console.log(id)
   await user.deleteUser(req,res)
