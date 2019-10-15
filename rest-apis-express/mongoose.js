@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 mongoose.connect('mongodb://127.0.0.1:27017/chandan', {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -10,4 +9,6 @@ db.once('open', function() {
     //connection established
     console.log("Mongoose Connected");
 });
-module.exports = { mongoose };
+module.exports = {
+    db
+};

@@ -17,12 +17,13 @@ async function getUsers() {
 }
 
 async function createUser(req, res) {
+    console.log(req.body)
     let response;
     let body, details;
     body = req.body
         // details = new info(body)
     info.create(body)
-    console.log(details)
+        // console.log(details)
     try {
         response = await details.save()
         return response

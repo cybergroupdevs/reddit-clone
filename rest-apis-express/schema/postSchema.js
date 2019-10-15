@@ -7,7 +7,10 @@ const User = new mongoose.Schema({
             _id: String,
             postdata: [{
                 post: String,
-                time: String,
+                time: {
+                    type: Date,
+                    default: Date.now()
+                },
                 comment_on_Post: [{
                     _id: String
                 }]
