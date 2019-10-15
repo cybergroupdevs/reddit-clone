@@ -7,11 +7,12 @@ module.exports = {
 };
 const info = require("../schema/Userprofile")
 const users = [];
-
-async function getUsers() {
+async function getUsers(req) {
   //console.log(ObjectId().getTimestamp())
   try{
-    const det=await info.find();
+    const id = req.headers._id
+    console.log(req.headers);    
+    const det=await info.findById(id);
     return det;
   }
   catch(err)
