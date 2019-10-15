@@ -3,6 +3,7 @@ const { SECRET } = require('../config').config;
 
 module.exports= isAuthenticated = (req,res,next)=> {
     const token = req.headers.token;
+    console.log(token)
         jwt.verify(token,new Buffer(SECRET, 'base64'), (err) => {
             if(err){
               
