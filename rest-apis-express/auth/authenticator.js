@@ -1,44 +1,66 @@
 const jwt = require("jsonwebtoken");
 const { SECRET } = require('../config').config;
+const getUserDetailsDb = require("../controllers");
+const bcrypt = require('bcrypt')
 
-module.exports = (req, res, next) => {
-  if (req.headers.token) {
-      verfiyToken(req, res)
-  } else {
-    generateToken(req,res);
-  }
-  next();
-}
-
-function generateToken( req ,res) {
-  let email = req.body.email;
-  const token = jwt.sign( {email, expiresIn: '24h'},new Buffer(SECRET ,'base64'));
-  console.log(res);
-  res.setHeader("token", token);
-  res.json({
-    success: true,
-    message: 'Authentication successful!',
-    token: token
-  });
-}
-
-function verfiyToken(req, res) {
-  const token = req.headers.token;
+async function checkAuth (req) {
   
-  jwt.verify(token,new Buffer(SECRET, 'base64'), (err) => {
-    if(err){
-      res.send({
-        auth: false,
-        message: err.message
-      })
-    }else {
-      res.send(
-        {
-          auth: true,
-          message: "Matched"
-        }
-      )
-    }
- 
-  });
+ const data =await matchCredentials(req);
+
+ if(data=="matched"){
+  const valuePass = await comparePassword(req.body.password,req)
+  if(valuePass=="1"){
+    const token =await generateToken(req);
+    return ({
+      "message": "password matched",
+      "token" : token
+    })
+  }else if(valuePass=="0") {
+    return ({
+      "message": "password not matched",
+      "token"  : null
+    })
+  }
+ }else {
+   return ({
+     "message": "user not exists please sign up",
+     "token" : null
+    })   
+ }
+  
+}
+
+async function generateToken(req) {
+  let email = req.body.email;
+  const user = await getUserDetailsDb.signIn.getUsers(req.body);
+  const _id = user[0]._id
+  var token = jwt.sign( {email, expiresIn: '24h',_id},new Buffer(SECRET ,'base64'));
+  return token;
+}
+
+async function comparePassword(myPlaintextPassword,req){
+  const user = await getUserDetailsDb.signIn.getUsers(req.body);
+  const hash = user[0].password;
+  if(bcrypt.compareSync(myPlaintextPassword, hash)) {
+    // Passwords match
+   return "1";
+   } else {
+    // Passwords don't match
+    return "0"
+   }
+}
+
+async function matchCredentials (req){
+  const user = await getUserDetailsDb.signIn.getUsers(req.body);
+  if(user[0].email == req.body.email){
+    return "matched";  
+  }
+  else {
+    console.log("create user");
+    return "Do sign up"
+  }
+}
+
+module.exports = {
+  checkAuth
 }

@@ -1,5 +1,8 @@
 var model = require("../schema/signUpSignInDetails").signUpSignInModel;
-const bcrypt  = require('bcrypt');
+const bcrypt = require('bcrypt');
+const authenticator = require("../auth/authenticator");
+
+
 module.exports = {
     getUsers,
     createUsers,
@@ -7,38 +10,38 @@ module.exports = {
     deleteUsers
 };
 
-async function getUsers(req,res) {
+async function getUsers(body) {
+    const query = model.find({ email: body.email });
+    if(query==null){
+        var response = {
+            "status": "204",
+            "message" : "content not found"
+        };
+    }else {
+        return query;
+    }
+    
+}
 
-    const userInfoFromClient = req.body;
-    //const userEmail = userInfoFromClient.email;
-    //var myData = model.findOne( userInfoFromClient )
-    const query = model.find();
-    return query;
+async function createUsers(req) {
+  
+        const userInfoFromClient = req.body;
+        var myPlaintextPassword = userInfoFromClient.password;
+        var salt = bcrypt.genSaltSync(10);
+        var hash = bcrypt.hashSync(myPlaintextPassword, salt);
+        userInfoFromClient.password = hash;
+        if(model.create(userInfoFromClient)){
+            return ({"status code":" 200"})
+        }
+        
    
 }
 
-async function createUsers(req,res) {
-
-    try{
-        const userInfoFromClient = req.body;
-    var myPlaintextPassword = userInfoFromClient.password;
-    console.log(myPlaintextPassword + "--------------pass");
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(myPlaintextPassword, salt);
-    userInfoFromClient.password = hash;
-    model.create(userInfoFromClient);
-    return "created"
-    }catch(error){
-      console.log(error);
-    }
- return "hello" 
-}
-
-async function updateUsers(req,res) {
+async function updateUsers(req, res) {
     const userInfoFromClient = req.body;
     //const query = model.findByIdAndUpdate({_id:userInfoFromClient._id});
-    const query = model.findByIdAndUpdate(req.body._id,{$set:req.body}, function(err, result){
-        if(err){
+    const query = model.findByIdAndUpdate(req.body._id, { $set: req.body }, function (err, result) {
+        if (err) {
             console.log(err);
         }
         console.log("RESULT: " + result);
@@ -47,7 +50,7 @@ async function updateUsers(req,res) {
     return query
 }
 
-async function deleteUsers(req,res) {
+async function deleteUsers(req, res) {
     const userInfoFromClient = JSON.stringify(req.body);
-    return;   
+    return;
 }

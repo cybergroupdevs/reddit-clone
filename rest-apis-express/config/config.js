@@ -5,7 +5,7 @@ const configObj = cmdLineParser(process.argv);
 
 module.exports = {
   PORT: process.env.PORT || configObj.PORT || 9000,
-  HOST: process.env.HOST || configObj.HOST || "0.0.0.0",
+  HOST: process.env.HOST || configObj.HOST || "127.0.0.1",
   baseURI: process.env.baseURI || configObj.baseURI || "/api",
   SECRET: "jkhgsdljfdgfjhdfjdskfjdfhgs",
   database: {

@@ -1,5 +1,5 @@
-const user = require('./user');
+const details  = require('./signUpSignInmodel');
 
 module.exports = {
-  user
+  details
 }
