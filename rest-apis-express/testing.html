@@ -33,6 +33,9 @@
             border: 1px solid rgba(0, 0, 0, 0.5);
             border-radius: 3px;
         }
+ 
+       
+
     </style>
 </head>
 
@@ -42,32 +45,62 @@
             <a class="navbar-brand"><img src="https://cdn0.iconfinder.com/data/icons/social-media-2092/100/social-36-512.png" style="height: 28px;"><span style="font-weight: 700; margin-left: 10px;">reddit</span></a>
             <form class="form-inline">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-primary" type="submit" style="margin-left: 100px;">Login</button>
+                <button class="btn btn-outline-primary" id="signin" type="submit" style="margin-left: 100px;">Login</button>
                 <button class="btn btn-primary" type="submit" style="margin-left: 10px;">SignUp</button>
+               
             </form>
         </nav>
+      
         <div class="container">
+                <div class="credentials" id="credentialsid" >
+                        <input type="email" id="email" placeholder="Enter email">
+                        <input type="password" id="password" placeholder="Enter Password">
+                        <button id="signin" onclick="sign()">Sign In</button>
+                        <button class="signup">Sign Up</button>
+                </div>
             <div class="div">
                 <button onclick="posts()">Post</button>
             </div>
-            <div class="container">
+            <div class="container" >
                 <div class="posts_all" id="x">
 
                 </div>
             </div>
         </div>
         <script>
-            function posts() {
-                $(document).ready(function() {
+            // function posts() {
+            //     $(document).ready(function() {
+            //         $.ajax({
+            //             type: "GET",
+            //             url: "http://127.0.0.1:9000/api/comments",
+            //             contentType: "application/json;charset=utf-8",
+            //             dataType: "json",
+            //             recent: localStorage.getItem('data'),
+            //             success: function(recent) {
+            //                 console.log("Authorized User");
+            //                 console.log(recent);
+            //             },
+            //             error: function(xhr, textStatus, errorThrown) {
+            //                 console.log("UnAunthorized User");
+            //             }
+            //         });
+            //     });
+            // }
+            function sign(){
+            $(document).ready(function() {
                     $.ajax({
-                        type: "GET",
-                        url: "http://127.0.0.1:9000/api/comments",
+                        type: "POST",
+                        url: "http://127.0.0.1:9000/api/signIn",
                         contentType: "application/json;charset=utf-8",
                         dataType: "json",
-                        recent: localStorage.getItem('data'),
+                        data: JSON.stringify({
+                            "email": $("#email").val(),
+                            "password" : $("#password").val()
+                        }),
+                        // recent: localStorage.getItem('data'),
                         success: function(recent) {
-                            console.log("Authorized User");
-                            console.log(recent);
+                            localStorage.setItem('token' , recent.token);
+                            console.log(recent.token);
                         },
                         error: function(xhr, textStatus, errorThrown) {
                             console.log("UnAunthorized User");
