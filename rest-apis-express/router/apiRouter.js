@@ -7,6 +7,8 @@ const  api = require ("../controllers");
 
 const middleware  = require("../auth/middleware");
 
+const { userscomments } = require ("../controllers");
+
 const createToken = require("../auth/authenticator").checkAuth;
 
 module.exports = () => {
@@ -23,6 +25,26 @@ module.exports = () => {
 
   app.post(`${baseURI}/testToken`,middleware,async function(req,res){
     const result = ({"message":"valid"})
+    res.send(result);
+  });
+
+  app.post(`${baseURI}/comments`,middleware,async function(req,res){
+    const result = userscomments.getUsers;
+    res.send(result);
+  });
+
+  app.post(`${baseURI}/comments`,middleware,async function(req,res){
+    const result = userscomments.createUsers
+    res.send(result);
+  });
+
+  app.post(`${baseURI}/comments`,middleware,async function(req,res){
+    const result = userscomments.updateUsers
+    res.send(result);
+  });
+
+  app.post(`${baseURI}/comments`,middleware,async function(req,res){
+    const result = userscomments.deleteUsers
     res.send(result);
   });
 

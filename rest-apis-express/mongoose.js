@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/reddit', {
+const Schema = mongoose.Schema;
+mongoose.connect('mongodb://127.0.0.1:27017/chandan',
+  {
     useNewUrlParser: true,
     useUnifiedTopology: true
-});
+  });
 var db = mongoose.connection;
-
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-    // we're connected!
-    console.log("connected");
+db.once('open', function () {
+  //connection established
+  console.log("Mongoose Connected");
 });
-exports.db = db;
+module.exports={mongoose};
