@@ -12,15 +12,7 @@ module.exports = {
 
 async function getUsers(body) {
     const query = model.find({ email: body.email });
-    if(query==null){
-        var response = {
-            "status": "204",
-            "message" : "content not found"
-        };
-    }else {
-        return query;
-    }
-    
+        return query
 }
 
 async function createUsers(req) {
