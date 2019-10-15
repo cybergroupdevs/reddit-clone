@@ -17,4 +17,7 @@ const Usercomments = new mongoose.Schema({
         }]
     }]
 });
-module.exports = mongoose.model("usercommentinfo", Usercomments);
+const info = mongoose.model("usercommentinfo", Usercomments);
+module.exports = {
+    info
+}
