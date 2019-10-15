@@ -11,7 +11,6 @@ const connMongoDb = require("../mongoose").db;
 
 const server = express();
 
-
 server.use(bodyParser({
   extended: false
 }));

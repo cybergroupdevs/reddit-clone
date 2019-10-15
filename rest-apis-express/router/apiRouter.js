@@ -1,24 +1,67 @@
-const { Router } = require("express");
+//const {  } = require("express");
+var express = require('express')
 
 const { baseURI } = require("../config").config;
 
-const { users } = require("../controllers")
+const  api = require ("../controllers");
 
-const { signIn } = require ("../controllers");
+const middleware  = require("../auth/middleware");
 
-const auth  = require("../auth/authenticator");
+const { userscomments } = require ("../controllers");
+
+const createToken = require("../auth/authenticator").checkAuth;
 
 module.exports = () => {
-  const router = Router();
-  router.get(`${baseURI}/users`, users.getUsers);
-  router.post(`${baseURI}/users`, users.createUser);
-  router.patch(`${baseURI}/users`, users.updateUser);
-  router.delete(`${baseURI}/users`, users.deleteUser);
+  var app = express()
+  app.get(`${baseURI}/users`, users.getUsers);
+  app.post(`${baseURI}/users`, users.createUser);
+  app.patch(`${baseURI}/users`, users.updateUser);
+  app.delete(`${baseURI}/users`, users.deleteUser);
 
-  router.get(`${baseURI}/signIn`, signIn.getUsers);
-  router.post(`${baseURI}/signIn`, signIn.createUsers);
-  router.patch(`${baseURI}/signIn`, signIn.updateUsers);
-  router.delete(`${baseURI}/signIn`, signIn.deleteUsers);
 
-  return router;
+  app.post(`${baseURI}/signIn`,async function(req,res){
+    const result = await createToken(req)
+    res.send(result);
+  });
+
+  app.post(`${baseURI}/signUp`,async function(req,res){
+    const response = await api.signIn.createUsers(req)
+    res.send(response)
+  });
+
+  app.post(`${baseURI}/testToken`,middleware,async function(req,res){
+    const result = ({"message":"valid"})
+    res.send(result);
+  });
+
+  app.post(`${baseURI}/comments`,middleware,async function(req,res){
+    const result = userscomments.getUsers;
+    res.send(result);
+  });
+
+  app.post(`${baseURI}/comments`,middleware,async function(req,res){
+    const result = userscomments.createUsers
+    res.send(result);
+  });
+
+  app.post(`${baseURI}/comments`,middleware,async function(req,res){
+    const result = userscomments.updateUsers
+    res.send(result);
+  });
+
+  app.post(`${baseURI}/comments`,middleware,async function(req,res){
+    const result = userscomments.deleteUsers
+    res.send(result);
+  });
+
+  // TODO: Furter enhancement
+  // app.patch(`${baseURI}/update`,function(req,res){   
+  //   res.send(api.signIn.updateUsers)
+  // });
+  
+  // app.delete(`${baseURI}/delete`,function(req,res){   
+  //   res.send(api.signIn.deleteUsers)
+  // });
+
+  return app;
 }

@@ -10,5 +10,4 @@ db.once('open', function () {
   //connection established
   console.log("Mongoose Connected");
 });
-//const User =require("../schema/Userprofile")
-module.exports = {mongoose};
+module.exports={mongoose};
