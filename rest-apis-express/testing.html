@@ -1,29 +1,81 @@
-<html>
-    <head>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    </head>
-    <title>Testing</title>
-    <button type="button" onclick="fun()">Click here</button>
-    <script>
-        function fun(){
-         $(document).ready(function(){
-         $.ajax({
-           type:"GET",
-           url:"http://localhost:9000/api/comments",
-           contentType:"application/json;charset=utf-8",
-           dataType:"json",
-           recent:localStorage.getItem('data'),
-           success:function(recent){
-               console.log("Authorized User");
-           },
-           error:function(xhr,textStatus,errorThrown){
-               console.log("UnAunthorized User");
-           }
-         });
-        });
-    }
-    </script>
-    <body>
-        <p>aaa</p>
-    </body>
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Posts</title>
+    <style>
+        body {
+            background-color: #DAE0E6;
+        }
+        
+        .nav {
+            height: 60%;
+            width: 100%;
+            background-color: aquamarine;
+        }
+        
+        .posts_all {
+            width: 67%;
+            height: 80px;
+            background-color: whitesmoke;
+            margin-top: 30px;
+            box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
+            border-radius: 2px;
+            font-size: 20px;
+            font-weight: 600;
+            color: rgb(0, 0, 0, 0.8);
+            text-align: center;
+            display: none;
+        }
+        
+        .posts_all:hover {
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand"><img src="https://cdn0.iconfinder.com/data/icons/social-media-2092/100/social-36-512.png" style="height: 28px;"><span style="font-weight: 700; margin-left: 10px;">reddit</span></a>
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary" type="submit" style="margin-left: 100px;">Login</button>
+                <button class="btn btn-primary" type="submit" style="margin-left: 10px;">SignUp</button>
+            </form>
+        </nav>
+        <div class="container">
+            <div class="div">
+                <button onclick="posts()">Post</button>
+            </div>
+            <div class="container">
+                <div class="posts_all" id="x">
+
+                </div>
+            </div>
+        </div>
+        <script>
+            function posts() {
+                $(document).ready(function() {
+                    $.ajax({
+                        type: "GET",
+                        url: "http://localhost:9000/api/comments",
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        recent: localStorage.getItem('data'),
+                        success: function(recent) {
+                            console.log("Authorized User");
+                            console.log(recent);
+                        },
+                        error: function(xhr, textStatus, errorThrown) {
+                            console.log("UnAunthorized User");
+                        }
+                    });
+                });
+            }
+        </script>
+</body>
+
 </html>
