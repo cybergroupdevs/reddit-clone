@@ -1,6 +1,6 @@
 //const Schema =mongoose.Schema;
 //const mongoose = require("mongoose");
-const {mongoose}=require('../mongoose');
+const mongoose=require('mongoose');
 const Usercomments = new mongoose.Schema(
   {
   Comments: [{
