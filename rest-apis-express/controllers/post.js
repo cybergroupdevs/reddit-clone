@@ -9,7 +9,7 @@ module.exports = {
 async function getUsers(req, res) {
     const response = await post.getUsers();
     console.log(response);
-    res.send(response);
+    return response;
 }
 
 async function createUser(req, res) {

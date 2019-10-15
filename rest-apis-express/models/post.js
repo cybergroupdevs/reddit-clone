@@ -4,12 +4,10 @@ module.exports = {
     updateUser,
     deleteUser
 };
-const info = require("../schema/postSchema")
-const users = [];
-
+const { postModel } = require("../schema/postSchema")
 async function getUsers() {
     try {
-        const det = await info.find();
+        const det = await postModel.find();
         return det;
     } catch (err) {
         console.log(err);
@@ -22,9 +20,10 @@ async function createUser(req, res) {
     let body, details;
     body = req.body
         // details = new info(body)
-    info.create(body)
+    postModel.create(body)
         // console.log(details)
     try {
+
         response = await details.save()
         return response
 

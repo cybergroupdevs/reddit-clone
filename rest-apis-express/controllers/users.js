@@ -12,7 +12,7 @@ async function getUsers(req, res) {
     res.send(response);
 }
 
-function createUser(req, res) {
+async function createUser(req, res) {
     const body = req.body;
     users.push(body);
 
