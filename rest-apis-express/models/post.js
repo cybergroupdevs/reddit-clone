@@ -11,7 +11,7 @@ async function getUsers(req) {
     try {
         const token =req.headers.token
         const decoded = jwt.verify(token, new Buffer(SECRET, 'base64'));
-        const det = await postModel.findById({"_id":decoded.id});
+        const det = await postModel.find({"_id":decoded.id});
         return det;
     } catch (err) {
         console.log(err);
