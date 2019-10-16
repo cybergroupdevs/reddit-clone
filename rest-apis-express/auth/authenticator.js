@@ -18,13 +18,13 @@ async function checkAuth (req) {
   }else if(valuePass=="0") {
     return ({
       "message": "password not matched",
-      "token"  : null
+      "token"  : "null"
     })
   }
  }else {
    return ({
      "message": "user not exists please sign up",
-     "token" : null
+     "token" : "null "
     })   
  }
   
@@ -52,7 +52,8 @@ async function comparePassword(myPlaintextPassword,req){
 
 async function matchCredentials (req){
   const user = await getUserDetailsDb.signIn.getUsers(req.body);
-  if(user[0].email == req.body.email){
+  if(user.length==0) {return "Do sign up"}
+  else if(user[0].email == req.body.email){
     return "matched";  
   }
   else {
