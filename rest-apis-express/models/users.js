@@ -5,14 +5,14 @@ module.exports = {
   updateUser,
   deleteUser
 };
-const info = require("../schema/Userprofile")
+const { info } = require("../schema/Userprofile")
 const users = [];
 async function getUsers(req) {
   //console.log(ObjectId().getTimestamp())
   try{
     const id = req.headers._id
     console.log(req.headers);    
-    const det=await info.findById(id);
+    const det=await info.find({});
     return det;
   }
   catch(err)

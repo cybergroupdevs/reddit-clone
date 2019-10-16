@@ -5,14 +5,17 @@ module.exports = {
   updateUser,
   deleteUser
 };
-const info = require("../schema/UserComments");
+const { info } = require("../schema/UserComments");
 const users = []; 
 
-async function getUsers() {
+async function getUsers(req) {
  // console.log(info.find());
   try{
+    const user =await info.find(req.body._id)
+    console.log("----------------------------user-----------------------------")
+    console.log(user[0]);
     const det= await info.find();
-    return det;
+    return user;
   }
   catch(err)
   {
@@ -23,11 +26,12 @@ async function getUsers() {
 async function createUser(req, res) {
     let response;
     let body,details;
-    body=req.body;
-    details= new info(body)
+   // body=req.body;
+   // details= new info(body)
     console.log(details)
+    debugger
     try{
-      response=await details.save()
+      response=await info.create(req.body);
       return response
 
     }

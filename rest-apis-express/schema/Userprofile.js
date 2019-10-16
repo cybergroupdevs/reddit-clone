@@ -1,7 +1,7 @@
 //const mongoose = require('mongoose');
-const{mongoose}=require("../mongoose")
-const Schema = mongoose.Schema;
-const User = new Schema({
+const mongoose=require('mongoose');
+//const Schema = mongoose.Schema;
+const User = new mongoose.Schema({
   name: String,   
   email: String,
   imageurl: String,
@@ -11,4 +11,8 @@ const User = new Schema({
   }]
 
 });
-module.exports= mongoose.model("user",User);
+
+const info= mongoose.model("user",User);
+module.exports={
+  info
+}
