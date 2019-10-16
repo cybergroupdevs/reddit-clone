@@ -1,8 +1,8 @@
 {
-  "name": "jwt-integ",
+  "name": "rest-apis-express",
   "version": "1.0.0",
   "description": "A prototype of integrating Node JS apps with JWT",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "node --inspect-brk server.js"
