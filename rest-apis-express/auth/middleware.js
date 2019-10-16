@@ -1,17 +1,16 @@
 const jwt = require("jsonwebtoken");
 const { SECRET } = require('../config').config;
 
-module.exports= isAuthenticated = (req,res,next)=> {
+module.exports = isAuthenticated = (req, res, next) => {
     const token = req.headers.token;
-    console.log(token)
-        jwt.verify(token,new Buffer(SECRET, 'base64'), (err) => {
-            if(err){
-              
-                res.send({"message": "session expired"})
-             
-            }else {
-              next() //TODO: hit the next user profile route
-            }
-         
-        });
-  }
+    jwt.verify(token, new Buffer(SECRET, 'base64'), (err) => {
+        if (err) {
+
+            res.send({ "message": "session expired" })
+
+        } else {
+            next() //TODO: hit the next user profile route
+        }
+
+    });
+}

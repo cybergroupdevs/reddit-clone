@@ -1,41 +1,41 @@
-const { usercomments } = require("../models");
+const { post } = require("../models");
 module.exports = {
     getUsers,
-    createUsers,
-    updateUsers,
-    deleteUsers
+    createUser,
+    updateUser,
+    deleteUser
 }
 
 async function getUsers(req, res) {
-    const response = await usercomments.getUsers(req);
+    const response = await post.getUsers();
     console.log(response);
     return response;
 }
 
-async function createUsers(req, res) {
-    await usercomments.createUser(req, res);
+async function createUser(req, res) {
+    await post.createUser(req, res);
     //console.log(res);
     //res.send(JSON.stringify(response))
     //const body = req.body;
     //users.push(body);
 
-    return ({
+    res.send({
         status: 200,
         statusText: "OK",
         message: "Client Inserted!"
     });
 }
 
-async function updateUsers(req, res) {
-    const response = await usercomments.updateUser(req, res);
-    return response;
+async function updateUser(req, res) {
+    const response = await post.updateUser(req, res);
+    res.send(response);
 }
 
-async function deleteUsers(req, res) {
+async function deleteUser(req, res) {
     const id = req.query.id;
     console.log(id)
-    await user.deleteUser(req, res)
-    return ({
+    await post.deleteUser(req, res)
+    res.send({
         status: 200,
         statusText: "OK",
         message: "Client Deleted!"

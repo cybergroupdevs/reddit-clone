@@ -4,31 +4,28 @@ module.exports = {
     updateUser,
     deleteUser
 };
-const { info } = require("../schema/UserComments");
-const users = [];
-
-async function getUsers(req) {
-    // console.log(info.find());
+const { postModel } = require("../schema/postSchema")
+async function getUsers() {
     try {
-        const user = await info.find(req.body._id)
-        console.log("----------------------------user-----------------------------")
-        console.log(user[0]);
-        const det = await info.find();
-        return user;
+        const det = await postModel.find();
+        return det;
     } catch (err) {
         console.log(err);
     }
 }
 
 async function createUser(req, res) {
+    console.log(req.body)
     let response;
     let body, details;
-    // body=req.body;
-    // details= new info(body)
-    console.log(details)
-    try{
-      response=await info.create(req.body);
-      return response
+    body = req.body
+        // details = new info(body)
+    postModel.create(body)
+        // console.log(details)
+    try {
+
+        response = await details.save()
+        return response
 
     } catch (err) {
         response = { error: err }
@@ -61,4 +58,11 @@ async function deleteUser(req, res) {
         message: "Client deleted!"
     });
 
+    // users.pop(id);
+
+    // res.send({
+    //   status: 200,
+    //   statusText: "OK",
+    //   message: "Client Deleted!"
+    // });
 }
