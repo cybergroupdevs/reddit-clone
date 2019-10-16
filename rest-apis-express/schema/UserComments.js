@@ -2,16 +2,19 @@
 //const mongoose = require("mongoose");
 const mongoose = require('mongoose');
 const Usercomments = new mongoose.Schema({
-    Comments: [{
-        _id: String,
-        subreddit: [{
+  user_id: String,
+    Comments: [
+    {
+       subreddit: [{
             _id: String,
             Post: [{
                 _id: String,
                 Comment_on_post: [{
                     Data: String,
-                    Date: String,
-                    Time: String
+                     time: {
+                      type: Date,
+                      default: Date.now()
+                  },
                 }]
             }]
         }]
