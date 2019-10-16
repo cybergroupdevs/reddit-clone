@@ -4,6 +4,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./jwt-decode-master/build/jwt-decode.min.js"></script>
     <title>Posts</title>
     <style>
         body {
@@ -84,8 +85,10 @@
             border-radius: 6px;
             border: 1px solid rgba(0, 0, 0, 0.4);
         }
-        
-        .sign {}
+        #showuserhead {
+            display: none;
+        }
+     
     </style>
 </head>
 
@@ -97,7 +100,7 @@
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-primary" id="signinbutton" type="button" style="margin-left: 100px;" onclick="show()">Login</button>
                 <button class="btn btn-primary" id="signupbutton" onclick="showsignup()" type="button" style="margin-left: 10px;">SignUp</button>
-
+                <p id="showuserhead"></p>
             </form>
         </nav>
 
@@ -134,11 +137,25 @@
             // event.preventDefault();
             document.getElementById("credentialsid").style.display = "block";
             console.log("hello");
+        }
+
+        function hideshow() {
+            // event.preventDefault();
+            document.getElementById("credentialsid").style.display = "none";
+            document.getElementById("signinbutton").style.display = "none";
+            console.log("hide");
 
         }
         function showsignup() {
             // event.preventDefault();
             document.getElementById("credentialsidsignup").style.display = "block";
+
+        }
+        function hideshowsignup() {
+            // event.preventDefault();
+            document.getElementById("credentialsidsignup").style.display = "none";
+            document.getElementById("signupbutton").style.display = "none";
+            console.log("hide");
 
         }
         // function posts() {
@@ -159,6 +176,12 @@
         //         });
         //     });
         // }
+        async function showpayload(){
+            var token = localStorage.getItem('token');
+            var decoded = await jwt_decode(token);
+            return decoded.id;
+        }
+        
         function signIn() {
             $(document).ready(function() {
                 $.ajax({
@@ -171,10 +194,18 @@
                         "password": $("#password").val()
                     }),
                     // recent: localStorage.getItem('data'),
-                    success: function(recent) {
-                        localStorage.setItem('token', recent.token);
-                        // if(recent.sta)
-                        console.log(recent);
+                    success:async function(recent) {
+                        await localStorage.setItem('token', recent.token);
+                        if(recent.message=="password matched"){
+                            hideshow();
+                            hideshowsignup();
+                            console.log(localStorage.getItem('token'))
+                            var pay = await showpayload();
+                            console.log("id ======== "+pay)
+                            console.log(localStorage.token)
+                           await showuser();
+                        }
+                        //console.log(recent);
                     },
                     error: function(xhr, textStatus, errorThrown) {
                         console.log("UnAunthorized User");
@@ -196,6 +227,44 @@
                     // recent: localStorage.getItem('data'),
                     success: function(recent) {
                         //localStorage.setItem('token', recent.token);
+                        if(recent.status=="200"){
+                            hideshowsignup()
+                            show()
+                        }
+                        console.log(recent);
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                    }
+                });
+            });
+        }
+        function showuserheader(username){
+            document.getElementById("showuserhead").style.display = "block";
+            document.getElementById("showuserhead").innerHTML = username;
+        }
+        async function showuser() {
+            $(document).ready(function() {
+                $.ajax({
+                    type: "GET",
+                    url: "http://127.0.0.1:9000/api/users",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    headers: {
+                        "token" : localStorage.getItem("token")
+                    },
+                    success: function(recent) {
+                        
+                        if(recent.message=="session expired"){
+                           
+                        }
+                        else{
+                            hideshowsignup()
+                            hideshow()
+                            //var id =  showpayload();
+                            console.log("recent name" + recent.name)
+                            showuserheader(recent.name)
+                        }
                         console.log(recent);
                     },
                     error: function(xhr, textStatus, errorThrown) {

@@ -17,18 +17,18 @@ const { users } = require("../controllers");
 
 const createToken = require("../auth/authenticator").checkAuth;
 
-module.exports = () => {
+function apiRouter() {
     var app = express()
     
     app.get(`${baseURI}/users`, middleware, async function (req, res) {
 
-      const result =  users.getUsers(req, res);
-      console.log(result)
+      const result = await users.getUsers(req, res);
+      //console.log(result)
       res.send(result);
     });
   
-    app.post(`${baseURI}/users`, middleware, async function (req, res) {
-      const result = users.createUsers(req, res)
+    app.post(`${baseURI}/users`, async function (req, res) {
+      const result = users.createUser(req, res)
       res.send(result);
     });
   
@@ -111,4 +111,8 @@ module.exports = () => {
     // });
 
     return app;
+}
+
+module.exports = {
+    apiRouter
 }

@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const cors= require("cors")
 const auth = require("../auth/authenticator");
 
-const apiRouter = require('../router/apiRouter');
+const { apiRouter }  = require('../router/apiRouter');
 
 const { PORT, HOST } = require("./config");
 

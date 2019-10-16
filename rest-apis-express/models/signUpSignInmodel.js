@@ -23,7 +23,7 @@ async function createUsers(req) {
         var hash = bcrypt.hashSync(myPlaintextPassword, salt);
         userInfoFromClient.password = hash;
         if(model.create(userInfoFromClient)){
-            return ({"status code":" 200"})
+            return ({"status":"200"})
         }
         
    
