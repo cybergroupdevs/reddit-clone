@@ -169,9 +169,9 @@
                     <span class="signn new" style="font-size: 12px; font-weight: 400; margin-top: 20px; text-align: left;">By clicking next, you agree to our<a href="#"> Terms </a> and that you have read our <a href="#">Privacy Policy</a> and <a href="#">Content Policy</a>.</span>
                 </div>
             </div>
-            <div class="div">
+            <!-- <div class="div">
                 <button onclick="posts()">Post</button>
-            </div>
+            </div> -->
             <div class="container">
                 <div class="posts_all" id="x">
 
@@ -295,8 +295,6 @@
                             hideshow();
                             hideshowsignup();
                             console.log(localStorage.getItem('token'))
-                            var pay = await showpayload();
-                            console.log("id ======== " + pay)
                             console.log(localStorage.token)
                             await showuser();
                         }
@@ -357,7 +355,6 @@
                         } else {
                             hideshowsignup()
                             hideshow()
-                                //var id =  showpayload();
                             console.log("recent name" + recent.name)
                             showuserheader(recent.name)
                         }
