@@ -7,7 +7,7 @@ module.exports = {
 }
 
 async function getUsers(req, res) {
-    const response = await post.getUsers();
+    const response = await post.getUsers(req);
     console.log(response);
     return response;
 }

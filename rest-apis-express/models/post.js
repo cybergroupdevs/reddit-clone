@@ -8,7 +8,8 @@ const { postModel } = require("../schema/postSchema")
 async function getUsers(req) {
     try {
         const id = req.headers._id;
-        const det = await postModel.findById(id);
+
+        const det = await postModel.findById({ "_id": id });
         return det;
     } catch (err) {
         console.log(err);
