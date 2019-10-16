@@ -10,11 +10,10 @@ const users = [];
 async function getUsers(req) {
     // console.log(info.find());
     try {
-        const user = await info.find({});
-       // console.log("----------------------------user-----------------------------")
-       // console.log(user[0]);
-        const det = await info.find();
-        return user;
+        const id=req.headers._id;
+        console.log(id);
+        const det = await info.findById(id);
+        return det;
     } catch (err) {
         console.log(err);
     }

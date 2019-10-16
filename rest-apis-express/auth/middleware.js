@@ -7,6 +7,7 @@ module.exports = isAuthenticated = (req, res, next) => {
         if (err) {
 
          res.send({ "message": "session expired" })
+       
 
         } else {
             next() //TODO: hit the next user profile route

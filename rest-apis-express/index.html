@@ -85,7 +85,7 @@
             border: 1px solid rgba(0, 0, 0, 0.4);
         }
         
-        .sign {}
+        
     </style>
 </head>
 
@@ -120,11 +120,14 @@
             </div>
             <div class="div">
                 <button onclick="posts()">Post</button>
+                <!--button onclick="comments()">Comments</button-->
+               
             </div>
             <div class="container">
                 <div class="posts_all" id="x">
 
                 </div>
+                
             </div>
         </div>
     </div>
@@ -141,17 +144,26 @@
             document.getElementById("credentialsidsignup").style.display = "block";
 
         }
-        // function posts() {
+        // function comments() {
         //     $(document).ready(function() {
+        //         localStorage.setItem("token","5da6c4c4feebd01d48c12fad")
         //         $.ajax({
         //             type: "GET",
         //             url: "http://127.0.0.1:9000/api/comments",
         //             contentType: "application/json;charset=utf-8",
         //             dataType: "json",
-        //             recent: localStorage.getItem('data'),
+        //             headers:{
+        //                 "_id":localStorage.getItem("token")
+        //             },
+        //             recent: localStorage.getItem('token'),
+                  
         //             success: function(recent) {
         //                 console.log("Authorized User");
         //                 console.log(recent);
+        //                 const comment = recent.Comments.subreddit.Post.Comment_on_post.Data;
+        //                 console.log(comment);
+                      
+        //               // document.getElementById("c").innerHTML= a.Comments//subreddit.Post.Comment_on_post.Data;
         //             },
         //             error: function(xhr, textStatus, errorThrown) {
         //                 console.log("UnAunthorized User");
