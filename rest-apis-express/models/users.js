@@ -12,10 +12,8 @@ const users = [];
 async function getUsers(req) {
   //console.log(ObjectId().getTimestamp())
   try{
-    const token =req.headers.token
-    console.log("token value =  ===================" + token);    
+    const token =req.headers.token 
     const decoded = jwt.verify(token, new Buffer(SECRET, 'base64'));
-    console.log(JSON.stringify(decoded)+ "======================")
     const det=await info.findOne({"_id":decoded.id});
     return det;
   }
