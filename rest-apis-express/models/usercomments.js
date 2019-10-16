@@ -29,7 +29,6 @@ async function createUser(req, res) {
    // body=req.body;
    // details= new info(body)
     console.log(details)
-    debugger
     try{
       response=await info.create(req.body);
       return response

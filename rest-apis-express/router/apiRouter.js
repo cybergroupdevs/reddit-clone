@@ -14,12 +14,6 @@ const createToken = require("../auth/authenticator").checkAuth;
 
 module.exports = () => {
   var app = express()
-  app.get(`${baseURI}/users`, users.getUsers);
-  app.post(`${baseURI}/users`, users.createUser);
-  app.patch(`${baseURI}/users`, users.updateUser);
-  app.delete(`${baseURI}/users`, users.deleteUser);
-
-
   app.post(`${baseURI}/signIn`,async function(req,res){
     const result = await createToken(req)
     res.send(result);
