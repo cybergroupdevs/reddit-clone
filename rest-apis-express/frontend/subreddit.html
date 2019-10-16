@@ -140,16 +140,20 @@
     <script>
         function posts() {
             $(document).ready(function() {
+                localStorage.setItem("token", "1355")
                 $.ajax({
                     type: "GET",
                     url: "http://localhost:9000/api/posts",
                     contentType: "application/json;charset=utf-8",
                     dataType: "json",
-                    recent: localStorage.getItem('data'),
+                    headers: {
+                        "_id": localStorage.getItem("token")
+                    },
+                    recent: localStorage.getItem('token'),
                     success: function(recent) {
                         console.log("Authorized User");
 
-
+                        console.log(recent);
                         // var date = recent[0].Comments[0].subreddit[0].Post[0].Comment_on_post[0].Date
                         // var comment = recent[0].Comments[0].subreddit[0].Post[0].Comment_on_post
                         // var post = recent[0].Comments[0].subreddit[0].Post
