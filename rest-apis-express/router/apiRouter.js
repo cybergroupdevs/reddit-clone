@@ -20,10 +20,11 @@ const createToken = require("../auth/authenticator").checkAuth;
 function apiRouter() {
     var app = express()
 
-    const result = await users.getUsers(req, res);
-    //console.log(result)
-    res.send(result);
-});
+app.get(`${baseURI}/users`, async function(req, res) {
+        const result = await users.getUsers(req, res)
+        res.send(result);
+    });
+    
 
 app.post(`${baseURI}/users`, async function(req, res) {
     const result = users.createUser(req, res)
@@ -85,7 +86,7 @@ app.get(`${baseURI}/posts`, async function(req, res) {
 });
 
 app.post(`${baseURI}/posts`, middleware, async function(req, res) {
-    const result = post.createUsers(req, res)
+    const result = post.createUser(req, res)
     res.send(result);
 });
 
