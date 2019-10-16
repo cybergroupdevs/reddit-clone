@@ -9,7 +9,7 @@ module.exports = {
 async function getUsers(req, res) {
   const response = await user.getUsers(req);
   console.log(response);
-  res.send(response);
+  return response;
 }
 
 async function createUser(req, res) {
@@ -19,7 +19,7 @@ async function createUser(req, res) {
   //const body = req.body;
   //users.push(body);
 
-  res.send({
+  return ({
     status: 200,
     statusText: "OK",
     message: "Client Inserted!"
