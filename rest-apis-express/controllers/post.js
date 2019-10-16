@@ -6,7 +6,7 @@ module.exports = {
     deleteUser
 }
 
-async function getUsers(req, res) {
+async function getUsers(req) {
     const response = await post.getUsers(req);
     console.log(response);
     return response;

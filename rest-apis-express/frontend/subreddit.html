@@ -140,16 +140,14 @@
     <script>
         function posts() {
             $(document).ready(function() {
-                localStorage.setItem("token", "1355")
                 $.ajax({
                     type: "GET",
                     url: "http://localhost:9000/api/posts",
                     contentType: "application/json;charset=utf-8",
                     dataType: "json",
                     headers: {
-                        "_id": localStorage.getItem("token")
+                        "token": localStorage.getItem("token")
                     },
-                    recent: localStorage.getItem('token'),
                     success: function(recent) {
                         console.log("Authorized User");
 
