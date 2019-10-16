@@ -13,10 +13,18 @@ const post = require("../controllers").post;
 
 const { userscomments } = require("../controllers");
 
+const { users } = require("../controllers");
+
 const createToken = require("../auth/authenticator").checkAuth;
 
 module.exports = () => {
     var app = express()
+    app.get(`${baseURI}/users`, users.getUsers);
+    app.post(`${baseURI}/users`, users.createUser);
+    app.patch(`${baseURI}/users`, users.updateUser);
+    app.delete(`${baseURI}/users`, users.deleteUser);
+
+
     app.post(`${baseURI}/signIn`, async function(req, res) {
         const result = await createToken(req)
         res.send(result);
@@ -32,23 +40,25 @@ module.exports = () => {
         res.send(result);
     });
 
-    app.post(`${baseURI}/comments`, middleware, async function(req, res) {
-        const result = userscomments.getUsers;
+    app.get(`${baseURI}/comments`, middleware, async function(req, res) {
+
+        const result = await userscomments.getUsers(req, res);
+        console.log(result)
         res.send(result);
     });
 
     app.post(`${baseURI}/comments`, middleware, async function(req, res) {
-        const result = userscomments.createUsers
+        const result = userscomments.createUsers(req, res)
         res.send(result);
     });
 
-    app.post(`${baseURI}/comments`, middleware, async function(req, res) {
-        const result = userscomments.updateUsers
+    app.patch(`${baseURI}/comments`, middleware, async function(req, res) {
+        const result = userscomments.updateUsers(req, res)
         res.send(result);
     });
 
-    app.post(`${baseURI}/comments`, middleware, async function(req, res) {
-        const result = userscomments.deleteUsers
+    app.delete(`${baseURI}/comments`, middleware, async function(req, res) {
+        const result = userscomments.deleteUsers(req, res)
         res.send(result);
     });
 
