@@ -5,10 +5,13 @@ module.exports = {
     deleteUser
 };
 const { postModel } = require("../schema/postSchema")
+const {SECRET} = require("../config/config")
+const jwt = require("jsonwebtoken")
 async function getUsers(req) {
     try {
-        const id = req.headers._id;
-        const det = await postModel.findById(id);
+        const token =req.headers.token
+        const decoded = jwt.verify(token, new Buffer(SECRET, 'base64'));
+        const det = await postModel.findById({"_id":decoded.id});
         return det;
     } catch (err) {
         console.log(err);

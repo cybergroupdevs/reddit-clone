@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 const User = new mongoose.Schema({
-    _id: String,
+    _id: String, //user id
     post: [{
-        _id: String,
+        _id: String, // user subredit id
         subreddit: [{
-            _id: String,
+            _id: String, // who posted on subreddit
             postdata: [{
                 post: String,
                 time: {
