@@ -5,9 +5,10 @@ module.exports = {
     deleteUser
 };
 const { postModel } = require("../schema/postSchema")
-async function getUsers() {
+async function getUsers(req) {
     try {
-        const det = await postModel.find();
+        const id = req.headers._id;
+        const det = await postModel.findById(id);
         return det;
     } catch (err) {
         console.log(err);
