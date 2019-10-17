@@ -103,6 +103,49 @@
             cursor: pointer;
             opacity: 0.8;
         }
+        
+        .flex {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .f1 {
+            flex: 2;
+            display: flex;
+        }
+        
+        .f1 span {
+            display: block;
+            font-size: 12px;
+            font-family: Noto Sans, Arial, sans-serif;
+            font-weight: 400;
+            margin-top: 4px;
+            cursor: pointer;
+            color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .f11 {
+            flex: 2;
+        }
+        
+        .f12 {
+            flex: 2
+        }
+        
+        .f2 {
+            flex: 1;
+        }
+        
+        .f2 {
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 22px;
+            cursor: pointer;
+        }
+        
+        .f2 span {
+            display: block;
+        }
     </style>
 </head>
 
@@ -125,8 +168,30 @@
             </div>
         </div>
         <div class="container">
-            <div class="div1 div2">
-                fghjkl
+            <div class="div1 div2 flex">
+                <div class="f1">
+                    <div class="f11">
+                        <span style="font-size:14px; font-weight: 600;">Reddit</span>
+                        <span>About</span>
+                        <span>Careers</span>
+                        <span>Press</span>
+                        <span>Advertise</span>
+                        <span>Blog</span>
+                    </div>
+                    <div class="f12">
+                        <span style="font-size:14px; font-weight: 600;">Using Reddit</span>
+                        <span>Help</span>
+                        <span>Reddit App</span>
+                        <span>Reddit Premium</span>
+                        <span>Reddit Gifts</span>
+                        <span>Directory</span>
+                        <span>Reddit Coins</span>
+                    </div>
+                </div>
+                <div class="f2">
+                    <span>Terms | Content Policy | Privacy Policy | Mod Policy</span>
+                    <span>Reddit Inc 2019. All rights reserved</span>
+                </div>
             </div>
         </div>
         <div class="container">
@@ -148,7 +213,7 @@
                     headers: {
                         "token": localStorage.getItem("token")
                     },
-                    success:async function(recent) {
+                    success: async function(recent) {
                         console.log("Authorized User");
 
                         console.log(recent);
@@ -159,8 +224,8 @@
                         var l = recent.length
                         console.log(l)
                         while (i < recent.length) {
-                            var subred =await recent[i].post[0].subreddit[0].postdata[0].post;
-                            var date =await recent[i].post[0].subreddit[0].postdata[0].time
+                            var subred = await recent[i].post[0].subreddit[0].postdata[0].post;
+                            var date = await recent[i].post[0].subreddit[0].postdata[0].time
                                 //var cdate = date.addHours(4);
                                 // // var m = moment(date)
                                 // console.log(cdate);
@@ -207,7 +272,7 @@
                             hideshow()
                             console.log("recent name" + recent.name)
                             showuserheader(recent.name)
-                            
+
                         }
                         console.log(recent);
                     },
@@ -217,6 +282,7 @@
                 });
             });
         }
+
         function showuserheader(username) {
             document.getElementById("showuserhead").style.display = "block";
             document.getElementById("showuserhead").innerHTML = username;
