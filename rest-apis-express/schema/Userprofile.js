@@ -7,9 +7,8 @@ const User = new mongoose.Schema({
   imageurl: String,
   subreddit: [{
     //_id: String,
-    sub_name: String,
+    sub_name: String
   }]
-
 });
 
 const info= mongoose.model("user",User);
