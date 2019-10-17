@@ -6,7 +6,7 @@
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    // <Latest compiled and minified CSS -->
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"> --> -->
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"> -->
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -20,7 +20,7 @@
 <script>
     function fun() {
         $(document).ready(function () {
-            const b=localStorage.setItem("token","5da02df280ad372108d7d584")
+            const b=localStorage.setItem("token","5da6ffbe5eee386eb441f1ce")
             $.ajax({
                 type: "GET",
                 url: "http://localhost:9000/api/users",
@@ -32,12 +32,20 @@
                 data: localStorage.getItem("token"),
                 success: function (data) {
                     var po =JSON.stringify(data);
-                    
                     console.log("Authorized User");
                     console.log(data);
                     console.log(data);
-                    document.getElementById("x").innerHTML=po;
-                    document.getElementById("username").innerHTML=data.name;
+                    console.log(data.subreddit.length)
+                    var s =JSON.stringify(data.subreddit)
+                    var i=0;
+                    while(i<data.subreddit.length)
+                    {
+                        var sub=data.subreddit[i].sub_name;
+                        document.getElementById("subname").innerHTML= sub;
+                        i++;
+
+                    }
+                    document.getElementById("posts").innerHTML=po;
                     
 
                 },
@@ -61,9 +69,10 @@
             <button class="btn btn-primary" type="submit" style="margin-left: 10px;">SignUp</button>
         </form>
     </nav>
-    <button id="btn" onclick=fun()>jhol</button>
-    <p id="x">data</p>
-    <p id="username">username</p>
+    <button id="btn" onclick=fun()>show</button>
+    <p id="comments">comments</p>
+    <p id="posts">Post</p>
+    <p id="subname">subname</p>
 </body>
 
 </html>

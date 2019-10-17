@@ -1,18 +1,18 @@
 //const mongoose = require('mongoose');
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
 //const Schema = mongoose.Schema;
 const User = new mongoose.Schema({
-  name: String,   
+  name: String,
   email: String,
   imageurl: String,
-  subreddit: [{
-    //_id: String,
+  subreddit:[{
     sub_name: String,
   }]
 
 });
 
-const info= mongoose.model("user",User);
-module.exports={
+const info = mongoose.model("user", User);
+
+module.exports = {
   info
 }

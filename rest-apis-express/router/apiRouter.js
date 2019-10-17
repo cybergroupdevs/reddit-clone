@@ -24,21 +24,21 @@ module.exports = () => {
 
       const result =  users.getUsers(req, res);
       console.log(result)
-      res.send(result);
+      //res.send(result);
     });
   
     app.post(`${baseURI}/users`, middleware, async function (req, res) {
-      const result = users.createUsers(req, res)
+      const result = users.createUser(req, res)
       res.send(result);
     });
   
     app.patch(`${baseURI}/users`, middleware, async function (req, res) {
-      const result = users.updateUsers(req, res)
+      const result = users.updateUser(req, res)
       res.send(result);
     });
   
     app.delete(`${baseURI}/users`, middleware, async function (req, res) {
-      const result = users.deleteUsers(req, res)
+      const result = users.deleteUser(req, res)
       res.send(result);
     });
   
