@@ -3,17 +3,25 @@ module.exports = {
   getUsers,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  decodeToken,
+  createfolder
 };
 const { info } = require("../schema/Userprofile")
 const { SECRET } = require("../config/config")
 const jwt = require('jsonwebtoken');
-const users = [];
+var fs = require('fs');
+
+function decodeToken(req){
+  const token =req.headers.token 
+  const decoded = jwt.verify(token, new Buffer(SECRET, 'base64'));
+  return decoded;
+}
+
 async function getUsers(req) {
   //console.log(ObjectId().getTimestamp())
   try{
-    const token =req.headers.token 
-    const decoded = jwt.verify(token, new Buffer(SECRET, 'base64'));
+    const decoded = decodeToken(req);
     const det=await info.findOne({"_id":decoded.id});
     return det;
   }
@@ -21,6 +29,15 @@ async function getUsers(req) {
   {
     console.log(err);
   }
+}
+
+async function createfolder(req){
+  var dir = "../pictures";
+
+  if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+  }
+
 }
 
 async function createUser(req, res) {
