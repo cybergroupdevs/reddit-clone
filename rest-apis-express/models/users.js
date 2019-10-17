@@ -1,4 +1,5 @@
 
+
 module.exports = {
   getUsers,
   createUser,
@@ -26,12 +27,11 @@ async function createUser(req, res) {
   let response;
   let body, details;
   body = req.body
-  const user = info.find({ "_id": req.headers._id })
-
-
+  //const user = info.find({ "_id": req.headers.id})
   try {
     const subPost = { "sub_name": req.body.sub_name };
-    response = await info.findOneAndUpdate({ "_id": req.headers._id }, { 
+    debugger
+    response = await info.findOneAndUpdate({ "_id": req.headers.id }, {
       $push: { "subreddit": subPost } 
     })
     return response;
@@ -62,7 +62,7 @@ async function deleteUser(req, res) {
   console.log(id);
   await info.findOneAndDelete(id);
 
-  res.send({
+  return({
     status: 200,
     statusText: "OK",
     message: "Client deleted!"

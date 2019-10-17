@@ -1,7 +1,7 @@
 <html>
 
 <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    // <Latest compiled and minified CSS -->
@@ -9,7 +9,8 @@
         integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"> -->
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Latest compiled and minified JavaScript -->
     <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
@@ -17,36 +18,61 @@
         crossorigin="anonymous"></script> -->
 </head>
 <title>Testing</title>
+<style>
+    button
+    {
+            margin-left: 290px;
+            background-color: white;
+            color:black;
+    }
+    nav
+    {
+        color: grey;
+        background-color:white;
+        border: white;
+    }
+
+</style>
 <script>
+    let flag = 0;
     function fun() {
         $(document).ready(function () {
-            const b=localStorage.setItem("token","5da6ffbe5eee386eb441f1ce")
+
+            const b = localStorage.setItem("token", "5da02df280ad372108d7d584")
             $.ajax({
                 type: "GET",
                 url: "http://localhost:9000/api/users",
-                headers:{
-                    "_id":localStorage.getItem("token")
-                },  
+                headers: {
+                    "_id": localStorage.getItem("token")
+                },
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 data: localStorage.getItem("token"),
                 success: function (data) {
-                    var po =JSON.stringify(data);
+                    var po = JSON.stringify(data);
                     console.log("Authorized User");
                     console.log(data);
                     console.log(data);
                     console.log(data.subreddit.length)
-                    var s =JSON.stringify(data.subreddit)
-                    var i=0;
-                    while(i<data.subreddit.length)
-                    {
-                        var sub=data.subreddit[i].sub_name;
-                        document.getElementById("subname").innerHTML= sub;
-                        i++;
+                    var s = JSON.stringify(data.subreddit)
+                    let i = 0;
 
+                    if (flag == 0) {
+                        while (i < data.subreddit.length) {
+
+
+                            var sub = data.subreddit[i].sub_name;
+                            var p = document.createElement("p");
+                            p.innerHTML = "<h6>" + " Subreddit created: " + sub + "</h6>";
+                            document.getElementById("divshow").appendChild(p);
+
+                            i++;
+                        }
+                        flag = 1;
+                        
                     }
-                    document.getElementById("posts").innerHTML=po;
-                    
+                    //document.getElementById("posts").innerHTML=po;
+
 
                 },
                 error: function (xhr, textStatus, errorThrown) {
@@ -55,24 +81,43 @@
             });
         });
     }
+    function border(){
+        $(document).ready(function(){
+            
+            $("#subname").css("border-bottom","4px solid black");
+        });
+    };
 </script>
 
 <body>
-     
+
     <nav class="navbar navbar-light " style="background-color: rgb(255, 255, 255);">
-        <a class="navbar-brand"><img
-                src="Redditi.png"
-                style="height: 28px;"><span style="font-weight: 700; margin-left: 10px;">reddit</span></a>
+        <a class="navbar-brand"><img src="Redditi.png" style="height: 28px;"><span
+                style="font-weight: 700; margin-left: 10px;">reddit</span></a>
         <form class="form-inline">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-primary" type="submit" style="margin-left: 100px;">Login</button>
             <button class="btn btn-primary" type="submit" style="margin-left: 10px;">SignUp</button>
         </form>
     </nav>
-    <button id="btn" onclick=fun()>show</button>
-    <p id="comments">comments</p>
-    <p id="posts">Post</p>
-    <p id="subname">subname</p>
+
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse" id="navbarText " style="background-color: white;">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <button onclick="fun();border()" id="subname" style="border: 0;">subname </a>
+                    </li>
+                    <li class="nav-item">
+                        <button href="#" id="post" style="border: 0; margin-left: 200px;">Post</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div id="divshow" style="text-align: center; margin-top: 40px;">
+    </div>
+
 </body>
 
 </html>
