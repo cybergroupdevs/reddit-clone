@@ -122,10 +122,88 @@
             font-weight: 500;
         }
         
+        h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
+            padding: 0px 20px;
+            font-family: sans-serif;
+            font-size: 9em;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            border: 10px solid black;
+            border-top: none;
+        }
+        
+        h1 span {
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1 span:nth-child(4) {
+            color: #fff;
+            animation: animate 3s alternate infinite;
+        }
+        
+        @keyframes animate {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            40% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-100px) rotate(180deg);
+            }
+            60% {
+                transform: translateY(0px) rotate(360deg);
+            }
+            100% {
+                transform: translateY(0px) rotate(360deg);
+            }
+        }
+        
+        h1:hover span {
+            animation: animate 3s alternate infinite;
+        }
+        
+        h1 span:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        h1 span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        h1 span:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+        
+        h1 span:nth-child(5) {
+            animation-delay: 0.1s;
+        }
+        
+        h1 span:nth-child(6) {
+            animation-delay: 0.4s;
+        }
+        
         .new {
             font-weight: 200;
             margin-top: 20px;
             font-size: 12px;
+        }
+        
+        .i {
+            color: red;
+            position: relative;
+        }
+        
+        .i:before {
+            content: "ı";
+            position: absolute;
+            left: -4px;
+            color: black;
         }
         
         #showuserhead {
@@ -145,7 +223,16 @@
                 <p id="showuserhead"></p>
             </form>
         </nav>
-
+        <div class="container">
+            <h1>
+                <span>r</span>
+                <span>e</span>
+                <span>d</span>
+                <span>d</span>
+                <span class="i">i</span>
+                <span>t</span>
+            </h1>
+        </div>
         <div class="container">
             <div class="credentials" id="credentialsid">
                 <div class="credentials_mid">
@@ -169,7 +256,7 @@
                     <span class="signn new" style="font-size: 12px; font-weight: 400; margin-top: 20px; text-align: left;">By clicking next, you agree to our<a href="#"> Terms </a> and that you have read our <a href="#">Privacy Policy</a> and <a href="#">Content Policy</a>.</span>
                 </div>
             </div>
-            
+
             <!-- <div class="div">
                 <button onclick="posts()">Post</button>
             </div> -->
@@ -230,10 +317,10 @@
             console.log("hide");
 
         }
-        
-        async function onloading(){
+
+        async function onloading() {
             var tokentosend = localStorage.getItem("token");
-            if(tokentosend!="null"){
+            if (tokentosend != "null") {
                 await showuser();
             }
         }
@@ -253,10 +340,10 @@
                         await localStorage.setItem('token', recent.token);
                         if (recent.message == "password matched") {
                             location.replace("./frontend/subreddit.html")
-                        }else if(recent.message=="user not exists please sign up"){
+                        } else if (recent.message == "user not exists please sign up") {
                             window.alert("user not exists please sign up")
                             showsignup()
-                        }else{
+                        } else {
                             window.alert("Pasword not matched: Login again")
                             show()
                         }
@@ -286,7 +373,7 @@
                         if (recent.status == "200") {
                             window.alert("sign Up successfull, Login to access your account")
                             show()
-                        }else if(recent.status=="400"){
+                        } else if (recent.status == "400") {
                             window.alert("User already exist")
                             show()
                         }
@@ -314,7 +401,7 @@
                         if (recent.message == "session expired") {
                             localStorage.removeItem("token")
                             console.log("login again")
-                            //location.reload();
+                                //location.reload();
                         } else {
                             location.replace("./frontend/subreddit.html");
                         }
@@ -326,8 +413,6 @@
                 });
             });
         }
-        
-        
     </script>
 </body>
 
