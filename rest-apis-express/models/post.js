@@ -5,15 +5,6 @@ module.exports = {
     deleteUser
 };
 const { postModel } = require("../schema/postSchema")
-<<<<<<< HEAD
-const { decodeToken } = require("../models/users");
-const { subredditmodel } = require("../schema/subredditPost")
-const { postdataModel } = require("../schema/postdata")
-async function getUsers(req) {
-    try {
-        const decoded = decodeToken(req);
-        const det = await postModel.find({"_id":decoded.id});
-=======
 const { SECRET } = require("../config/config")
 const jwt = require("jsonwebtoken")
 async function getUsers(req) {
@@ -21,7 +12,6 @@ async function getUsers(req) {
         const token = req.headers.token
         const decoded = jwt.verify(token, new Buffer(SECRET, 'base64'));
         const det = await postModel.find({ "_id": decoded.id });
->>>>>>> 9f9dbd28adee7afd8f5a5e6120fd789ac39c8808
         return det;
     } catch (err) {
         console.log(err);
@@ -34,33 +24,32 @@ async function createPost(req) {
     console.log(id);
     // const data =await postModel.find({ "user_id": id });
     // if(data.length())
-    const subid = {"sub_id":req.body.subreddit_id}
+    const subid = { "sub_id": req.body.subreddit_id }
     debugger
     postModel.findOneAndUpdate({ "user_id": id }, {
-        $push: { "subreddits": subid}} , { safe: true, upsert: true }
-    ).exec().catch((err)=>{
+        $push: { "subreddits": subid }
+    }, { safe: true, upsert: true }).exec().catch((err) => {
         console.log(err);
     })
-    
+
     responsesub(req);
     datapost(req);
-        return ({"message": "success"})
+    return ({ "message": "success" })
 
 }
 
-async function responsesub(req){
-    const postid = {"post_id":req.body.post_id}
+async function responsesub(req) {
+    const postid = { "post_id": req.body.post_id }
     await subredditmodel.findOneAndUpdate({ "sub_id": req.body.subreddit_id }, {
-        $push: { "posts": postid } 
-    }, { safe: true, upsert: true }).exec().catch((err)=>{
+        $push: { "posts": postid }
+    }, { safe: true, upsert: true }).exec().catch((err) => {
         console.log(err);
     })
-  
+
 }
 
-async function datapost(req){
-    await postdataModel.findOneAndUpdate({ "post_id": req.body.post_id }, { "data": req.body.data } 
-    , { safe: true, upsert: true }).exec().catch((err)=>{
+async function datapost(req) {
+    await postdataModel.findOneAndUpdate({ "post_id": req.body.post_id }, { "data": req.body.data }, { safe: true, upsert: true }).exec().catch((err) => {
         console.log(err);
     })
 
