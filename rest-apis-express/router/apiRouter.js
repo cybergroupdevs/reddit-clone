@@ -79,14 +79,13 @@ app.delete(`${baseURI}/comments`, middleware, async function(req, res) {
     res.send(result);
 });
 
-app.get(`${baseURI}/posts`, async function(req, res) {
-    const result = await post.getUsers(req, res);
-
+app.get(`${baseURI}/posts`,middleware, async function(req, res) {
+    const result = await post.getUsers(req);
     res.send(result);
 });
 
-app.post(`${baseURI}/posts`, middleware, async function(req, res) {
-    const result = post.createUser(req, res)
+app.post(`${baseURI}/posts`, async function(req, res) {
+    const result = await post.createPost(req)
     res.send(result);
 });
 
@@ -97,6 +96,11 @@ app.patch(`${baseURI}/posts`, middleware, async function(req, res) {
 
 app.delete(`${baseURI}/posts`, middleware, async function(req, res) {
     const result = post.deleteUsers(req, res)
+    res.send(result);
+});
+
+app.post(`${baseURI}/image`, function(req, res) {
+    const result = users.createfolder(req);
     res.send(result);
 });
 
