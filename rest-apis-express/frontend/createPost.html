@@ -291,5 +291,34 @@
 
     </div>
 </body>
+<script>
+    async function posts() {
+            $(document).ready(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "http://127.0.0.1:9000/api/posts",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    headers: {
+                        "token": localStorage.getItem("token")
+                    },
+                    success: function(recent) {
 
+                        if (recent.message == "session expired") {
+
+                        } else {
+
+                            console.log("recent name" + recent.name)
+                            showuserheader(recent.name)
+
+                        }
+                        console.log(recent);
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                    }
+                });
+            });
+        }
+</script>
 </html>
