@@ -6,13 +6,15 @@ module.exports = {
   deleteUser
 };
 const { info } = require("../schema/Userprofile")
+const { SECRET } = require("../config/config")
+const jwt = require('jsonwebtoken');
 const users = [];
 async function getUsers(req) {
   //console.log(ObjectId().getTimestamp())
   try{
-    const id = req.headers._id
-    console.log(req.headers);    
-    const det=await info.find({});
+    const token =req.headers.token 
+    const decoded = jwt.verify(token, new Buffer(SECRET, 'base64'));
+    const det=await info.findOne({"_id":decoded.id});
     return det;
   }
   catch(err)

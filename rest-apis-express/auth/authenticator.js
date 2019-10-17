@@ -13,18 +13,18 @@ async function checkAuth (req) {
     const token =await generateToken(req);
     return ({
       "message": "password matched",
-      "token" : token
+      "token" : token,
     })
   }else if(valuePass=="0") {
     return ({
       "message": "password not matched",
-      "token"  : "null"
+      "token"  : "null",
     })
   }
  }else {
    return ({
      "message": "user not exists please sign up",
-     "token" : "null "
+     "token" : "null ",
     })   
  }
   
@@ -33,8 +33,8 @@ async function checkAuth (req) {
 async function generateToken(req) {
   let email = req.body.email;
   const user = await getUserDetailsDb.signIn.getUsers(req.body);
-  const _id = user[0]._id
-  var token = jwt.sign( {email, expiresIn: '24h',_id},new Buffer(SECRET ,'base64'));
+  const id = user[0]._id;
+  var token = jwt.sign( {email, expiresIn: '24h',id},new Buffer(SECRET ,'base64'));
   return token;
 }
 
