@@ -22,8 +22,13 @@ async function createUsers(req) {
         var salt = bcrypt.genSaltSync(10);
         var hash = bcrypt.hashSync(myPlaintextPassword, salt);
         userInfoFromClient.password = hash;
-        if(model.create(userInfoFromClient)){
-            return ({"status code":" 200"})
+        const UserExist = await getUsers(req.body);
+        if(UserExist.length==0){
+            model.create(userInfoFromClient)
+            return ({"status":"200"})
+        }
+        else {
+            return ({"status":"400"})
         }
         
    

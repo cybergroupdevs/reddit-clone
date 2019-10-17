@@ -4,23 +4,41 @@ module.exports = {
   getUsers,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  decodeToken,
+  createfolder
 };
 const { info } = require("../schema/Userprofile")
-const users = [];
-const { db } = require("../mongoose")
+const { SECRET } = require("../config/config")
+const jwt = require('jsonwebtoken');
+var fs = require('fs');
+
+function decodeToken(req){
+  const token =req.headers.token 
+  const decoded = jwt.verify(token, new Buffer(SECRET, 'base64'));
+  return decoded;
+}
+
 async function getUsers(req) {
   //console.log(ObjectId().getTimestamp())
-  try {
-    const id = req.headers._id
-    console.log(id);
-    const det = await info.findById(id);
-    console.log(det)
+  try{
+   // const decoded = decodeToken(req);
+   const id =req.headers._id
+    const det=await info.findOne({"_id":id});
     return det;
   }
   catch (err) {
     console.log(err);
   }
+}
+
+async function createfolder(req){
+  var dir = "../pictures";
+
+  if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+  }
+
 }
 
 async function createUser(req, res) {

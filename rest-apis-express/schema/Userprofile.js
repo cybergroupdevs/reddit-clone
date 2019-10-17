@@ -5,10 +5,10 @@ const User = new mongoose.Schema({
   name: String,
   email: String,
   imageurl: String,
-  subreddit:[{
-    sub_name: String,
+  subreddit: [{
+    //_id: String,
+    sub_name: String
   }]
-
 });
 
 const info = mongoose.model("user", User);

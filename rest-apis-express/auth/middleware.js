@@ -5,8 +5,7 @@ module.exports = isAuthenticated = (req, res, next) => {
     const token = req.headers.token;
     jwt.verify(token, new Buffer(SECRET, 'base64'), (err) => {
         if (err) {
-                next()
-            //res.send({ "message": "session expired" })
+            res.send({ "message": "session expired" })
 
         } else {
             next() //TODO: hit the next user profile route
