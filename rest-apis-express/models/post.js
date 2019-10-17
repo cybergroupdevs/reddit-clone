@@ -5,6 +5,7 @@ module.exports = {
     deleteUser
 };
 const { postModel } = require("../schema/postSchema")
+<<<<<<< HEAD
 const { decodeToken } = require("../models/users");
 const { subredditmodel } = require("../schema/subredditPost")
 const { postdataModel } = require("../schema/postdata")
@@ -12,6 +13,15 @@ async function getUsers(req) {
     try {
         const decoded = decodeToken(req);
         const det = await postModel.find({"_id":decoded.id});
+=======
+const { SECRET } = require("../config/config")
+const jwt = require("jsonwebtoken")
+async function getUsers(req) {
+    try {
+        const token = req.headers.token
+        const decoded = jwt.verify(token, new Buffer(SECRET, 'base64'));
+        const det = await postModel.find({ "_id": decoded.id });
+>>>>>>> 9f9dbd28adee7afd8f5a5e6120fd789ac39c8808
         return det;
     } catch (err) {
         console.log(err);
