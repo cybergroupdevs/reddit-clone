@@ -134,7 +134,7 @@
     </style>
 </head>
 
-<body>
+<body onload="onloading()">
     <div class="main" id="main">
         <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand"><img src="https://cdn0.iconfinder.com/data/icons/social-media-2092/100/social-36-512.png" style="height: 28px;"><span style="font-weight: 700; margin-left: 10px;">reddit</span></a>
@@ -169,6 +169,7 @@
                     <span class="signn new" style="font-size: 12px; font-weight: 400; margin-top: 20px; text-align: left;">By clicking next, you agree to our<a href="#"> Terms </a> and that you have read our <a href="#">Privacy Policy</a> and <a href="#">Content Policy</a>.</span>
                 </div>
             </div>
+            
             <!-- <div class="div">
                 <button onclick="posts()">Post</button>
             </div> -->
@@ -230,6 +231,12 @@
 
         }
         
+        async function onloading(){
+            var tokentosend = localStorage.getItem("token");
+            if(tokentosend!="null"){
+                await showuser();
+            }
+        }
 
         function signIn() {
             $(document).ready(function() {
@@ -246,6 +253,12 @@
                         await localStorage.setItem('token', recent.token);
                         if (recent.message == "password matched") {
                             location.replace("./frontend/subreddit.html")
+                        }else if(recent.message=="user not exists please sign up"){
+                            window.alert("user not exists please sign up")
+                            showsignup()
+                        }else{
+                            window.alert("Pasword not matched: Login again")
+                            show()
                         }
                         //console.log(recent);
                     },
@@ -271,7 +284,10 @@
                     success: function(recent) {
                         //localStorage.setItem('token', recent.token);
                         if (recent.status == "200") {
-                            hideshowsignup()
+                            window.alert("sign Up successfull, Login to access your account")
+                            show()
+                        }else if(recent.status=="400"){
+                            window.alert("User already exist")
                             show()
                         }
                         console.log(recent);
@@ -283,6 +299,33 @@
             });
         }
 
+        async function showuser() {
+            $(document).ready(function() {
+                $.ajax({
+                    type: "GET",
+                    url: "http://127.0.0.1:9000/api/users",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    headers: {
+                        "token": localStorage.getItem("token")
+                    },
+                    success: function(recent) {
+
+                        if (recent.message == "session expired") {
+                            localStorage.removeItem("token")
+                            console.log("login again")
+                            //location.reload();
+                        } else {
+                            location.replace("./frontend/subreddit.html");
+                        }
+                        console.log(recent);
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                    }
+                });
+            });
+        }
         
         
     </script>
