@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="icon" type="image/png" href="reddit.png" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>
+        reddit: the front page of internet
+    </title>
+    <style>
+        body {
+            background-color: #DAE0E6;
+            margin: 0;
+        }
+        
+        .container {
+            margin-top: 90px;
+        }
+        
+        .div1 {
+            background-color: rgba(255, 255, 255);
+            float: right;
+            width: 22%;
+            padding: 10px;
+            margin-top: 0;
+            position: fixed;
+            margin-left: 58%;
+            border-radius: 4px;
+        }
+        
+        .navv {
+            position: fixed;
+            overflow: hidden;
+            width: 100%;
+            margin: 0;
+            top: 0;
+            margin-top: 0;
+        }
+        
+        .div2 {
+            display: block;
+            margin-top: 21%;
+            float: right;
+        }
+        
+        .posts_all {
+            width: 67%;
+            height: 80px;
+            background-color: whitesmoke;
+            margin-top: 20px;
+            box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
+            border-radius: 2px;
+            font-size: 20px;
+            font-weight: 600;
+            color: rgb(0, 0, 0, 0.8);
+            text-align: center;
+            display: none;
+            align-self: auto;
+        }
+        
+        .posts_all:hover {
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            border-radius: 3px;
+        }
+        
+        p {
+            width: 50%;
+            height: 120px;
+            margin-left: 14%;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgb(255, 255, 255);
+            box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
+            border-radius: 2px;
+            font-size: 20px;
+            font-weight: 600;
+            color: rgb(0, 0, 0, 0.8);
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        h6 {
+            font-size: 12px;
+            margin-top: -12px;
+            color: rgba(0, 0, 0, 0.5);
+        }
+        
+        p:hover {
+            border: 1px solid rgba(0, 0, 0, 0.5);
+        }
+        
+        .img {
+            width: 100%;
+            height: 100%;
+            margin-top: -5px;
+        }
+        
+        #img {
+            margin-top: 0px;
+            font-size: 12px;
+        }
+        
+        img:hover {
+            cursor: pointer;
+            opacity: 0.8;
+        }
+        
+        .flex {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .f1 {
+            flex: 2;
+            display: flex;
+        }
+        
+        .f1 span {
+            display: block;
+            font-size: 12px;
+            font-family: Noto Sans, Arial, sans-serif;
+            font-weight: 400;
+            margin-top: 4px;
+            cursor: pointer;
+            color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .f11 {
+            flex: 2;
+        }
+        
+        .f12 {
+            flex: 2
+        }
+        
+        .f2 {
+            flex: 1;
+        }
+        
+        .f2 {
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 22px;
+            cursor: pointer;
+        }
+        
+        .f2 span {
+            display: block;
+        }
+        
+        #showuserhead {
+            display: none;
+        }
+        
+        .create_flex {
+            display: flex;
+            flex-direction: row;
+        }
+        
+        .flex1 {
+            flex: 5;
+            background-color: rgb(255, 255, 255);
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 4px;
+        }
+        
+        .create1,
+        .create2,
+        .create3 {
+            padding: 20px;
+        }
+        
+        .create1 {
+            flex: 1;
+            text-align: justify;
+            border: 1px solid rgba(0, 0, 0, .1);
+            font-size: 14px;
+            font-weight: 700;
+            padding-left: 30px;
+            color: #0079D3;
+            border-bottom: 2px solid #0079D3;
+        }
+        
+        .create2 {
+            flex: 3;
+            border: 1px solid rgba(0, 0, 0, .1);
+        }
+        
+        .create3 {
+            flex: 1;
+            border: 1px solid rgba(0, 0, 0, .1);
+            background-color: rgba(218, 224, 230, 0.4);
+        }
+        
+        .flex2 {
+            flex: 2;
+            background-color: rgb(255, 255, 255);
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+        
+        #title {
+            padding: 8px 16px;
+            border: 1px solid rgba(0, 0, 0, .1);
+            width: 100%;
+            border-radius: 4px;
+        }
+        
+        .textarea {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+            width: 100%;
+            border-radius: 4px;
+        }
+        
+        .ta1 {
+            flex: 1;
+            border: 1px solid rgba(0, 0, 0, .1);
+            background-color: rgba(228, 231, 235, 0.4);
+            padding: 10px;
+        }
+        
+        .ta2 {
+            flex: 2;
+        }
+        
+        textarea {
+            border: 1px solid rgba(0, 0, 0, .1);
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            color: rgba(0, 0, 0, .5);
+            font-weight: 500;
+        }
+        
+        .postbutton {
+            width: 82px;
+            float: right;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 16px;
+            background-color: #0079D3;
+            color: rgb(255, 255, 255);
+            border-radius: 4px;
+            border: none;
+            margin-top: 10px;
+        }
+    </style>
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand"><img src="https://cdn0.iconfinder.com/data/icons/social-media-2092/100/social-36-512.png" style="height: 28px;"><span style="font-weight: 700; margin-left: 10px;">reddit</span></a>
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary" id="signinbutton" type="button" style="margin-left: 100px;" onclick="show()">Login</button>
+                <button class="btn btn-primary" id="signupbutton" onclick="showsignup()" type="button" style="margin-left: 10px;">SignUp</button>
+                <p id="showuserhead"></p>
+            </form>
+        </nav>
+        <div class="create_flex container">
+            <div class="flex1">
+                <div class="create1">Post</div>
+                <div class="create2">
+                    <form>
+                        <input type="text" id="title" placeholder="Title">
+                        <div class="textarea">
+                            <div class="ta1"><span style="padding: 10px;"><bold style="font-weight: 500;">B &nbsp;&nbsp;</bold><i>i</i></span></div>
+                            <div class="ta2">
+                                <textarea rows="6">Text (Optional)
+                                </textarea>
+                                <button type="button" class="postbutton">Post</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="create3" style="font-size: 14px; font-weight: 400;">
+                    <input type="checkbox" style="border: none; background-color: blue;">&nbsp;&nbsp;Send me post reply notifications
+                </div>
+
+            </div>
+            <div class="flex2">
+
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

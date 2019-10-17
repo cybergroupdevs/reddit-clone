@@ -209,6 +209,26 @@
         #showuserhead {
             display: none;
         }
+        
+         ::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .hide1 input {
+            display: block;
+            padding: 10px 20px;
+            width: 78%;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 0, 0, .1);
+            background-color: #fcfcfb;
+            font-family: Noto Sans, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .hide1 {
+            display: none;
+        }
     </style>
 </head>
 
@@ -251,11 +271,25 @@
                     <span class="signnn">By having a Reddit account, you can join, vote,</span><span class="signnn">and comment on all your favorite Reddit</span><span class="signnn"> content.</span>
                     <input type="email" id="emailsignup" placeholder="Enter Email">
                     <input type="password" id="passwordsignup" placeholder="Enter Password">
+
+                    <button id="signup" class="btnn" onclick="showsignup2()">Sign Up</button>
+                    <span class="signn new">Already a Redditor? <span  onclick="show()" style="cursor: pointer; font-weight: 700; color: blue;">LOG IN</span></span>
+                    <span class="signn new" style="font-size: 12px; font-weight: 400; margin-top: 20px; text-align: left;">By clicking next, you agree to our<a href="#"> Terms </a> and that you have read our <a href="#">Privacy Policy</a> and <a href="#">Content Policy</a>.</span>
+                </div>
+            </div>
+            <div class="credentials" id="credentialsidsignup2" style="height: 500px; z-index: 1;">
+                <div class="credentials_mid">
+                    <img src="cross.svg" style="height: 20px; float: right; margin-top: -50px; cursor: pointer;" onclick="divclose()">
+                    <span class="signnn">By having a Reddit account, you can join, vote,</span><span class="signnn">and comment on all your favorite Reddit</span><span class="signnn"> content.</span>
+                    <input type="text" id="namesignup" placeholder="Enter Name">
+                    <input type="text" id="urlsignup" placeholder="Enter Url of Image">
+                    <input type="text" id="subredditsignup" placeholder="Enter Name of Subreddit">
                     <button id="signup" class="btnn" onclick="signUp()">Sign Up</button>
                     <span class="signn new">Already a Redditor? <span  onclick="show()" style="cursor: pointer; font-weight: 700; color: blue;">LOG IN</span></span>
                     <span class="signn new" style="font-size: 12px; font-weight: 400; margin-top: 20px; text-align: left;">By clicking next, you agree to our<a href="#"> Terms </a> and that you have read our <a href="#">Privacy Policy</a> and <a href="#">Content Policy</a>.</span>
                 </div>
             </div>
+
 
             <!-- <div class="div">
                 <button onclick="posts()">Post</button>
@@ -278,6 +312,9 @@
             $("#credentialsidsignup").fadeOut("slow");
             $("#credentialsidsignup").fadeOut(3000);
             // document.getElementById("credentialsidsignup").style.display = "none";
+            $("#credentialsidsignup2").fadeOut();
+            $("#credentialsidsignup2").fadeOut("slow");
+            $("#credentialsidsignup2").fadeOut(3000);
 
 
         }
@@ -289,6 +326,7 @@
             $("#credentialsid").fadeIn(3000);
             document.getElementById("credentialsid").style.display = "block";
             document.getElementById("credentialsidsignup").style.display = "none";
+            document.getElementById("credentialsidsignup2").style.display = "none";
             console.log("hello");
         }
 
@@ -296,6 +334,7 @@
             // event.preventDefault();
             document.getElementById("credentialsid").style.display = "none";
             document.getElementById("signinbutton").style.display = "none";
+            document.getElementById("showsignup2").style.display = "none";
             console.log("hide");
 
         }
@@ -306,7 +345,16 @@
             $("#credentialsidsignup").fadeIn();
             $("#credentialsidsignup").fadeIn("slow");
             $("#credentialsidsignup").fadeIn(3000);
-            document.getElementById("credentialsidsignup").style.display = "block";
+            // document.getElementById("credentialsidsignup").style.display = "block";
+            // document.getElementsByClassName("hide1").style.display = "none";
+
+
+        }
+
+        function showsignup2() {
+            document.getElementById("credentialsidsignup").style.display = "none";
+            document.getElementById("credentialsidsignup2").style.display = "block";
+
 
 
         }
