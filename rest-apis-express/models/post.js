@@ -10,7 +10,7 @@ const { postdataModel } = require("../schema/postdata")
 async function getPost(req) {
     try {
         const decoded = decodeToken(req);
-        const det = await postModel.find({"_id":decoded.id});
+        const det = await postdataModel.find({"user_id":decoded.id});
         return det;
     } catch (err) {
         console.log(err);
