@@ -4,7 +4,7 @@ module.exports = {
     updateComments,
     deleteComments
 };
-const { info } = require("../schema/UserComments");
+const { postCommentModel } = require("../schema/postComment");
 //const users = [];
 const { SECRET } = require("../config/config")
 const jwt = require("jsonwebtoken")
@@ -29,7 +29,7 @@ async function createComments(req, res) {
     // details= new info(body)
     console.log(details)
     try{
-      response=await info.create(req.body);
+      response=await postCommentModel.create(req.body);
       return response
 
     } catch (err) {

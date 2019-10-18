@@ -64,7 +64,7 @@ app.get(`${baseURI}/comments`, middleware, async function(req, res) {
     res.send(result);
 });
 
-app.post(`${baseURI}/comments`, middleware, async function(req, res) {
+app.post(`${baseURI}/comments`, async function(req, res) {
     const result = userscomments.createComments(req, res)
     res.send(result);
 });
