@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -152,8 +151,7 @@
         }
     </style>
 </head>
-
-<body onload="comments(),showuser()">
+<body onload="posts(),showuser()">
     <div class="main">
         <nav class="navbar navbar-light navv" style="background-color: rgb(255, 255, 255);" id="nav">
             <a class="navbar-brand"><img src="reddit.png" style="height: 28px;"><span style="font-weight: 700; margin-left: 10px;">reddit</span></a>
@@ -270,8 +268,10 @@
                         } else {
 
                             console.log("recent name" + recent.name)
+                            localStorage.setItem('subreddit_user_id', recent.subreddit[0]._id);
+                            localStorage.setItem('subreddit_id', recent.subreddit[0]._id);
                             showuserheader(recent.name)
-
+                            location.replace("./createPost.html")
                         }
                         console.log(recent);
                     },
@@ -293,5 +293,4 @@
         }
     </script>
 </body>
-
 </html>
