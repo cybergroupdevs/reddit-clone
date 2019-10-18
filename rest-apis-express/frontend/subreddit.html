@@ -153,7 +153,7 @@
     </style>
 </head>
 
-<body onload="posts(),showuser()">
+<body onload="comments(),showuser()">
     <div class="main">
         <nav class="navbar navbar-light navv" style="background-color: rgb(255, 255, 255);" id="nav">
             <a class="navbar-brand"><img src="reddit.png" style="height: 28px;"><span style="font-weight: 700; margin-left: 10px;">reddit</span></a>
@@ -212,11 +212,11 @@
 
     </div>
     <script>
-        function posts() {
+        function comments() {
             $(document).ready(function() {
                 $.ajax({
                     type: "GET",
-                    url: "http://localhost:9000/api/posts",
+                    url: "http://localhost:9000/api/comments",
                     contentType: "application/json;charset=utf-8",
                     dataType: "json",
                     headers: {
@@ -226,24 +226,14 @@
                         console.log("Authorized User");
 
                         console.log(recent);
-                        // var date = recent[0].Comments[0].subreddit[0].Post[0].Comment_on_post[0].Date
-                        // var comment = recent[0].Comments[0].subreddit[0].Post[0].Comment_on_post
-                        // var post = recent[0].Comments[0].subreddit[0].Post
+                        
                         var i = 0
                         var l = recent.length
                         console.log(l)
                         while (i < recent.length) {
-                            var subred = await recent[i].post[0].subreddit[0].postdata[0].post;
-                            var date = await recent[i].post[0].subreddit[0].postdata[0].time
-                                //var cdate = date.addHours(4);
-                                // // var m = moment(date)
-                                // console.log(cdate);
-                                //  console.log(date.setHours(date.getHours() + 4));
-                                // console.log(moment(date).format('LT'));
-                                // console.log(moment(date).startOf('hour').fromNow());
-                            var from_now = moment(date).startOf('hour').fromNow()
-                            var p = document.createElement("p");
-                            p.innerHTML = "<h6>" + "Posted On : " + from_now + "</h6>" + subred;
+                            var subred = await recent[i].data;
+                             var p = document.createElement("p");
+                            p.innerHTML = "<h6>" + "Comment : " +'<br>'+'<h1>'+subred+'</h1>';
                             document.body.appendChild(p);
                             // $("#x").append(subred)
                             // console.log(subred)

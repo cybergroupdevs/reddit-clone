@@ -1,25 +1,28 @@
 module.exports = {
-    getUsers,
-    createUser,
-    updateUser,
-    deleteUser
+    getComments,
+    createComments,
+    updateComments,
+    deleteComments
 };
 const { info } = require("../schema/UserComments");
-const users = [];
+//const users = [];
+const { SECRET } = require("../config/config")
+const jwt = require("jsonwebtoken")
 
-async function getUsers(req) {
+async function getComments(req) {
     // console.log(info.find());
     try {
-        const id=req.headers._id;
-        console.log(id);
-        const det = await info.findById(id);
+        const token = req.headers.token
+        const decoded = jwt.verify(token, new Buffer(SECRET, 'base64'));
+        const det = await info.find({ "user_id": decoded.id });
+       // console.log(det);
         return det;
     } catch (err) {
         console.log(err);
     }
 }
 
-async function createUser(req, res) {
+async function createComments(req, res) {
     let response;
     let body, details;
     // body=req.body;
@@ -36,7 +39,7 @@ async function createUser(req, res) {
 
 }
 
-async function updateUser(req, res) {
+async function updateComments(req, res) {
     const body = req.body;
     const _id = req.query.id;
     // console.log(id);
@@ -49,7 +52,7 @@ async function updateUser(req, res) {
     });
 }
 
-async function deleteUser(req, res) {
+async function deleteComments(req, res) {
     const id = req.query.id;
     console.log(id);
     await info.findByIdAndDelete(id);
