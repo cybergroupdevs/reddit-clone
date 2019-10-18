@@ -1,13 +1,13 @@
 const { post } = require("../models");
 module.exports = {
-    getPosts,
+    getPost,
     createPost,
     updatePost,
     deletePost
 }
 
-async function getPosts(req) {
-    const response = await post.getPosts(req);
+async function getPost(req) {
+    const response = await post.getPost(req);
     console.log(response);
     return response;
 }
@@ -29,14 +29,14 @@ async function createPost(req) {
 
 async function updatePost(req, res) {
     const response = await post.updatePost(req, res);
-    res.send(response);
+    return (response); // return result :: dont send response from controller
 }
 
 async function deletePost(req, res) {
     const id = req.query.id;
     console.log(id)
     await post.deletePost(req, res)
-    res.send({
+    return ({ // return only
         status: 200,
         statusText: "OK",
         message: "Client Deleted!"

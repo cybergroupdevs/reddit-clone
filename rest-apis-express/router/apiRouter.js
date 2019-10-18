@@ -79,14 +79,13 @@ function apiRouter() {
         res.send(result);
     });
 
-    app.get(`${baseURI}/posts`, async function(req, res) {
-        const result = await post.getPosts(req, res);
-
+    app.get(`${baseURI}/posts`, middleware, async function(req, res) {
+        const result = await post.getPost(req);
         res.send(result);
     });
 
-    app.post(`${baseURI}/posts`, middleware, async function(req, res) {
-        const result = post.createPost(req, res)
+    app.post(`${baseURI}/posts`, async function(req, res) {
+        const result = await post.createPost(req)
         res.send(result);
     });
 
@@ -97,6 +96,11 @@ function apiRouter() {
 
     app.delete(`${baseURI}/posts`, middleware, async function(req, res) {
         const result = post.deletePost(req, res)
+        res.send(result);
+    });
+
+    app.post(`${baseURI}/image`, function(req, res) {
+        const result = users.createfolder(req);
         res.send(result);
     });
 

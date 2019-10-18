@@ -5,7 +5,6 @@ module.exports = {
     deletePost
 };
 const { postModel } = require("../schema/postSchema")
-<<<<<<< HEAD
 const { SECRET } = require("../config/config")
 const jwt = require("jsonwebtoken")
 async function getPosts(req) {
@@ -13,14 +12,6 @@ async function getPosts(req) {
         const token = req.headers.token
         const decoded = jwt.verify(token, new Buffer(SECRET, 'base64'));
         const det = await postModel.find({ "_id": decoded.id });
-=======
-const { decodeToken } = require("../models/users");
-const { postdataModel } = require("../schema/postdata")
-async function getUsers(req) {
-    try {
-        const decoded = decodeToken(req);
-        const det = await postModel.find({"_id":decoded.id});
->>>>>>> e0e04e912262544208509e85850aa136db3d411f
         return det;
     } catch (err) {
         console.log(err);
@@ -28,7 +19,6 @@ async function getUsers(req) {
 }
 
 async function createPost(req) {
-<<<<<<< HEAD
     //const decoded = decodeToken(req);
     const id = req.body._id;
     console.log(id);
@@ -60,38 +50,9 @@ async function responsesub(req) {
 
 async function datapost(req) {
     await postdataModel.findOneAndUpdate({ "post_id": req.body.post_id }, { "data": req.body.data }, { safe: true, upsert: true }).exec().catch((err) => {
-=======
-    debugger
-    const decoded = decodeToken(req);
-    const json = {
-        "user_id" : decoded.id,
-        "subreddit_user_id" : req.headers.subreddit_user_id,
-        "subreddit_id" : req.headers.subreddit_id
-    }
-    await postModel.create(json).catch((err)=>{
         console.log(err);
-    });
-    const response =await datapost(req);
-    return response
-}
+    })
 
-async function datapost(req){
-    const decoded = decodeToken(req);
-    const json = {
-        "user_id" : decoded.id,
-        "subreddit_user_id" : req.headers.subreddit_user_id,
-        "subreddit_id" : req.headers.subreddit_id,
-        "data": req.body.data,
-        "post_time" : {
-                    "type": Date,
-                    "default": Date.now()
-        }
-    }
-    await postdataModel.create(json).catch((err)=>{
->>>>>>> e0e04e912262544208509e85850aa136db3d411f
-        console.log(err);
-    });
-    return ({"status":"200"})
 }
 
 async function updatePost(req, res) {
