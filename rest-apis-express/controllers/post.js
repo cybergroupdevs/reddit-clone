@@ -1,13 +1,13 @@
 const { post } = require("../models");
 module.exports = {
-    getUsers,
+    getPosts,
     createPost,
-    updateUser,
-    deleteUser
+    updatePost,
+    deletePost
 }
 
-async function getUsers(req) {
-    const response = await post.getUsers(req);
+async function getPosts(req) {
+    const response = await post.getPosts(req);
     console.log(response);
     return response;
 }
@@ -27,15 +27,15 @@ async function createPost(req) {
     // });
 }
 
-async function updateUser(req, res) {
-    const response = await post.updateUser(req, res);
+async function updatePost(req, res) {
+    const response = await post.updatePost(req, res);
     res.send(response);
 }
 
-async function deleteUser(req, res) {
+async function deletePost(req, res) {
     const id = req.query.id;
     console.log(id)
-    await post.deleteUser(req, res)
+    await post.deletePost(req, res)
     res.send({
         status: 200,
         statusText: "OK",

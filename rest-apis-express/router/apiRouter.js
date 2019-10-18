@@ -80,23 +80,23 @@ function apiRouter() {
     });
 
     app.get(`${baseURI}/posts`, async function(req, res) {
-        const result = await post.getUsers(req, res);
+        const result = await post.getPosts(req, res);
 
         res.send(result);
     });
 
     app.post(`${baseURI}/posts`, middleware, async function(req, res) {
-        const result = post.createUser(req, res)
+        const result = post.createPost(req, res)
         res.send(result);
     });
 
     app.patch(`${baseURI}/posts`, middleware, async function(req, res) {
-        const result = post.updateUsers(req, res)
+        const result = post.updatePost(req, res)
         res.send(result);
     });
 
     app.delete(`${baseURI}/posts`, middleware, async function(req, res) {
-        const result = post.deleteUsers(req, res)
+        const result = post.deletePost(req, res)
         res.send(result);
     });
 

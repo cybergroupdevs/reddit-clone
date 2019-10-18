@@ -1,13 +1,13 @@
 module.exports = {
-    getUsers,
+    getPosts,
     createPost,
-    updateUser,
-    deleteUser
+    updatePost,
+    deletePost
 };
 const { postModel } = require("../schema/postSchema")
 const { SECRET } = require("../config/config")
 const jwt = require("jsonwebtoken")
-async function getUsers(req) {
+async function getPosts(req) {
     try {
         const token = req.headers.token
         const decoded = jwt.verify(token, new Buffer(SECRET, 'base64'));
@@ -55,7 +55,7 @@ async function datapost(req) {
 
 }
 
-async function updateUser(req, res) {
+async function updatePost(req, res) {
     const body = req.body;
     const _id = req.query.id;
     // console.log(id);
@@ -68,7 +68,7 @@ async function updateUser(req, res) {
     });
 }
 
-async function deleteUser(req, res) {
+async function deletePost(req, res) {
     const id = req.query.id;
     console.log(id);
     await info.findByIdAndDelete(id);
