@@ -253,8 +253,8 @@
 </head>
 
 <body>
-    <div class="main">
-        <nav class="navbar navbar-light bg-light">
+    <div class="main" >
+        <!-- <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand"><img src="https://cdn0.iconfinder.com/data/icons/social-media-2092/100/social-36-512.png" style="height: 28px;"><span style="font-weight: 700; margin-left: 10px;">reddit</span></a>
             <form class="form-inline">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -262,7 +262,7 @@
                 <button class="btn btn-primary" id="signupbutton" onclick="showsignup()" type="button" style="margin-left: 10px;">SignUp</button>
                 <p id="showuserhead"></p>
             </form>
-        </nav>
+        </nav> -->
         <div class="create_flex container">
             <div class="flex1">
                 <div class="create1">Post</div>
@@ -284,9 +284,9 @@
                 </div>
 
             </div>
-            <div class="flex2">
+            <!-- <div class="flex2">
 
-            </div>
+            </div> -->
         </div>
 
     </div>
@@ -305,11 +305,13 @@
                         "subreddit_user_id": localStorage.getItem("subreddit_user_id")
                     },
                     data: JSON.stringify({
-                        "data" : $("#postdata").val()
+                        "data" : $("#postdata").val(),
+                        "title": $("#title").val()
                     }),
-                    success: function(recent) {
-                          
+                    success: function(recent) {   
                         console.log(recent);
+                        window.open("./subreddit.html")
+                        // window.self()
                     },
                     error: function(xhr, textStatus, errorThrown) {
                         console.log(errorThrown);

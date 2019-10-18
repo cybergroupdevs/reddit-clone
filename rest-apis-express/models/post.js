@@ -20,14 +20,14 @@ async function getPost(req) {
 async function createPost(req) {
     debugger
     const decoded = decodeToken(req);
-    const json = {
-        "user_id" : decoded.id,
-        "subreddit_user_id" : req.headers.subreddit_user_id,
-        "subreddit_id" : req.headers.subreddit_id
-    }
-    await postModel.create(json).catch((err)=>{
-        console.log(err);
-    });
+    // const json = {
+    //     "user_id" : decoded.id,
+    //     "subreddit_user_id" : req.headers.subreddit_user_id,
+    //     "subreddit_id" : req.headers.subreddit_id
+    // }
+    // await postModel.create(json).catch((err)=>{
+    //     console.log(err);
+    // });
     const response =await datapost(req);
     return response
 }
@@ -38,6 +38,7 @@ async function datapost(req){
         "user_id" : decoded.id,
         "subreddit_user_id" : req.headers.subreddit_user_id,
         "subreddit_id" : req.headers.subreddit_id,
+        "post_title": req.body.title,
         "data": req.body.data,
         // "post_time" : {
         //             "type": Date,

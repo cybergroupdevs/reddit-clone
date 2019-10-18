@@ -166,7 +166,7 @@
             </form>
         </nav>
 
-        <div class="container">
+        <!-- <div class="container">
             <div class="div1">
                 <span id="img" style="margin-top: 0px;">
                 Advertisement</span>
@@ -208,7 +208,8 @@
             <p class=" pos" style="display: none"></p>
         </div>
 
-    </div>
+    </div> -->
+    <iframe src="./createPost.html" height="600" width="485" style="float: right;margin-top: 40px;"></iframe>
     <script>
         function posts() {
             $(document).ready(function() {
@@ -231,24 +232,13 @@
                         var l = recent.length
                         console.log(l)
                         while (i < recent.length) {
-                            var subred = await recent[i].post[0].subreddit[0].postdata[0].post;
-                            var date = await recent[i].post[0].subreddit[0].postdata[0].time
-                                //var cdate = date.addHours(4);
-                                // // var m = moment(date)
-                                // console.log(cdate);
-                                //  console.log(date.setHours(date.getHours() + 4));
-                                // console.log(moment(date).format('LT'));
-                                // console.log(moment(date).startOf('hour').fromNow());
-                            var from_now = moment(date).startOf('hour').fromNow()
+                            var subred = await recent[i].data
+                            var title = await recent[i].post_title
+                            
                             var p = document.createElement("p");
-                            p.innerHTML = "<h6>" + "Posted On : " + from_now + "</h6>" + subred;
+                            p.innerHTML =  "<div>"+title+"</div>"+subred;
                             document.body.appendChild(p);
-                            // $("#x").append(subred)
-                            // console.log(subred)
-
                             i++;
-
-
                         }
                     },
                     error: function(xhr, textStatus, errorThrown) {
@@ -274,7 +264,7 @@
                     success: function(recent) {
 
                         if (recent.message == "session expired") {
-
+                                location.replace("../index.html")
                         } else {
 
                             console.log("recent name" + recent.name)
@@ -298,6 +288,8 @@
         }
 
         function logout() {
+            localStorage.removeItem("subreddit_id");
+            localStorage.removeItem("subreddit_user_id");
             localStorage.removeItem("token");
             location.replace("../index.html")
         }
