@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -151,6 +152,7 @@
         }
     </style>
 </head>
+
 <body onload="posts(),showuser()">
     <div class="main">
         <nav class="navbar navbar-light navv" style="background-color: rgb(255, 255, 255);" id="nav">
@@ -281,7 +283,7 @@
                             localStorage.setItem('subreddit_user_id', recent.subreddit[0]._id);
                             localStorage.setItem('subreddit_id', recent.subreddit[0]._id);
                             showuserheader(recent.name)
-                            //location.replace("./createPost.html")
+                                //location.replace("./createPost.html")
                         }
                         console.log(recent);
                     },
@@ -303,4 +305,5 @@
         }
     </script>
 </body>
+
 </html>
