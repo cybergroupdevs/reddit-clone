@@ -451,14 +451,9 @@
                         if (recent.message == "session expired") {
                             localStorage.removeItem("token")
                             console.log("login again")
-<<<<<<< HEAD
                                 //location.reload();
                         } else if (recent.length > 0) {
-=======
-                            //location.reload();
-                        } else if(recent.length>0){
-                            
->>>>>>> e0e04e912262544208509e85850aa136db3d411f
+
                             location.replace("./frontend/subreddit.html");
                         } else {
                             // location.replace("")
