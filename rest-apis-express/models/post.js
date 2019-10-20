@@ -26,23 +26,33 @@ async function createPost(req) {
     // if(data.length())
     const subid = { "sub_id": req.body.subreddit_id }
     debugger
-    postModel.findOneAndUpdate({ "user_id": id }, {
-        $push: { "subreddits": subid }
-    }, { safe: true, upsert: true }).exec().catch((err) => {
-        console.log(err);
-    })
-
-    responsesub(req);
-    datapost(req);
-    return ({ "message": "success" })
-
+    const decoded = decodeToken(req);
+    // const json = {
+    //     "user_id" : decoded.id,
+    //     "subreddit_user_id" : req.headers.subreddit_user_id,
+    //     "subreddit_id" : req.headers.subreddit_id
+    // }
+    // await postModel.create(json).catch((err)=>{
+    //     console.log(err);
+    // });
+    const response = await datapost(req);
+    return response
 }
 
-async function responsesub(req) {
-    const postid = { "post_id": req.body.post_id }
-    await subredditmodel.findOneAndUpdate({ "sub_id": req.body.subreddit_id }, {
-        $push: { "posts": postid }
-    }, { safe: true, upsert: true }).exec().catch((err) => {
+async function datapost(req) {
+    const decoded = decodeToken(req);
+    const json = {
+        "user_id": decoded.id,
+        "subreddit_user_id": req.headers.subreddit_user_id,
+        "subreddit_id": req.headers.subreddit_id,
+        "post_title": req.body.title,
+        "data": req.body.data,
+        // "post_time" : {
+        //             "type": Date,
+        //             "default": Date.now()
+        // }
+    }
+    await postdataModel.create(json).catch((err) => {
         console.log(err);
     })
 
