@@ -273,9 +273,32 @@
         </div>
 
     </div> -->
-        <iframe src="./createComment.html" height="600" width="485" style="float: right;margin-top: 0px;"></iframe>
+        <!--iframe src="./createComment.html" height="600" width="485" style="float: right;margin-top: 0px;"></iframe-->
         <iframe src="./createPost.html" height="600" width="485" style="float: right;margin-top: 0px;"></iframe>
         <script>
+             
+         function showcomments()
+         {
+            var input = document.createElement('textarea');
+                  input.cols = 25;
+            input.rows = 4;
+            var button=document.createElement('button');
+            var t = document.createTextNode("Comment");
+            button.appendChild(t);
+            var oBody = document.getElementById("x"); 
+            oBody.appendChild(input);
+            oBody.appendChild(button);
+           
+         }
+
+         
+
+            
+        
+                
+
+                  
+            
             function posts() {
                 $(document).ready(function () {
                     $.ajax({
@@ -301,7 +324,7 @@
                                 var title = await recent[i].post_title
 
                                 var p = document.createElement("p");
-                                p.innerHTML = "<div class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<i class='fa fa-comments-o c grow' onclick='showcomments()' style='font-size:20px'>" + "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + " 100% Upvoted" + "</span>" + "</div>";
+                                p.innerHTML = "<div id='x'><div  class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<i class='fa fa-comments-o c grow'  onclick='showcomments()' style='font-size:20px'>"+ "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + " 100% Upvoted" + "</span>" + "</div></div>";
                                 document.body.appendChild(p);
                                 i++;
                             }
@@ -316,10 +339,8 @@
                     });
                 });
             }
-            function showcomments()
-            {
-
-            }
+           
+ 
             async function showuser() {
                 $(document).ready(function () {
                     $.ajax({
@@ -376,9 +397,7 @@
                             while (i < recent.length) {
                                 var subred = await recent[i].comment_data;
                                 //var title = await recent[i].post_title
-                                console.log("------------------------")
-                                console.log(subred)
-                                console.log("------------------------")
+                               
                                 var p = document.createElement("p");
                                 p.innerHTML = "<div class='post'>" + "</span>" + "<span class='sub'>" + subred + "</span>" + "<i class='fa fa-comments-o c grow' style='font-size:20px'>"+ "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + " 100% Upvoted" + "</span>" + "</div>";
                                 document.body.appendChild(p);
