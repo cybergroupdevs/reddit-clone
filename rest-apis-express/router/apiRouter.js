@@ -59,23 +59,23 @@ function apiRouter() {
 
     app.get(`${baseURI}/comments`, middleware, async function(req, res) {
 
-        const result = await userscomments.getUsers(req, res);
+        const result = await userscomments.getComments(req, res);
         console.log(result)
         res.send(result);
     });
 
     app.post(`${baseURI}/comments`, middleware, async function(req, res) {
-        const result = userscomments.createUsers(req, res)
+        const result = userscomments.createComments(req, res)
         res.send(result);
     });
 
     app.patch(`${baseURI}/comments`, middleware, async function(req, res) {
-        const result = userscomments.updateUsers(req, res)
+        const result = userscomments.updateComments(req, res)
         res.send(result);
     });
 
     app.delete(`${baseURI}/comments`, middleware, async function(req, res) {
-        const result = userscomments.deleteUsers(req, res)
+        const result = userscomments.deleteComments(req, res)
         res.send(result);
     });
 
@@ -96,7 +96,7 @@ function apiRouter() {
 
     app.delete(`${baseURI}/posts`, middleware, async function(req, res) {
         debugger
-        const result =await post.deletePost(req)
+        const result = await post.deletePost(req)
         res.send(result);
     });
 

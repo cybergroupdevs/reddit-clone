@@ -18,7 +18,7 @@ async function getPost(req) {
 }
 
 async function createPost(req) {
-   
+
     const decoded = decodeToken(req);
     const response = await datapost(req);
     return response
@@ -43,12 +43,12 @@ async function datapost(req) {
     return ({ "status": "200" })
 }
 
-async function updatePost(req, res) {
+async function updatePost(req) {
     const body = req.body;
     const _id = req.query.id;
     // console.log(id);
     console.log(body);
-    await info.findByIdAndUpdate(_id, body)
+    await postdataModel.findByIdAndUpdate(_id, body)
     return ({
         status: 200,
         statusText: "OK",
@@ -59,16 +59,16 @@ async function updatePost(req, res) {
 async function deletePost(req) {
     debugger
     const id = req.body.postid;
-    await postdataModel.findByIdAndDelete(id,(err)=>{
+    await postdataModel.findByIdAndDelete(id, (err) => {
         console.log(err);
         const response = {
-            "status" : "409"
+            "status": "409"
         }
         return response
     });
 
     const response = {
-        "status" : "200"
+        "status": "200"
     }
     return response
 
