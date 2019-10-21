@@ -24,6 +24,7 @@ async function getUsers(req) {
    // const decoded = decodeToken(req);
    const id =req.headers._id
     const det=await info.findOne({"_id":id});
+    
     return det;
   }
   catch (err) {
