@@ -27,7 +27,7 @@ function apiRouter() {
     
 
 app.post(`${baseURI}/users`, async function(req, res) {
-    const result = users.createUser(req, res)
+    const result = users.createUser(req)
     res.send(result);
 });
 

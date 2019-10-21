@@ -13,8 +13,8 @@ async function getUsers(req, res) {
   return response;
 }
 
-async function createUser(req, res) {
-  await user.createUser(req,res);
+async function createUser(req) {
+  await user.createUser(req);
   //console.log(res);
   //res.send(JSON.stringify(response))
   //const body = req.body;
