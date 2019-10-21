@@ -29,14 +29,14 @@ async function createPost(req) {
 
 async function updatePost(req, res) {
     const response = await post.updatePost(req, res);
-    retrun (response);  // return result :: dont send response from controller
+    return (response); // return result :: dont send response from controller
 }
 
 async function deletePost(req, res) {
     const id = req.query.id;
     console.log(id)
     await post.deletePost(req, res)
-    return ({                       // return only
+    return ({ // return only
         status: 200,
         statusText: "OK",
         message: "Client Deleted!"
