@@ -253,7 +253,7 @@
 </head>
 
 <body>
-    <div class="main" >
+    <div class="main">
         <!-- <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand"><img src="https://cdn0.iconfinder.com/data/icons/social-media-2092/100/social-36-512.png" style="height: 28px;"><span style="font-weight: 700; margin-left: 10px;">reddit</span></a>
             <form class="form-inline">
@@ -263,7 +263,7 @@
                 <p id="showuserhead"></p>
             </form>
         </nav> -->
-        <div class="create_flex container">
+        <div class="create_flex container" style="margin-top: 55px">
             <div class="flex1">
                 <div class="create1">Post</div>
                 <div class="create2">
@@ -293,31 +293,32 @@
 </body>
 <script>
     async function posts() {
-            $(document).ready(function() {
-                $.ajax({
-                    type: "POST",
-                    url: "http://127.0.0.1:9000/api/posts",
-                    contentType: "application/json;charset=utf-8",
-                    dataType: "json",
-                    headers: {
-                        "token": localStorage.getItem("token"),
-                        "subreddit_id": localStorage.getItem("subreddit_id"),
-                        "subreddit_user_id": localStorage.getItem("subreddit_user_id")
-                    },
-                    data: JSON.stringify({
-                        "data" : $("#postdata").val(),
-                        "title": $("#title").val()
-                    }),
-                    success: function(recent) {   
-                        console.log(recent);
-                        window.open("./subreddit.html")
+        $(document).ready(function() {
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:9000/api/posts",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                headers: {
+                    "token": localStorage.getItem("token"),
+                    "subreddit_id": localStorage.getItem("subreddit_id"),
+                    "subreddit_user_id": localStorage.getItem("subreddit_user_id")
+                },
+                data: JSON.stringify({
+                    "data": $("#postdata").val(),
+                    "title": $("#title").val()
+                }),
+                success: function(recent) {
+                    console.log(recent);
+                    window.open("./subreddit.html")
                         // window.self()
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-                        console.log(errorThrown);
-                    }
-                });
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
             });
-        }
+        });
+    }
 </script>
+
 </html>
