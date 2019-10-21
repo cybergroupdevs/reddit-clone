@@ -20,6 +20,7 @@ function decodeToken(req){
 
 async function getUsers(req) {
   //console.log(ObjectId().getTimestamp())
+  debugger
     const decoded = decodeToken(req);
     const det=await info.findOne({"email":decoded.email});
     return det;
@@ -35,6 +36,7 @@ async function createfolder(req){
 }
 
 async function createUser(req) {
+  
   const decoded = decodeToken(req);
     const json = {
       "name": req.body.name,

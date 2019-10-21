@@ -158,7 +158,7 @@
             }
     </style>
 </head>
-<body onload="posts(),comments(),showuser()">
+<body onload="userdetailscheck()">
     <div class="main">
         <nav class="navbar navbar-light navv" style="background-color: rgb(255, 255, 255);" id="nav">
             <a class="navbar-brand"><img src="reddit.png" style="height: 28px;"><span style="font-weight: 700; margin-left: 10px;">reddit</span></a>
@@ -178,14 +178,14 @@
             <form>
                 <div class="form-group">
                   <label>Name</label>
-                  <input  class="form-control" placeholder="Name" >
+                  <input  class="form-control" placeholder="Name" id="name" >
                 </div>
                 <div class="form-group">
                   <label>Subreddit name</label>
-                  <input  class="form-control" placeholder="Subreddit Name" >
+                  <input  class="form-control" placeholder="Subreddit Name" id="subreddit_name">
                 </div>
                 <div style="text-align: center">
-                <button type="submit" class="btn btn-success">Save</button>
+                <button type="submit" class="btn btn-success" onclick="userdetails()">Save</button>
                 
                  </div>
               </form>
@@ -308,12 +308,72 @@
             document.getElementById("showuserhead").innerHTML = "Hello! " + username;
         }
 
+    </script-->
+
+    <script>
+            function userdetailscheck(){
+            $(document).ready(function() {
+                $.ajax({
+                    type: "GET",
+                    url: "http://127.0.0.1:9000/api/users",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    headers: {
+                        "token": localStorage.getItem("token"),
+                    },
+                    success:function(recent) {
+                        //console.log(recent)
+                        if(recent!=null){
+                            location.replace("./subreddit.html");
+                        }else{
+                            window.alert("Please Enter information")
+                        }
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        console.log("UnAunthorized User");
+                    }
+                });
+            });
+        }
+
+        async function userdetails(){
+            $(document).ready(async function() {
+                $.ajax({
+                    type: "POST",
+                    url: "http://127.0.0.1:9000/api/users",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    headers: {
+                        "token": localStorage.getItem("token"),
+                        "subreddit_id": localStorage.getItem("subreddit_id"),
+                        "subreddit_user_id": localStorage.getItem("subreddit_user_id")
+                    },
+                    data: JSON.stringify({
+                        "name" : $("#name").val(),
+                        "subreddit" : $("#subreddit_name").val()
+                    }),
+                    success: async function(recent) {
+                        if(recent.status=="200"){
+                            location.replace("./subreddit.html");
+                        }else{
+                            window.alert("Error")
+                        }
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        console.log("UnAunthorized User");
+                    }
+                });
+            });
+        }
+
+        
         function logout() {
             localStorage.removeItem("subreddit_id");
             localStorage.removeItem("subreddit_user_id");
             localStorage.removeItem("token");
             location.replace("../index.html")
         }
-    </script-->
+
+    </script>
 </body>
 </html>
