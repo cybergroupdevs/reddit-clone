@@ -20,50 +20,53 @@ function decodeToken(req){
 
 async function getUsers(req) {
   //console.log(ObjectId().getTimestamp())
-  try{
-   // const decoded = decodeToken(req);
-   const id =req.headers._id
-    const det=await info.findOne({"_id":id});
-    
+  
+    const decoded = decodeToken(req);
+    const det=await info.findOne({"email":decoded.email});
     return det;
-  }
-  catch (err) {
-    console.log(err);
-  }
 }
 
 async function uploadPhoto(req,res){
   if(req.file) {
+    const pic=info.findOne({"email":decoded.email})
     res.json(req.file);
 }
 else throw 'error';
 };
 
 async function createUser(req) {
-    let response;
-    let body,details;
-    body=req.body
-    details= new info(body)
-    console.log(details)
-    try{
-      response=await details.save()
-      return response
+  
+  const decoded = decodeToken(req);
+    const json = {
+      "name": req.body.name,
+      "email": decoded.email,
+      "sub_name": req.body.subreddit
     }
-    catch{
-      
+  
+    await info.create(json,(err)=>{
+      console.log(err);
+      const response = {
+        "status": "409"
+      }
+      return response;
+    })
+    const response = {
+      "status" : "200"
     }
-  }
+  
+  
+  return response;
+
+}
 
 async function updateUser(req, res) {
   const body = req.body;
   const _id = req.query.id;
   // console.log(id);
   console.log(body);
-  await info.findByIdAndUpdate(_id, body)
-  return ({
-    status: 200,
-    statusText: "OK",
-    message: "Client Updated!"
+  await info.findByIdAndUpdate(_id,body)
+  return({
+    "status": "200"
   });
 }
 
@@ -72,10 +75,8 @@ async function deleteUser(req, res) {
   console.log(id);
   await info.findOneAndDelete(id);
 
-  return({
-    status: 200,
-    statusText: "OK",
-    message: "Client deleted!"
+  res.send({
+    "status": "200",
   });
 
   // users.pop(id);

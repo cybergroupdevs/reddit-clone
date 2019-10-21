@@ -1,6 +1,7 @@
 var model = require("../schema/signUpSignInDetails").signUpSignInModel;
 const bcrypt = require('bcrypt');
 const { createUser } = require("./users");
+var validator = require("email-validator");
 
 module.exports = {
     getUsers,
@@ -16,7 +17,7 @@ async function getUsers(body) {
 
 // email and password is saved in database if it does not exist otherwise return error status
 async function createUsers(req) {
-  
+    if(validator.validate(req.body.email)){
         const userInfoFromClient = req.body;  // User info from client side  [email] and [password]
         var myPlaintextPassword = userInfoFromClient.password; 
         var salt = bcrypt.genSaltSync(10);
@@ -25,12 +26,13 @@ async function createUsers(req) {
         const UserExist = await getUsers(req.body);
         if(UserExist.length==0){    //if user does not exist
             model.create(userInfoFromClient)
-            await createUser(req);
             return ({"status":"200", "message":"successfuly registered"})
         }
         else {                      // if user already exist
             return ({"status":"409","message":"Email already exist"})  //
-        }       
+        }    
+    }
+    return ({"status":"400","message":"Email validation failed"})
    
 }
 

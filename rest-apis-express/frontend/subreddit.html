@@ -104,6 +104,9 @@
             font-weight: 600;
             color: rgb(0, 0, 0, 0.8);
             text-align: center;
+        }
+        
+        i {
             cursor: pointer;
         }
         
@@ -224,7 +227,10 @@
         <div class="txt-post" style="margin-top: 16px;">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus cum veniam debitis, deleniti qui voluptatem? Hic, non? Iure fugit, cupiditate dolor nesciunt nostrum sed in consectetur, dolorem maxime modi a! ada
         </div>
+        <div class="optionbox">
 
+        </div>
+        
         <!-- <div class="container">
             <div class="div1">
                 <span id="img" style="margin-top: 0px;">
@@ -268,7 +274,7 @@
         </div>
 
     </div> -->
-        <iframe src="./createPost.html" height="600" width="485" style="float: right;margin-top: 0px;"></iframe>
+        <iframe src="./createPost.html" height="600" width="485" style="float: right;margin-top: -6px; position: fixed; border: none; margin-left: 840px;"></iframe>
         <script>
             function posts() {
                 $(document).ready(function() {
@@ -282,22 +288,20 @@
                         },
                         success: async function(recent) {
                             console.log("Authorized User");
-
                             console.log(recent);
-                            // var date = recent[0].Comments[0].subreddit[0].Post[0].Comment_on_post[0].Date
-                            // var comment = recent[0].Comments[0].subreddit[0].Post[0].Comment_on_post
-                            // var post = recent[0].Comments[0].subreddit[0].Post
                             var i = 0
                             var l = recent.length
                             console.log(l)
+                            var count=1;
                             while (i < recent.length) {
                                 var subred = await recent[i].data
                                 var title = await recent[i].post_title
-
+                                var post_id = await recent[i]._id
                                 var p = document.createElement("p");
-                                p.innerHTML = "<div class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<i class='fa fa-comments-o c grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + " 100% Upvoted" + "</span>" + "</div>";
-                                document.body.appendChild(p);
+                                p.innerHTML =  "<div class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<i class='fa fa-comments-o c grow' postId='"+post_id+"' style='font-size:20px'>" + "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' id='delete' onclick='deletepost(this)' postId='"+post_id+"'  style='font-size:20px' >" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" +"<div style=`display:none` >"+ count + "</span>" + "</div>";
+                                document.body.append(p);
                                 i++;
+                                count++;
                             }
                         },
                         error: function(xhr, textStatus, errorThrown) {
@@ -310,6 +314,53 @@
                     });
                 });
             }
+
+            function deletepost(value){  
+               var postid = $(value).attr('postId');
+                $.ajax({
+                        type: "DELETE",
+                        url: "http://127.0.0.1:9000/api/posts",
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        data : JSON.stringify({
+                            "postid": postid,
+                        }),
+                        headers: {
+                            "token": localStorage.getItem("token")
+                        },
+                        success: function(recent) {
+                            location.reload()
+                            console.log(recent);
+                        },
+                        error: function(xhr, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                        }
+                    });
+                }
+            
+                function comment(value){  
+                var postid = $(value).attr('postId');
+                $.ajax({
+                        type: "DELETE",
+                        url: "http://127.0.0.1:9000/api/posts",
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        data : JSON.stringify({
+                            "postid": postid,
+                        }),
+                        headers: {
+                            "token": localStorage.getItem("token")
+                        },
+                        success: function(recent) {
+                            location.reload()
+                            console.log(recent);
+                        },
+                        error: function(xhr, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                        }
+                    });
+                }
+
             async function showuser() {
                 $(document).ready(function() {
                     $.ajax({
@@ -325,10 +376,9 @@
                             if (recent.message == "session expired") {
                                 location.replace("../index.html")
                             } else {
-
                                 console.log("recent name" + recent.name)
-                                localStorage.setItem('subreddit_user_id', recent.subreddit[0]._id);
-                                localStorage.setItem('subreddit_id', recent.subreddit[0]._id);
+                                    //localStorage.setItem('subreddit_user_id', recent._id);
+                                localStorage.setItem('subreddit_id', recent._id);
                                 showuserheader(recent.name)
                                     //location.replace("./createPost.html")
                             }
