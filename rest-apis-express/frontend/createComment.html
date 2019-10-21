@@ -265,16 +265,16 @@
         </nav> -->
         <div class="create_flex container">
             <div class="flex1">
-                <div class="create1">Post</div>
+                <div class="create1">Comment</div>
                 <div class="create2">
                     <form>
-                        <input type="text" id="title" placeholder="Title">
+                        
                         <div class="textarea">
                             <div class="ta1"><span style="padding: 10px;"><bold style="font-weight: 500;">B &nbsp;&nbsp;</bold><i>i</i></span></div>
                             <div class="ta2">
-                                <textarea rows="6" id="postdata">Text (Optional)
+                                <textarea rows="6" id="postdata">
                                 </textarea>
-                                <button type="button" class="postbutton" onclick="posts()">Post</button>
+                                <button type="button" class="postbutton" onclick="comments()">Comment</button>
                             </div>
                         </div>
                     </form>
@@ -284,19 +284,16 @@
                 </div>
 
             </div>
-            <!-- <div class="flex2">
-
-            </div> -->
         </div>
 
     </div>
 </body>
 <script>
-    async function posts() {
+    async function comments() {
             $(document).ready(function() {
                 $.ajax({
                     type: "POST",
-                    url: "http://127.0.0.1:9000/api/posts",
+                    url: "http://127.0.0.1:9000/api/comments",
                     contentType: "application/json;charset=utf-8",
                     dataType: "json",
                     headers: {
@@ -305,8 +302,8 @@
                         "subreddit_user_id": localStorage.getItem("subreddit_user_id")
                     },
                     data: JSON.stringify({
-                        "data" : $("#postdata").val(),
-                        "title": $("#title").val()
+                        "comment_data" : $("#postdata").val()
+                        
                     }),
                     success: function(recent) {   
                         console.log(recent);

@@ -5,6 +5,7 @@ module.exports = {
     deleteComments
 };
 const { postCommentModel } = require("../schema/postComment");
+const { decodeToken } = require("../models/users");
 //const users = [];
 const { SECRET } = require("../config/config")
 const jwt = require("jsonwebtoken")
@@ -27,16 +28,30 @@ async function createComments(req, res) {
     let body, details;
     // body=req.body;
     // details= new info(body)
-    console.log(details)
+    //console.log(details)
     try{
-      response=await postCommentModel.create(req.body);
-      return response
+        const response =await createCommentdata(req);
+        return response
 
     } catch (err) {
         response = { error: err }
         return response
     }
 
+}
+async function createCommentdata(req){
+    const decoded = decodeToken(req);
+    const json = {
+        "user_id" : decoded.id,
+        "subreddit_user_id" : req.headers.subreddit_user_id,
+        "subreddit_id" : req.headers.subreddit_id,
+        "post_id": req.body.title,
+        "comment_data": req.body.data,
+    }
+    await postdataModel.create(json).catch((err)=>{
+        console.log(err);
+    });
+    return ({"status":"200"})
 }
 
 async function updateComments(req, res) {
