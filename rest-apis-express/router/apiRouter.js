@@ -24,7 +24,7 @@ function apiRouter() {
     app.use("/uploads",express.static('public'));
 
 
-    app.get(`${baseURI}/users`, middleware,async function(req, res) {
+    app.get(`${baseURI}/users`,async function(req, res) {
         const result = await users.getUsers(req, res)
         res.send(result);
     });
