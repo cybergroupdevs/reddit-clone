@@ -1,17 +1,16 @@
 module.exports = {
-    getPosts,
+    getPost,
     createPost,
     updatePost,
     deletePost
 };
 const { postModel } = require("../schema/postSchema")
-const { SECRET } = require("../config/config")
-const jwt = require("jsonwebtoken")
-async function getPosts(req) {
+const { decodeToken } = require("../models/users");
+const { postdataModel } = require("../schema/postdata")
+async function getPost(req) {
     try {
-        const token = req.headers.token
-        const decoded = jwt.verify(token, new Buffer(SECRET, 'base64'));
-        const det = await postModel.find({ "_id": decoded.id });
+        const decoded = decodeToken(req);
+        const det = await postdataModel.find({ "user_id": decoded.id });
         return det;
     } catch (err) {
         console.log(err);
@@ -19,12 +18,6 @@ async function getPosts(req) {
 }
 
 async function createPost(req) {
-    //const decoded = decodeToken(req);
-    const id = req.body._id;
-    console.log(id);
-    // const data =await postModel.find({ "user_id": id });
-    // if(data.length())
-    const subid = { "sub_id": req.body.subreddit_id }
     debugger
     const decoded = decodeToken(req);
     // const json = {
@@ -54,15 +47,8 @@ async function datapost(req) {
     }
     await postdataModel.create(json).catch((err) => {
         console.log(err);
-    })
-
-}
-
-async function datapost(req) {
-    await postdataModel.findOneAndUpdate({ "post_id": req.body.post_id }, { "data": req.body.data }, { safe: true, upsert: true }).exec().catch((err) => {
-        console.log(err);
-    })
-
+    });
+    return ({ "status": "200" })
 }
 
 async function updatePost(req, res) {
