@@ -104,6 +104,9 @@
             font-weight: 600;
             color: rgb(0, 0, 0, 0.8);
             text-align: center;
+        }
+        
+        i {
             cursor: pointer;
         }
         
@@ -225,7 +228,7 @@
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus cum veniam debitis, deleniti qui voluptatem? Hic, non? Iure fugit, cupiditate dolor nesciunt nostrum sed in consectetur, dolorem maxime modi a! ada
         </div>
 
-        
+
         <!-- <div class="container">
             <div class="div1">
                 <span id="img" style="margin-top: 0px;">
@@ -269,7 +272,7 @@
         </div>
 
     </div> -->
-        <iframe src="./createPost.html" height="600" width="485" style="float: right;margin-top: 0px;"></iframe>
+        <iframe src="./createPost.html" height="600" width="485" style="float: right;margin-top: -6px; position: fixed; border: none; margin-left: 840px;"></iframe>
         <script>
             function posts() {
                 $(document).ready(function() {
@@ -327,7 +330,7 @@
                                 location.replace("../index.html")
                             } else {
                                 console.log("recent name" + recent.name)
-                                //localStorage.setItem('subreddit_user_id', recent._id);
+                                    //localStorage.setItem('subreddit_user_id', recent._id);
                                 localStorage.setItem('subreddit_id', recent._id);
                                 showuserheader(recent.name)
                                     //location.replace("./createPost.html")
