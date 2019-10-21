@@ -22,7 +22,7 @@ async function createComments(req) {
         "post_id": req.body.post_id,
         "comment_data": req.body.data,
     }
-    await postCommentModel.create(json).catch((err)=>{
+    await postdataModel.create(json).catch((err)=>{
         console.log(err);
     });
     return ({"status":"200"})
@@ -47,7 +47,7 @@ async function updateComments(req, res) {
     const body = req.body;
     const _id = req.query.id;
     console.log(body);
-    await postCommentModel.findByIdAndUpdate(_id, body)
+    await info.findByIdAndUpdate(_id, body)
     return ({
         status: 200,
         statusText: "OK",
@@ -58,7 +58,7 @@ async function updateComments(req, res) {
 async function deleteComments(req, res) {
     const id = req.query.id;
     console.log(id);
-    await postCommentModel.findByIdAndDelete(id);
+    await info.findByIdAndDelete(id);
 
     res.send({
         status: 200,
