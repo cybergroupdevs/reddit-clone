@@ -5,17 +5,14 @@ module.exports = {
     deleteComments
 };
 const { postCommentModel } = require("../schema/postComment");
-const { decodeToken } = require("../models/users");
-//const users = [];
-const { SECRET } = require("../config/config")
-const jwt = require("jsonwebtoken")
+const users = [];
 
 async function getComments(req) {
     // console.log(info.find());
     try {
         const token = req.headers.token
         const decoded = jwt.verify(token, new Buffer(SECRET, 'base64'));
-        const det = await postCommentModel.find({ "user_id": decoded.id });
+        const det = await info.find({ "user_id": decoded.id });
        // console.log(det);
         return det;
     } catch (err) {
@@ -23,7 +20,7 @@ async function getComments(req) {
     }
 }
 
-async function createComments(req) {
+async function createComments(req, res) {
     let response;
     let body, details;
     // body=req.body;
@@ -45,10 +42,10 @@ async function createCommentdata(req){
         "user_id" : decoded.id,
         "subreddit_user_id" : req.headers.subreddit_user_id,
         "subreddit_id" : req.headers.subreddit_id,
-        "post_id": req.body.post_id,
-        "comment_data": req.body.comment_data,
+        "post_id": req.body.title,
+        "comment_data": req.body.data,
     }
-    await postCommentModel.create(json).catch((err)=>{
+    await postdataModel.create(json).catch((err)=>{
         console.log(err);
     });
     return ({"status":"200"})
@@ -59,7 +56,7 @@ async function updateComments(req, res) {
     const _id = req.query.id;
     // console.log(id);
     console.log(body);
-    await postCommentModel.findByIdAndUpdate(_id, body)
+    await info.findByIdAndUpdate(_id, body)
     return ({
         status: 200,
         statusText: "OK",
@@ -70,7 +67,7 @@ async function updateComments(req, res) {
 async function deleteComments(req, res) {
     const id = req.query.id;
     console.log(id);
-    await postCommentModel.findByIdAndDelete(id);
+    await info.findByIdAndDelete(id);
 
     res.send({
         status: 200,

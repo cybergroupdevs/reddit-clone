@@ -59,23 +59,23 @@ function apiRouter() {
 
     app.get(`${baseURI}/comments`, middleware, async function(req, res) {
 
-        const result = await userscomments.getComments(req, res);
+        const result = await userscomments.getUsers(req, res);
         console.log(result)
         res.send(result);
     });
 
-    app.post(`${baseURI}/comments`,middleware, async function(req, res) {
-        const result = userscomments.createComments(req, res)
+    app.post(`${baseURI}/comments`, middleware, async function(req, res) {
+        const result = userscomments.createUsers(req, res)
         res.send(result);
     });
 
     app.patch(`${baseURI}/comments`, middleware, async function(req, res) {
-        const result = userscomments.updateComments(req, res)
+        const result = userscomments.updateUsers(req, res)
         res.send(result);
     });
 
     app.delete(`${baseURI}/comments`, middleware, async function(req, res) {
-        const result = userscomments.deleteComments(req, res)
+        const result = userscomments.deleteUsers(req, res)
         res.send(result);
     });
 
