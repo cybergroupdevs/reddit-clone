@@ -95,7 +95,8 @@ function apiRouter() {
     });
 
     app.delete(`${baseURI}/posts`, middleware, async function(req, res) {
-        const result = post.deletePost(req, res)
+        debugger
+        const result =await post.deletePost(req)
         res.send(result);
     });
 

@@ -20,14 +20,6 @@ async function getPost(req) {
 async function createPost(req) {
    
     const decoded = decodeToken(req);
-    // const json = {
-    //     "user_id" : decoded.id,
-    //     "subreddit_user_id" : req.headers.subreddit_user_id,
-    //     "subreddit_id" : req.headers.subreddit_id
-    // }
-    // await postModel.create(json).catch((err)=>{
-    //     console.log(err);
-    // });
     const response = await datapost(req);
     return response
 }
@@ -64,22 +56,20 @@ async function updatePost(req, res) {
     });
 }
 
-async function deletePost(req, res) {
-    const id = req.query.id;
-    console.log(id);
-    await info.findByIdAndDelete(id);
-
-    res.send({
-        status: 200,
-        statusText: "OK",
-        message: "Client deleted!"
+async function deletePost(req) {
+    debugger
+    const id = req.body.postid;
+    await postdataModel.findByIdAndDelete(id,(err)=>{
+        console.log(err);
+        const response = {
+            "status" : "409"
+        }
+        return response
     });
 
-    // users.pop(id);
+    const response = {
+        "status" : "200"
+    }
+    return response
 
-    // res.send({
-    //   status: 200,
-    //   statusText: "OK",
-    //   message: "Client Deleted!"
-    // });
 }
