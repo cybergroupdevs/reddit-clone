@@ -6,7 +6,7 @@ module.exports = {
   updateUser,
   deleteUser,
   decodeToken,
-  createfolder
+  uploadPhoto
 };
 const { info } = require("../schema/Userprofile")
 const { SECRET } = require("../config/config")
@@ -32,14 +32,12 @@ async function getUsers(req) {
   }
 }
 
-async function createfolder(req){
-  var dir = "../pictures";
-
-  if (!fs.existsSync(dir)){
-    fs.mkdirSync(dir);
-  }
-
+async function uploadPhoto(req,res){
+  if(req.file) {
+    res.json(req.file);
 }
+else throw 'error';
+};
 
 async function createUser(req, res) {
   let response;

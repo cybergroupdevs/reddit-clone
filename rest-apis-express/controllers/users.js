@@ -4,7 +4,7 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
-  createfolder
+  uploadPhoto
 }
 
 async function getUsers(req, res) {
@@ -32,8 +32,8 @@ async function updateUser(req, res) {
   res.send(response);
 }
 
-async function createfolder(req){
-  const response = await user.createfolder(req)
+async function uploadPhoto(req){
+  const response = await user.uploadPhoto(req)
   return response;
 }
 

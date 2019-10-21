@@ -31,7 +31,26 @@
         background-color:white;
         border: white;
     }
+    ul
+    {
+        margin-left: 20px;
+        text-align: justify;
+        
+    }
 
+    li{
+        padding: 10px;
+        text-transform:uppercase; 
+        text-align: justify;
+        
+    }
+    #subname,#post,#comments{
+        font-weight: 600;
+        color: rgba(0, 0, 0,0.9);
+    }
+    body{
+        background-color: rgba(220, 224, 228,0.3);
+    }
 </style>
 <script>
     let flag = 0;
@@ -81,16 +100,24 @@
             });
         });
     }
-    function border(){
+    function border(a){
         $(document).ready(function(){
+            document.getElementById("subname").style.borderBottom="none"
+            document.getElementById("subname").style.color="black"
+            document.getElementById("post").style.borderBottom="none"
+            document.getElementById("post").style.color="black"
+            document.getElementById("comments").style.borderBottom="none"
+            document.getElementById("comments").style.color="black"
+
+            document.getElementById(a).style.borderBottom="3px solid #0079D3"
+            document.getElementById(a).style.color="#0079D3"
             
-            $("#subname").css("border-bottom","4px solid black");
         });
     };
 </script>
 
 <body>
-
+<div class="main">
     <nav class="navbar navbar-light " style="background-color: rgb(255, 255, 255);">
         <a class="navbar-brand"><img src="Redditi.png" style="height: 28px;"><span
                 style="font-weight: 700; margin-left: 10px;">reddit</span></a>
@@ -102,22 +129,26 @@
     </nav>
 
     <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 5px;">
             <div class="collapse navbar-collapse" id="navbarText " style="background-color: white;">
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav" style="align-content: center;">
                     <li class="nav-item">
-                        <button onclick="fun();border()" id="subname" style="border: 0;">subname </a>
+                        <button onclick="fun();border('subname')" id="subname" style="border: 0;">Subname </a>
                     </li>
                     <li class="nav-item">
-                        <button href="#" id="post" style="border: 0; margin-left: 200px;">Post</a>
+                        <button onclick="border('post')" href="#" id="post" style="border: 0; margin-left: 200px;">Post</a>
                     </li>
+                    <li class="nav-item">
+                            <button onclick="border('comments')" href="#" id="comments" style="border: 0; margin-left: 200px;">Comments</a>
+                        </li>
                 </ul>
             </div>
         </nav>
     </div>
-    <div id="divshow" style="text-align: center; margin-top: 40px;">
-    </div>
-
+    <p id="divshow" class="container" style="text-align: center; margin-top: 80px; background-color: rgb(255, 255, 255); width: 50%; border-radius: 8px;">
+    </p>
+    
+</div>
 </body>
 
 </html>
