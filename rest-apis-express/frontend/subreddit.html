@@ -233,8 +233,7 @@
                         console.log(l)
                         while (i < recent.length) {
                             var subred = await recent[i].data
-                            var title = await recent[i].post_title
-                            
+                            var title = await recent[i].post_title;
                             var p = document.createElement("p");
                             p.innerHTML =  "<div>"+title+"</div>"+subred;
                             document.body.appendChild(p);

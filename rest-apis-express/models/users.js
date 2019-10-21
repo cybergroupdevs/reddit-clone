@@ -1,4 +1,3 @@
-
 module.exports = {
   getUsers,
   createUser,
@@ -7,6 +6,7 @@ module.exports = {
   decodeToken,
   createfolder
 };
+
 const { info } = require("../schema/Userprofile")
 const { SECRET } = require("../config/config")
 const jwt = require('jsonwebtoken');
@@ -40,7 +40,7 @@ async function createfolder(req){
 
 }
 
-async function createUser(req, res) {
+async function createUser(req) {
     let response;
     let body,details;
     body=req.body
