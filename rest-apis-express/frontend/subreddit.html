@@ -316,6 +316,10 @@
                     });
                 });
             }
+            function showcomments()
+            {
+
+            }
             async function showuser() {
                 $(document).ready(function () {
                     $.ajax({
@@ -376,7 +380,7 @@
                                 console.log(subred)
                                 console.log("------------------------")
                                 var p = document.createElement("p");
-                                p.innerHTML = "<div class='post'>" + "</span>" + "<span class='sub'>" + subred + "</span>" + "<i class='fa fa-comments-o c grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + " 100% Upvoted" + "</span>" + "</div>";
+                                p.innerHTML = "<div class='post'>" + "</span>" + "<span class='sub'>" + subred + "</span>" + "<i class='fa fa-comments-o c grow' style='font-size:20px'>"+ "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + " 100% Upvoted" + "</span>" + "</div>";
                                 document.body.appendChild(p);
                                 i++;
                             }

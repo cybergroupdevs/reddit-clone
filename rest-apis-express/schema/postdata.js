@@ -4,7 +4,11 @@ const post = new mongoose.Schema({
     subreddit_user_id: Object, // id of the owner of subreddit
     subreddit_id:Object, // id of subreddit
     post_title: String,
-    data: String // post text
+    data: String, // post text
+    post_time: {
+        type: Date,
+        default: Date.now()
+    }
 });
 const postdataModel = mongoose.model("postdataInfo", post);
 module.exports = {
