@@ -39,6 +39,10 @@ async function createComments(req) {
 }
 async function createCommentdata(req) {
     const decoded = decodeToken(req);
+    console.log("---------------")
+    console.log(req.body.comment_data)
+    console.log("---------------")
+
     const json = {
         "user_id": decoded.id,
         "subreddit_user_id": req.headers.subreddit_user_id,
