@@ -19,42 +19,60 @@
 </head>
 <title>Testing</title>
 <style>
-    button
-    {
-            margin-left: 290px;
-            background-color: white;
-            color:black;
-    }
-    nav
-    {
-        color: grey;
-        background-color:white;
-        border: white;
-    }
-    ul
-    {
-        margin-left: 20px;
-        text-align: justify;
-        
+    button {
+        margin-left: 290px;
+        background-color: white;
+        color: black;
     }
 
-    li{
-        padding: 10px;
-        text-transform:uppercase; 
+    nav {
+        color: grey;
+        background-color: white;
+        border: white;
+    }
+
+    ul {
+        margin-left: 20px;
         text-align: justify;
-        
+
     }
-    #subname,#post,#comments{
+
+    .image {
+        display: none;
+    }
+
+    li {
+        padding: 10px;
+        text-transform: uppercase;
+        text-align: justify;
+
+    }
+
+    #subname,
+    #post,
+    #comments {
         font-weight: 600;
-        color: rgba(0, 0, 0,0.9);
+        color: rgba(0, 0, 0, 0.9);
     }
-    body{
-        background-color: rgba(220, 224, 228,0.3);
+
+    body {
+        background-color: rgba(220, 224, 228, 0.3);
     }
 </style>
 <script>
     let flag = 0;
-    function fun() {
+    function hide(divid) {
+        console.log("rawat")
+
+
+        document.getElementById("divshow").style.display = "none"
+        document.getElementById("image").style.display = "none"
+        //document.getElementById().style.display="none"
+        //document.getElementById().style.display="none"
+        document.getElementById(divid).style.display = "block";
+    }
+
+    function getSub() {
         $(document).ready(function () {
 
             const b = localStorage.setItem("token", "5da02df280ad372108d7d584")
@@ -88,7 +106,7 @@
                             i++;
                         }
                         flag = 1;
-                        
+
                     }
                     //document.getElementById("posts").innerHTML=po;
 
@@ -100,55 +118,70 @@
             });
         });
     }
-    function border(a){
-        $(document).ready(function(){
-            document.getElementById("subname").style.borderBottom="none"
-            document.getElementById("subname").style.color="black"
-            document.getElementById("post").style.borderBottom="none"
-            document.getElementById("post").style.color="black"
-            document.getElementById("comments").style.borderBottom="none"
-            document.getElementById("comments").style.color="black"
+    function border(a) {
+        $(document).ready(function () {
+            document.getElementById("subname").style.borderBottom = "none"
+            document.getElementById("subname").style.color = "black"
+            document.getElementById("post").style.borderBottom = "none"
+            document.getElementById("post").style.color = "black"
+            document.getElementById("comments").style.borderBottom = "none"
+            document.getElementById("comments").style.color = "black"
+            document.getElementById("uploadpic").style.borderBottom = "none"
+            document.getElementById("uploadpic").style.color = "black"
+            document.getElementById(a).style.borderBottom = "3px solid #0079D3"
+            document.getElementById(a).style.color = "#0079D3"
 
-            document.getElementById(a).style.borderBottom="3px solid #0079D3"
-            document.getElementById(a).style.color="#0079D3"
-            
         });
     };
 </script>
 
 <body>
-<div class="main">
-    <nav class="navbar navbar-light " style="background-color: rgb(255, 255, 255);">
-        <a class="navbar-brand"><img src="Redditi.png" style="height: 28px;"><span
-                style="font-weight: 700; margin-left: 10px;">reddit</span></a>
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-primary" type="submit" style="margin-left: 100px;">Login</button>
-            <button class="btn btn-primary" type="submit" style="margin-left: 10px;">SignUp</button>
-        </form>
-    </nav>
-
-    <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 5px;">
-            <div class="collapse navbar-collapse" id="navbarText " style="background-color: white;">
-                <ul class="navbar-nav" style="align-content: center;">
-                    <li class="nav-item">
-                        <button onclick="fun();border('subname')" id="subname" style="border: 0;">Subname </a>
-                    </li>
-                    <li class="nav-item">
-                        <button onclick="border('post')" href="#" id="post" style="border: 0; margin-left: 200px;">Post</a>
-                    </li>
-                    <li class="nav-item">
-                            <button onclick="border('comments')" href="#" id="comments" style="border: 0; margin-left: 200px;">Comments</a>
-                        </li>
-                </ul>
-            </div>
+    <div class="main">
+        <nav class="navbar navbar-light " style="background-color: rgb(255, 255, 255);">
+            <a class="navbar-brand"><img src="Redditi.png" style="height: 28px;"><span
+                    style="font-weight: 700; margin-left: 10px;">reddit</span></a>
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary" type="submit" style="margin-left: 100px;">Logout</button>
+            </form>
+            <img src="/router/uploads/images/8778c40ab4dafe10c8fb405efdc552dc"  width="80px" height="80px" style="border-radius: 40px;">
         </nav>
+
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 5px;">
+                <div class="collapse navbar-collapse" id="navbarText " style="background-color: white;">
+                    <ul class="navbar-nav" style="align-content: center;">
+                        <li class="nav-item">
+                            <button onclick="getSub();border('subname');hide('divshow')" id="subname"
+                                style="border: 0;">Subname </a>
+                        </li>
+                        <li class="nav-item">
+                            <button onclick="border('post')" href="#" id="post"
+                                style="border: 0; margin-left: 200px;">Post</a>
+                        </li>
+                        <li class="nav-item">
+                            <button onclick="border('comments')" href="#" id="comments"
+                                style="border: 0; margin-left: 200px;">Comments</a>
+                        </li>
+                        <li class="nav-item">   
+                            <button onclick="border('uploadpic'),hide('image')" href="#" id="uploadpic"
+                                style="border: 0; margin-left: 200px;">Upload Picture</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <p id="divshow" class="container"
+            style="text-align: center; margin-top: 80px; background-color: rgb(255, 255, 255); width: 50%; border-radius: 8px;">
+        </p>
+
     </div>
-    <p id="divshow" class="container" style="text-align: center; margin-top: 80px; background-color: rgb(255, 255, 255); width: 50%; border-radius: 8px;">
-    </p>
-    
-</div>
+    <div class="image" id="image" style="text-align: center; padding: 10px;">
+        <form action="http://127.0.0.1:9000/upload" method="post" enctype="multipart/form-data">
+            <input type="file" accept="image/*" name="image">
+            <input type="submit" value="upload">
+        </form>
+    </div>
 </body>
 
 </html>

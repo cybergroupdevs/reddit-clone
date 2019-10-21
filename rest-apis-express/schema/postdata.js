@@ -1,7 +1,10 @@
 const mongoose = require('mongoose')
 const post = new mongoose.Schema({
-   post_id: String,
-   data: String
+    user_id: Object, // logged on user
+    subreddit_user_id: Object, // id of the owner of subreddit
+    subreddit_id:Object, // id of subreddit
+    post_title: String,
+    data: String // post text
 });
 const postdataModel = mongoose.model("postdataInfo", post);
 module.exports = {

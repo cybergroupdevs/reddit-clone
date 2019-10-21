@@ -4,7 +4,7 @@ module.exports = {
     updateUser,
     deleteUser
 };
-const { info } = require("../schema/UserComments");
+const { postCommentModel } = require("../schema/postComment");
 const users = [];
 
 async function getUsers(req) {

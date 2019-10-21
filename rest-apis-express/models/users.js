@@ -1,5 +1,3 @@
-
-
 module.exports = {
   getUsers,
   createUser,
@@ -8,6 +6,7 @@ module.exports = {
   decodeToken,
   uploadPhoto
 };
+
 const { info } = require("../schema/Userprofile")
 const { SECRET } = require("../config/config")
 const jwt = require('jsonwebtoken');
@@ -39,26 +38,20 @@ async function uploadPhoto(req,res){
 else throw 'error';
 };
 
-async function createUser(req, res) {
-  let response;
-  let body, details;
-  body = req.body
-  //const user = info.find({ "_id": req.headers.id})
-  try {
-    const subPost = { "sub_name": req.body.sub_name };
-    debugger
-    response = await info.findOneAndUpdate({ "_id": req.headers.id }, {
-      $push: { "subreddit": subPost } 
-    })
-    return response;
-
+async function createUser(req) {
+    let response;
+    let body,details;
+    body=req.body
+    details= new info(body)
+    console.log(details)
+    try{
+      response=await details.save()
+      return response
+    }
+    catch{
+      
+    }
   }
-  catch (err) {
-    response = { error: err }
-    return response
-  }
-
-}
 
 async function updateUser(req, res) {
   const body = req.body;

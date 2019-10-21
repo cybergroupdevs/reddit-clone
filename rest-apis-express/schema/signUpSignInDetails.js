@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 var signUpSignInSchema = new mongoose.Schema({
-    email: String,
-    password: String
+    email: String, // Email of the registered user
+    password: String // Password of the registered user ... Password is stored in Bcrypt format
 });
 
 var signUpSignInModel = mongoose.model('userLoginInfo', signUpSignInSchema);
