@@ -231,49 +231,6 @@
 
         </div>
         
-        <!-- <div class="container">
-            <div class="div1">
-                <span id="img" style="margin-top: 0px;">
-                Advertisement</span>
-                <img src="add.jpg" class="img">
-
-            </div>
-        </div>
-        <div class="container">
-            <div class="div1 div2 flex">
-                <div class="f1">
-                    <div class="f11">
-                        <span style="font-size:14px; font-weight: 600;">Reddit</span>
-                        <span>About</span>
-                        <span>Careers</span>
-                        <span>Press</span>
-                        <span>Advertise</span>
-                        <span>Blog</span>
-                    </div>
-                    <div class="f12">
-                        <span style="font-size:14px; font-weight: 600;">Using Reddit</span>
-                        <span>Help</span>
-                        <span>Reddit App</span>
-                        <span>Reddit Premium</span>
-                        <span>Reddit Gifts</span>
-                        <span>Directory</span>
-                        <span>Reddit Coins</span>
-                    </div>
-                </div>
-                <div class="f2">
-                    <span>Terms | Content Policy | Privacy Policy | Mod Policy</span>
-                    <span>Reddit Inc 2019. All rights reserved</span>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="posts_all" id="x">
-
-            </div>
-            <p class=" pos" style="display: none"></p>
-        </div>
-
-    </div> -->
         <iframe src="./createPost.html" height="600" width="485" style="float: right;margin-top: -6px; position: fixed; border: none; margin-left: 840px;"></iframe>
         <script>
             function posts() {
@@ -298,7 +255,7 @@
                                 var title = await recent[i].post_title
                                 var post_id = await recent[i]._id
                                 var p = document.createElement("p");
-                                p.innerHTML =  "<div class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<i class='fa fa-comments-o c grow' postId='"+post_id+"' style='font-size:20px'>" + "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' id='delete' onclick='deletepost(this)' postId='"+post_id+"'  style='font-size:20px' >" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" +"<div style=`display:none` >"+ count + "</span>" + "</div>";
+                                p.innerHTML =  "<div class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<i class='fa fa-comments-o c grow' id='comments' onclick='showcomments()' postId='"+post_id+"' style='font-size:20px'>" + "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' id='delete' onclick='deletepost(this)' postId='"+post_id+"'  style='font-size:20px' >" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" +"<div style=`display:none` >"+ count + "</span>" + "</div>";
                                 document.body.append(p);
                                 i++;
                                 count++;
@@ -337,12 +294,15 @@
                         }
                     });
                 }
-            
-                function comment(value){  
-                var postid = $(value).attr('postId');
+                
+                function showcomments(){  
+                var postid = $("#comments").attr('postId');
+                var p1  = document.createElement("p1");
+                p1.innerHTML = "<div >"+"<textarea rows='6' id='putcomment'>"+"</textarea>"+"<button type='button' class='postbutton' onclick='postcomment()'>"+Comment+"</button>"+"</div>";
+                document.body.append(p1);
                 $.ajax({
-                        type: "DELETE",
-                        url: "http://127.0.0.1:9000/api/posts",
+                        type: "GET",
+                        url: "http://127.0.0.1:9000/api/comments",
                         contentType: "application/json;charset=utf-8",
                         dataType: "json",
                         data : JSON.stringify({
@@ -352,8 +312,21 @@
                             "token": localStorage.getItem("token")
                         },
                         success: function(recent) {
-                            location.reload()
+                            console.log("Authorized User");
                             console.log(recent);
+                            var i = 0
+                            var l = recent.length
+                            console.log(l)
+                            var count=1;
+                            while (i < recent.length) {
+                                var data =  recent[i].comment_data
+                                var comment_id = recent[i]._id
+                                var p = document.createElement("p");
+                                p.innerHTML =  "<div class='post'>" + "<span class='sub'>" + data + "<i class='fa fa-trash-o t grow' id='delete' onclick='deletepost(this)' postId='"+comment_id+"'  style='font-size:20px' >" + "</i>"  + "<div style=`display:none` >"+ count + "</span>" + "</div>";
+                                $("post").append(p);
+                                i++;
+                                count++;
+                            }
                         },
                         error: function(xhr, textStatus, errorThrown) {
                             console.log(errorThrown);

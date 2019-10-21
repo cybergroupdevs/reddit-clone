@@ -6,25 +6,15 @@ module.exports = {
     deleteComments
 }
 
-async function getComments(req, res) {
+async function getComments(req) {
     const response = await usercomments.getComments(req);
     console.log(response);
     return response;
 }
 
-async function createComments(req, res) {
-    console.log(req);
-    await usercomments.createComments(req, res);
-    //console.log(res);
-    //res.send(JSON.stringify(response))
-    //const body = req.body;
-    //users.push(body);
-
-    return ({
-        status: 200,
-        statusText: "OK",
-        message: "Client Inserted!"
-    });
+async function createComments(req) {
+    const response = await usercomments.createComments(req);
+    return response
 }
 
 async function updateComments(req, res) {
