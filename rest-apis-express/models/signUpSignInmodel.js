@@ -1,7 +1,6 @@
 var model = require("../schema/signUpSignInDetails").signUpSignInModel;
 const bcrypt = require('bcrypt');
-const authenticator = require("../auth/authenticator");
-
+const { createUser } = require("./users");
 
 module.exports = {
     getUsers,
@@ -15,28 +14,32 @@ async function getUsers(body) {
         return query
 }
 
+// email and password is saved in database if it does not exist otherwise return error status
 async function createUsers(req) {
   
-        const userInfoFromClient = req.body;
-        var myPlaintextPassword = userInfoFromClient.password;
+        const userInfoFromClient = req.body;  // User info from client side  [email] and [password]
+        var myPlaintextPassword = userInfoFromClient.password; 
         var salt = bcrypt.genSaltSync(10);
-        var hash = bcrypt.hashSync(myPlaintextPassword, salt);
+        var hash = bcrypt.hashSync(myPlaintextPassword, salt);  
         userInfoFromClient.password = hash;
         const UserExist = await getUsers(req.body);
-        if(UserExist.length==0){
+        if(UserExist.length==0){    //if user does not exist
             model.create(userInfoFromClient)
-            return ({"status":"200"})
+            await createUser(req);
+            return ({"status":"200", "message":"successfuly registered"})
         }
-        else {
-            return ({"status":"400"})
-        }
-        
+        else {                      // if user already exist
+            return ({"status":"409","message":"Email already exist"})  //
+        }       
    
 }
 
+
+
+
+// TODO: Update and Delete functionalities will be implemented in later updates
 async function updateUsers(req, res) {
     const userInfoFromClient = req.body;
-    //const query = model.findByIdAndUpdate({_id:userInfoFromClient._id});
     const query = model.findByIdAndUpdate(req.body._id, { $set: req.body }, function (err, result) {
         if (err) {
             console.log(err);

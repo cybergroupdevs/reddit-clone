@@ -10,7 +10,7 @@ const { postdataModel } = require("../schema/postdata")
 async function getPost(req) {
     try {
         const decoded = decodeToken(req);
-        const det = await postdataModel.find({"user_id":decoded.id});
+        const det = await postdataModel.find({ "user_id": decoded.id });
         return det;
     } catch (err) {
         console.log(err);
@@ -28,16 +28,16 @@ async function createPost(req) {
     // await postModel.create(json).catch((err)=>{
     //     console.log(err);
     // });
-    const response =await datapost(req);
+    const response = await datapost(req);
     return response
 }
 
-async function datapost(req){
+async function datapost(req) {
     const decoded = decodeToken(req);
     const json = {
-        "user_id" : decoded.id,
-        "subreddit_user_id" : req.headers.subreddit_user_id,
-        "subreddit_id" : req.headers.subreddit_id,
+        "user_id": decoded.id,
+        "subreddit_user_id": req.headers.subreddit_user_id,
+        "subreddit_id": req.headers.subreddit_id,
         "post_title": req.body.title,
         "data": req.body.data,
         // "post_time" : {
@@ -45,10 +45,10 @@ async function datapost(req){
         //             "default": Date.now()
         // }
     }
-    await postdataModel.create(json).catch((err)=>{
+    await postdataModel.create(json).catch((err) => {
         console.log(err);
     });
-    return ({"status":"200"})
+    return ({ "status": "200" })
 }
 
 async function updatePost(req, res) {

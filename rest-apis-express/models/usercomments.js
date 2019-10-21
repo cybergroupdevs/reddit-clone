@@ -5,10 +5,14 @@ module.exports = {
     deleteComments
 };
 const { postCommentModel } = require("../schema/postComment");
+<<<<<<< HEAD
 const { decodeToken } = require("../models/users");
 //const users = [];
 const { SECRET } = require("../config/config")
 const jwt = require("jsonwebtoken")
+=======
+const users = [];
+>>>>>>> 130cfdc34bc28d89c20dfd7d236eaf52e28e1498
 
 async function getComments(req) {
     // console.log(info.find());

@@ -259,8 +259,8 @@
                     <img src="cross.svg" style="height: 20px; float: right; margin-top: -50px; cursor: pointer;" onclick="divclose()">
                     <img src="https://cdn0.iconfinder.com/data/icons/social-media-2092/100/social-36-512.png" style="height: 50px;">
                     <span class="signn">Sign In</span>
-                    <input type="email" id="email" placeholder="Username">
-                    <input type="password" id="password" placeholder="Password">
+                    <input type="email" id="email" placeholder="Username" required>
+                    <input type="password" id="password" placeholder="Password" required>
                     <button id="signin" class="btnn" onclick="signIn()">Sign In</button>
                     <span class="signn new">New to reddit? <span onclick="showsignup()" style="cursor: pointer; font-weight: 700; color: blue;">SIGN UP</span></span>
                 </div>
@@ -269,10 +269,10 @@
                 <div class="credentials_mid">
                     <img src="cross.svg" style="height: 20px; float: right; margin-top: -50px; cursor: pointer;" onclick="divclose()">
                     <span class="signnn">By having a Reddit account, you can join, vote,</span><span class="signnn">and comment on all your favorite Reddit</span><span class="signnn"> content.</span>
-                    <input type="email" id="emailsignup" placeholder="Enter Email">
-                    <input type="password" id="passwordsignup" placeholder="Enter Password">
+                    <input type="email" id="emailsignup" placeholder="Enter Email" required>
+                    <input type="password" id="passwordsignup" placeholder="Enter Password" required>
 
-                    <button id="signup" class="btnn" onclick="showsignup2()">Sign Up</button>
+                    <button id="signup" class="btnn" onclick="signUp()">Sign Up</button>
                     <span class="signn new">Already a Redditor? <span  onclick="show()" style="cursor: pointer; font-weight: 700; color: blue;">LOG IN</span></span>
                     <span class="signn new" style="font-size: 12px; font-weight: 400; margin-top: 20px; text-align: left;">By clicking next, you agree to our<a href="#"> Terms </a> and that you have read our <a href="#">Privacy Policy</a> and <a href="#">Content Policy</a>.</span>
                 </div>
@@ -281,9 +281,9 @@
                 <div class="credentials_mid">
                     <img src="cross.svg" style="height: 20px; float: right; margin-top: -50px; cursor: pointer;" onclick="divclose()">
                     <span class="signnn">By having a Reddit account, you can join, vote,</span><span class="signnn">and comment on all your favorite Reddit</span><span class="signnn"> content.</span>
-                    <input type="text" id="namesignup" placeholder="Enter Name">
-                    <input type="text" id="urlsignup" placeholder="Enter Url of Image">
-                    <input type="text" id="subredditsignup" placeholder="Enter Name of Subreddit">
+                    <input type="text" id="namesignup" placeholder="Enter Name" required>
+                    <button onclick="myFunction()" id="profile_pic">Click to upload profile picture</button>
+                    <input type="text" id="subredditsignup" placeholder="Enter Name of Subreddit" required>
                     <button id="signup" class="btnn" onclick="signUp()">Sign Up</button>
                     <span class="signn new">Already a Redditor? <span  onclick="show()" style="cursor: pointer; font-weight: 700; color: blue;">LOG IN</span></span>
                     <span class="signn new" style="font-size: 12px; font-weight: 400; margin-top: 20px; text-align: left;">By clicking next, you agree to our<a href="#"> Terms </a> and that you have read our <a href="#">Privacy Policy</a> and <a href="#">Content Policy</a>.</span>
@@ -360,6 +360,13 @@
 
         }
 
+        function myFunction() {
+            var x = document.createElement("INPUT");
+            x.setAttribute("type", "file");
+            document.getElementById("profile_pic").append(x);
+            // document.getElementById("profile_pic").style.display = "none"
+        }
+
         function hideshowsignup() {
             document.getElementById("credentialsidsignup").style.display = "none";
             document.getElementById("signupbutton").style.display = "none";
@@ -408,6 +415,7 @@
 
         function signUp() {
             $(document).ready(function() {
+
                 $.ajax({
                     type: "POST",
                     url: "http://127.0.0.1:9000/api/signUp",
@@ -415,7 +423,9 @@
                     dataType: "json",
                     data: JSON.stringify({
                         "email": $("#emailsignup").val(),
-                        "password": $("#passwordsignup").val()
+                        "password": $("#passwordsignup").val(),
+                        "name": $("#namesignup").val(),
+                        "subreddit": $("#subredditsignup").val(),
                     }),
                     // recent: localStorage.getItem('data'),
                     success: function(recent) {
@@ -451,12 +461,10 @@
                         if (recent.message == "session expired") {
                             localStorage.removeItem("token")
                             console.log("login again")
-                            //location.reload();
-                        } else if(recent.length>0){
-                            
+                                //location.reload();
+                        } else {
+
                             location.replace("./frontend/subreddit.html");
-                        }else {
-                            // location.replace("")
                         }
                         console.log(recent);
                     },
