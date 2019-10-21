@@ -59,13 +59,13 @@ function apiRouter() {
 
     app.get(`${baseURI}/comments`, middleware, async function(req, res) {
 
-        const result = await userscomments.getUsers(req, res);
+        const result = await userscomments.getComments(req);
         console.log(result)
         res.send(result);
     });
 
     app.post(`${baseURI}/comments`, middleware, async function(req, res) {
-        const result = userscomments.createUsers(req, res)
+        const result = userscomments.createComments(req)
         res.send(result);
     });
 
