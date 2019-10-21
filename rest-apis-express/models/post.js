@@ -18,7 +18,7 @@ async function getPost(req) {
 }
 
 async function createPost(req) {
-    debugger
+   
     const decoded = decodeToken(req);
     // const json = {
     //     "user_id" : decoded.id,

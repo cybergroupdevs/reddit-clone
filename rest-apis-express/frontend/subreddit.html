@@ -227,6 +227,8 @@
         <div class="txt-post" style="margin-top: 16px;">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus cum veniam debitis, deleniti qui voluptatem? Hic, non? Iure fugit, cupiditate dolor nesciunt nostrum sed in consectetur, dolorem maxime modi a! ada
         </div>
+
+
         <!-- <div class="container">
             <div class="div1">
                 <span id="img" style="margin-top: 0px;">
@@ -327,10 +329,9 @@
                             if (recent.message == "session expired") {
                                 location.replace("../index.html")
                             } else {
-
                                 console.log("recent name" + recent.name)
-                                localStorage.setItem('subreddit_user_id', recent.subreddit[0]._id);
-                                localStorage.setItem('subreddit_id', recent.subreddit[0]._id);
+                                    //localStorage.setItem('subreddit_user_id', recent._id);
+                                localStorage.setItem('subreddit_id', recent._id);
                                 showuserheader(recent.name)
                                     //location.replace("./createPost.html")
                             }

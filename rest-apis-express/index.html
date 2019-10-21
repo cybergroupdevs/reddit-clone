@@ -277,18 +277,18 @@
                     <span class="signn new" style="font-size: 12px; font-weight: 400; margin-top: 20px; text-align: left;">By clicking next, you agree to our<a href="#"> Terms </a> and that you have read our <a href="#">Privacy Policy</a> and <a href="#">Content Policy</a>.</span>
                 </div>
             </div>
-            <div class="credentials" id="credentialsidsignup2" style="height: 500px; z-index: 1;">
+            <!-- <div class="credentials" id="credentialsidsignup2" style="height: 500px; z-index: 1;">
                 <div class="credentials_mid">
                     <img src="cross.svg" style="height: 20px; float: right; margin-top: -50px; cursor: pointer;" onclick="divclose()">
                     <span class="signnn">By having a Reddit account, you can join, vote,</span><span class="signnn">and comment on all your favorite Reddit</span><span class="signnn"> content.</span>
                     <input type="text" id="namesignup" placeholder="Enter Name" required>
-                    <button onclick="myFunction()" id="profile_pic">Click to upload profile picture</button>
+                    <button onclick="myFunction()" id="profile_pic">Click to upload profile picture</button> 
                     <input type="text" id="subredditsignup" placeholder="Enter Name of Subreddit" required>
-                    <button id="signup" class="btnn" onclick="signUp()">Sign Up</button>
+                    <button id="signup" class="btnn" onclick="userdetails()">Sign Up</button>
                     <span class="signn new">Already a Redditor? <span  onclick="show()" style="cursor: pointer; font-weight: 700; color: blue;">LOG IN</span></span>
                     <span class="signn new" style="font-size: 12px; font-weight: 400; margin-top: 20px; text-align: left;">By clicking next, you agree to our<a href="#"> Terms </a> and that you have read our <a href="#">Privacy Policy</a> and <a href="#">Content Policy</a>.</span>
                 </div>
-            </div>
+            </div> -->
 
 
             <!-- <div class="div">
@@ -298,6 +298,7 @@
                 <div class="posts_all" id="x">
 
                 </div>
+
             </div>
         </div>
     </div>
@@ -364,8 +365,8 @@
             $("#credentialsid").fadeIn("slow");
             $("#credentialsid").fadeIn(3000);
             document.getElementById("credentialsid").style.display = "block";
-            document.getElementById("credentialsidsignup").style.display = "none";
-            document.getElementById("credentialsidsignup2").style.display = "none";
+            // document.getElementById("credentialsidsignup").style.display = "none";
+            //document.getElementById("credentialsidsignup2").style.display = "none";
             console.log("hello");
         }
 
@@ -381,9 +382,9 @@
         function showsignup() {
             // event.preventDefault();
             document.getElementById("credentialsid").style.display = "none";
-            $("#credentialsidsignup").fadeIn();
-            $("#credentialsidsignup").fadeIn("slow");
-            $("#credentialsidsignup").fadeIn(3000);
+            //$("#credentialsidsignup").fadeIn();
+            //$("#credentialsidsignup").fadeIn("slow");
+            //$("#credentialsidsignup").fadeIn(3000);
             // document.getElementById("credentialsidsignup").style.display = "block";
             // document.getElementsByClassName("hide1").style.display = "none";
 
@@ -391,8 +392,8 @@
         }
 
         function showsignup2() {
-            document.getElementById("credentialsidsignup").style.display = "none";
-            document.getElementById("credentialsidsignup2").style.display = "block";
+            // document.getElementById("credentialsidsignup").style.display = "none";
+            // document.getElementById("credentialsidsignup2").style.display = "block";
 
 
 
@@ -433,14 +434,17 @@
                     success: async function(recent) {
                         await localStorage.setItem('token', recent.token);
                         if (recent.message == "password matched") {
-                            location.replace("./frontend/createPost.html")
-                            location.replace("./frontend/subreddit.html")
+                            location.replace("./frontend/userdetails.html")
+                                // location.replace("./frontend/createPost.html")
+                                // location.replace("./frontend/subreddit.html")
                         } else if (recent.message == "user not exists please sign up") {
                             window.alert("user not exists please sign up")
-                            showsignup()
+                            console.log("UnAunthorized User");
+                            //showsignup()
                         } else {
                             window.alert("Pasword not matched: Login again")
-                            show()
+                            console.log("UnAunthorized User");
+                            // show()
                         }
                         //console.log(recent);
                     },
@@ -453,7 +457,6 @@
 
         function signUp() {
             $(document).ready(function() {
-
                 $.ajax({
                     type: "POST",
                     url: "http://127.0.0.1:9000/api/signUp",
@@ -461,15 +464,14 @@
                     dataType: "json",
                     data: JSON.stringify({
                         "email": $("#emailsignup").val(),
-                        "password": $("#passwordsignup").val(),
-                        "name": $("#namesignup").val(),
-                        "subreddit": $("#subredditsignup").val(),
+                        "password": $("#passwordsignup").val()
                     }),
                     // recent: localStorage.getItem('data'),
                     success: function(recent) {
                         //localStorage.setItem('token', recent.token);
                         if (recent.status == "200") {
-                            window.alert("sign Up successfull, Login to access your account")
+                            window.alert("sign Up successfull, Login to your account")
+                                //showsignup2();
                             show()
                         } else if (recent.status == "400") {
                             window.alert("User already exist")
