@@ -7,7 +7,6 @@ module.exports = {
 const { decodeToken } = require("../models/users");
 
 const { postCommentModel } = require("../schema/postComment");
-const { decodeToken } = require("../models/users");
 //const users = [];
 const { SECRET } = require("../config/config")
 const jwt = require("jsonwebtoken")
