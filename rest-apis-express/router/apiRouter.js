@@ -26,7 +26,7 @@ function apiRouter() {
     });
 
 
-    app.post(`${baseURI}/users`, async function(req, res) {
+    app.post(`${baseURI}/users`, async function(req, res) { // middleware will be added after enhancement. Right now the values are added in sign up page.
         const result = users.createUser(req)
         res.send(result);
     });

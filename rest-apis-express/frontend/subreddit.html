@@ -206,12 +206,8 @@
         }
     </style>
 </head>
-<<<<<<< HEAD
-<body onload="posts(),comments(),showuser()">
-=======
 
 <body onload="posts(),showuser()">
->>>>>>> 130cfdc34bc28d89c20dfd7d236eaf52e28e1498
     <div class="main">
         <nav class="navbar navbar-light navv" style="background-color: rgb(255, 255, 255);" id="nav">
             <a class="navbar-brand"><img src="reddit.png" style="height: 28px;"><span style="font-weight: 700; margin-left: 10px;">reddit</span></a>
@@ -225,13 +221,9 @@
                 <!-- <p " style="position: fixed;"></p> -->
             </form>
         </nav>
-<<<<<<< HEAD
-  
-=======
         <div class="txt-post" style="margin-top: 16px;">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus cum veniam debitis, deleniti qui voluptatem? Hic, non? Iure fugit, cupiditate dolor nesciunt nostrum sed in consectetur, dolorem maxime modi a! ada
         </div>
->>>>>>> 130cfdc34bc28d89c20dfd7d236eaf52e28e1498
 
         
         <!-- <div class="container">
@@ -277,82 +269,6 @@
         </div>
 
     </div> -->
-<<<<<<< HEAD
-    <!--iframe src="./createPost.html" height="600" width="485" style="float: right;margin-top: 40px;"></iframe>
-    <iframe src="./createComment.html" height="600" width="485" style="float: right;margin-top: 40px;"></iframe-->
-    <script>
-        function comments() {
-            $(document).ready(function() {
-                $.ajax({
-                    type: "GET",
-                    url: "http://localhost:9000/api/comments",
-                    contentType: "application/json;charset=utf-8",
-                    dataType: "json",
-                    headers: {
-                        "token": localStorage.getItem("token")
-                    },
-                    success: async function(recent) {
-                        console.log("Authorized User");
-
-                        console.log(recent);
-                        
-                        var i = 0
-                        var l = recent.length
-                        console.log(l)
-                        while (i < recent.length) {
-                            var subred = await recent[i].comment_data;
-                            
-                            
-                            var p = document.createElement("p");
-                            p.innerHTML = "</div>"+subred;
-                            document.body.appendChild(p);
-                            i++;
-                        }
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-                        localStorage.removeItem("token");
-                        console.log("UnAunthorized User");
-                        window.alert("Please Login first")
-                        location.replace("../index.html")
-
-                    }
-                });
-            });
-        }
-        function posts() {
-            $(document).ready(function() {
-                $.ajax({
-                    type: "GET",
-                    url: "http://localhost:9000/api/posts",
-                    contentType: "application/json;charset=utf-8",
-                    dataType: "json",
-                    headers: {
-                        "token": localStorage.getItem("token")
-                    },
-                    success: async function(recent) {
-                        console.log("Authorized User");
-
-                        console.log(recent);
-                        
-                        var i = 0
-                        var l = recent.length
-                        console.log(l)
-                        while (i < recent.length) {
-                            var subred = await recent[i].data
-                            var title = await recent[i].post_title
-                            
-                            var p = document.createElement("p");
-                            p.innerHTML =  "<div>"+title+"</div>"+subred;
-                            document.body.appendChild(p);
-                            i++;
-                        }
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-                        localStorage.removeItem("token");
-                        console.log("UnAunthorized User");
-                        window.alert("Please Login first")
-                        location.replace("../index.html")
-=======
         <iframe src="./createPost.html" height="600" width="485" style="float: right;margin-top: 0px;"></iframe>
         <script>
             function posts() {
@@ -390,7 +306,6 @@
                             console.log("UnAunthorized User");
                             window.alert("Please Login first")
                             location.replace("../index.html")
->>>>>>> 130cfdc34bc28d89c20dfd7d236eaf52e28e1498
 
                         }
                     });
@@ -411,10 +326,9 @@
                             if (recent.message == "session expired") {
                                 location.replace("../index.html")
                             } else {
-
                                 console.log("recent name" + recent.name)
-                                localStorage.setItem('subreddit_user_id', recent.subreddit[0]._id);
-                                localStorage.setItem('subreddit_id', recent.subreddit[0]._id);
+                                //localStorage.setItem('subreddit_user_id', recent._id);
+                                localStorage.setItem('subreddit_id', recent._id);
                                 showuserheader(recent.name)
                                     //location.replace("./createPost.html")
                             }

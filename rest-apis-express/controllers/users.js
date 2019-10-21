@@ -14,17 +14,13 @@ async function getUsers(req, res) {
 }
 
 async function createUser(req) {
-  await user.createUser(req);
+  const response = await user.createUser(req);
   //console.log(res);
   //res.send(JSON.stringify(response))
   //const body = req.body;
   //users.push(body);
 
-  return ({
-    status: 200,
-    statusText: "OK",
-    message: "Client Inserted!"
-  });
+  return response
 }
 
 async function updateUser(req, res) {
