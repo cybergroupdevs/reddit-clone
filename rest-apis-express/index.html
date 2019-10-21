@@ -261,7 +261,7 @@
                     <span class="signn">Sign In</span>
                     <input type="email" id="email" placeholder="Username" required>
                     <input type="password" id="password" placeholder="Password" required>
-                    <button id="signin" class="btnn" onclick="signIn()">Sign In</button>
+                    <button id="signin" class="btnn" onclick="validateSignInForm()">Sign In</button>
                     <span class="signn new">New to reddit? <span onclick="showsignup()" style="cursor: pointer; font-weight: 700; color: blue;">SIGN UP</span></span>
                 </div>
             </div>
@@ -272,7 +272,7 @@
                     <input type="email" id="emailsignup" placeholder="Enter Email" required>
                     <input type="password" id="passwordsignup" placeholder="Enter Password" required>
 
-                    <button id="signup" class="btnn" onclick="signUp()">Sign Up</button>
+                    <button id="signup" class="btnn" onclick="validateSignUp()">Sign Up</button>
                     <span class="signn new">Already a Redditor? <span  onclick="show()" style="cursor: pointer; font-weight: 700; color: blue;">LOG IN</span></span>
                     <span class="signn new" style="font-size: 12px; font-weight: 400; margin-top: 20px; text-align: left;">By clicking next, you agree to our<a href="#"> Terms </a> and that you have read our <a href="#">Privacy Policy</a> and <a href="#">Content Policy</a>.</span>
                 </div>
@@ -303,6 +303,45 @@
     </div>
 
     <script>
+        function validateSignUp() {
+            let flag = 0;
+            var email = document.getElementById('emailsignup').value;
+            var pass = document.getElementById('passwordsignup').value;
+            if (email == "") {
+                alert("Email must be filled out");
+                flag = 1;
+            }
+            if (pass == "") {
+                alert("Password must be filled")
+                flag = 1;
+            }
+            if (flag == 1) {
+                return false
+            } else {
+                signUp()
+            }
+        }
+
+        function validateSignInForm() {
+            var email = document.getElementById('email').value;
+            var pass = document.getElementById('password').value;
+            console.log("rawat")
+            let flag = 0;
+            if (email == "") {
+                alert("Username must be filled out");
+                flag = 1;
+            }
+            if (pass == "") {
+                alert("Password must be filled")
+                flag = 1;
+            }
+            if (flag == 1) {
+                return false
+            } else {
+                signIn()
+            }
+        }
+
         function divclose() {
             $("#credentialsid").fadeOut();
             $("#credentialsid").fadeOut("slow");
