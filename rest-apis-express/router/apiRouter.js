@@ -58,14 +58,15 @@ function apiRouter() {
     });
 
     app.get(`${baseURI}/comments`, middleware, async function(req, res) {
-
+        debugger
         const result = await userscomments.getComments(req);
         console.log(result)
         res.send(result);
     });
 
     app.post(`${baseURI}/comments`, middleware, async function(req, res) {
-        const result = userscomments.createComments(req)
+
+        const result = await userscomments.createComments(req)
         res.send(result);
     });
 

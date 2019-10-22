@@ -8,8 +8,11 @@ const { postCommentModel } = require("../schema/postComment");
 const { decodeToken } = require("./users");
 
 async function getComments(req) {
-    const id = req.body.post_id;
-    const det = await postCommentModel.find({ "post_id": id }); //TODO: Put where condition subreddit_user_id == headers.subreddit_user_id
+    debugger
+    const id = req.query.post_id;
+    const det = await postCommentModel.find({ "post_id": id }, (err) => {
+        console.log(err);
+    }); //TODO: Put where condition subreddit_user_id == headers.subreddit_user_id
     return det;
 }
 
@@ -29,6 +32,7 @@ async function createComments(req) {
     }
     await postCommentModel.create(json).catch((err) => {
         console.log(err);
+        return ({ "status": "409" })
     });
     return ({ "status": "200" })
 }

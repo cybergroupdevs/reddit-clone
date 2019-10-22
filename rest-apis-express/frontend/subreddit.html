@@ -276,7 +276,7 @@
                                 let time = await recent[i].post_time
                                     //    var m = moment(time).calender();
                                 var p = document.createElement("p");
-                                p.innerHTML = "<div class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<div class='comment_div'>" + "<input type='text' placeholder='comments' id='comment_div'>" + "</div>" + "<i class='fa fa-comments-o c grow' id='comm' onclick='createcomment(comment_div)' postId='" + post_id + "' style='font-size:20px'>" + "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' id='delete' onclick='deletepost(this)' postId='" + post_id + "'  style='font-size:20px' >" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + "<div style=`display:none` >" + count + "</span>" + "</div>";
+                                p.innerHTML = "<div class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<div class='comment_div'>" + "<input type='text' placeholder='comments' id='commentdiv'>" + "</div>" + "<i class='fa fa-comments-o c grow' id='comm' onclick='createcomment(this)' postId='" + post_id + "' style='font-size:20px'>" + "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' id='delete' onclick='deletepost(this)' postId='" + post_id + "'  style='font-size:20px' >" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + "<div style=`display:none` >" + count + "</span>" + "</div>";
                                 document.body.append(p);
                                 i++;
                                 count++;
@@ -341,7 +341,9 @@
 
             function createcomment(value) {
                 var postid = $(value).attr('postId');
-                var commentdata = document.getElementById("comment_div").value;
+                var $commentdata = $(value).parent(); //.find('.comment_div').text()
+                var Data = $commentdata.children().find('#commentdiv').val();
+                // var dat = $commentdata.find('commentdiv')
                 $.ajax({
                     type: "POST",
                     url: "http://127.0.0.1:9000/api/comments",
@@ -354,16 +356,60 @@
                     },
                     data: JSON.stringify({
                         "post_id": postid,
-                        "comment_data": commentdata
+                        "comment_data": Data
                     }),
                     success: function(recent) {
-                        location.reload()
+                        if (recent.status == "200") {
+                            showcomments(value);
+                        } else {
+                            console.log(recent);
+                        }
+                        //location.reload()
                         console.log(recent);
-                        showcomments();
+
 
                     },
                     error: function(xhr, textStatus, errorThrown) {
                         console.log(errorThrown);
+                    }
+                });
+            }
+
+            async function showcomments(value_v) {
+                var postid = $(value_v).attr('postId');
+                $.ajax({
+                    type: "GET",
+                    url: "http://127.0.0.1:9000/api/comments",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    headers: {
+                        "token": localStorage.getItem("token"),
+                        "subreddit_id": localStorage.getItem("subreddit_id"),
+                        "subreddit_user_id": localStorage.getItem("subreddit_user_id")
+                    },
+                    data: ({
+                        "post_id": postid,
+                    }),
+                    success: function(recent) {
+                        console.log(recent)
+                        var j = 0
+                        let l = recent.length
+                        console.log(l)
+                        var count = 1;
+                        while (j < recent.length) {
+                            var commentt = recent[j].comment_data
+                            console.log(commentt)
+                                //    var m = moment(time).calender();
+                            var p = document.createElement("p");
+                            p.innerHTML = commentt;
+                            document.body.append(p);
+                            j++;
+                            count++;
+                        }
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        window.alert("no comments")
+
                     }
                 });
             }
