@@ -419,9 +419,8 @@
                 await showuser();
             }
         }
-        debugger
-        function signIn() 
-        {
+
+        function signIn() {
             $(document).ready(function() {
                 $.ajax({
                     type: "POST",
@@ -433,6 +432,7 @@
                         "password": $("#password").val()
                     }),
                     success: async function(recent) {
+
                         await localStorage.setItem('token', recent.token);
                         if (recent.message == "password matched") {
                             location.replace("./frontend/userdetails.html")
@@ -498,16 +498,16 @@
                         "token": localStorage.getItem("token")
                     },
                     success: function(recent) {
-
+                        console.log(recent);
                         if (recent.message == "session expired") {
                             localStorage.removeItem("token")
                             console.log("login again")
                                 //location.reload();
                         } else {
-
+                           
                             location.replace("./frontend/subreddit.html");
                         }
-                        console.log(recent);
+                       
                     },
                     error: function(xhr, textStatus, errorThrown) {
                         console.log(errorThrown);

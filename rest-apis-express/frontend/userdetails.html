@@ -192,124 +192,6 @@
     
         </div>
 
-
-        
-        
-    <!--script>
-        function comments() {
-            $(document).ready(function() {
-                $.ajax({
-                    type: "GET",
-                    url: "http://localhost:9000/api/comments",
-                    contentType: "application/json;charset=utf-8",
-                    dataType: "json",
-                    headers: {
-                        "token": localStorage.getItem("token")
-                    },
-                    success: async function(recent) {
-                        console.log("Authorized User");
-
-                        console.log(recent);
-                        
-                        var i = 0
-                        var l = recent.length
-                        console.log(l)
-                        while (i < recent.length) {
-                            var subred = await recent[i].comment_data;
-                            
-                            
-                            var p = document.createElement("p");
-                            p.innerHTML = "</div>"+subred;
-                            document.body.appendChild(p);
-                            i++;
-                        }
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-                        localStorage.removeItem("token");
-                        console.log("UnAunthorized User");
-                        window.alert("Please Login first")
-                        location.replace("../index.html")
-
-                    }
-                });
-            });
-        }
-        function posts() {
-            $(document).ready(function() {
-                $.ajax({
-                    type: "GET",
-                    url: "http://localhost:9000/api/posts",
-                    contentType: "application/json;charset=utf-8",
-                    dataType: "json",
-                    headers: {
-                        "token": localStorage.getItem("token")
-                    },
-                    success: async function(recent) {
-                        console.log("Authorized User");
-
-                        console.log(recent);
-                        
-                        var i = 0
-                        var l = recent.length
-                        console.log(l)
-                        while (i < recent.length) {
-                            var subred = await recent[i].data
-                            var title = await recent[i].post_title
-                            
-                            var p = document.createElement("p");
-                            p.innerHTML =  "<div>"+title+"</div>"+subred;
-                            document.body.appendChild(p);
-                            i++;
-                        }
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-                        localStorage.removeItem("token");
-                        console.log("UnAunthorized User");
-                        window.alert("Please Login first")
-                        location.replace("../index.html")
-
-                    }
-                });
-            });
-        }
-        async function showuser() {
-            $(document).ready(function() {
-                $.ajax({
-                    type: "GET",
-                    url: "http://127.0.0.1:9000/api/users",
-                    contentType: "application/json;charset=utf-8",
-                    dataType: "json",
-                    headers: {
-                        "token": localStorage.getItem("token")
-                    },
-                    success: function(recent) {
-
-                        if (recent.message == "session expired") {
-                                location.replace("../index.html")
-                        } else {
-
-                            console.log("recent name" + recent.name)
-                            localStorage.setItem('subreddit_user_id', recent.subreddit[0]._id);
-                            localStorage.setItem('subreddit_id', recent.subreddit[0]._id);
-                            showuserheader(recent.name)
-                            //location.replace("./createPost.html")
-                        }
-                        console.log(recent);
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-                        console.log(errorThrown);
-                    }
-                });
-            });
-        }
-
-        function showuserheader(username) {
-            document.getElementById("showuserhead").style.display = "block";
-            document.getElementById("showuserhead").innerHTML = "Hello! " + username;
-        }
-
-    </script-->
-
     <script>
             function userdetailscheck(){
             $(document).ready(function() {
@@ -322,7 +204,6 @@
                         "token": localStorage.getItem("token"),
                     },
                     success:function(recent) {
-                        //console.log(recent)
                         if(recent!=null){
                             location.replace("./subreddit.html");
                         }else{
