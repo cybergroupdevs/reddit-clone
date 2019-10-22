@@ -291,6 +291,7 @@
             <form class="form-inline">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <div style="margin-left: 10px; padding-right: 10px;" id="showuserhead" onclick=""></div>
+                <button type="button" class="btn btn-success" onclick="openuser()">User Profile</button>
                 <button type="button" class="btn btn-danger" onclick="logout()">Logout</button>
             </form>
         </nav>
@@ -303,6 +304,10 @@
 
         <iframe src="./createPost.html" height="600" width="485" style="float: right;margin-top: -6px; position: fixed; border: none; margin-left: 840px;"></iframe>
         <script>
+            function openuser() {
+                location.replace('../user.html');
+            }
+
             function posts() {
                 $(document).ready(function() {
                     $.ajax({
@@ -428,48 +433,48 @@
             }
 
             async function showcomment(value_v) {
-                if($(value_v).parent().children('.subcomments').length==0){
+                if ($(value_v).parent().children('.subcomments').length == 0) {
                     var postid = $(value_v).attr('postId');
-                $.ajax({
-                    type: "GET",
-                    url: "http://127.0.0.1:9000/api/comments",
-                    contentType: "application/json;charset=utf-8",
-                    dataType: "json",
-                    headers: {
-                        "token": localStorage.getItem("token"),
-                        "subreddit_id": localStorage.getItem("subreddit_id"),
-                        "subreddit_user_id": localStorage.getItem("subreddit_user_id")
-                    },
-                    data: ({
-                        "post_id": postid,
-                    }),
-                    success: function(recent) {
-                        //console.log(recent)
-                        var j = 0
-                        let l = recent.length
-                        //console.log(l)
-                        var count = 1;
-                        while (j < recent.length) {
-                            var commentt = recent[j].comment_data
-                            //console.log(commentt)
-                            var p = document.createElement("p");
-                            p.setAttribute('class', 'subcomments')
-                            p.innerHTML = commentt;
-                            $(value_v).parent().append(p);
-                            j++;
-                            count++;
-                        }
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-                        window.alert("no comments")
+                    $.ajax({
+                        type: "GET",
+                        url: "http://127.0.0.1:9000/api/comments",
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        headers: {
+                            "token": localStorage.getItem("token"),
+                            "subreddit_id": localStorage.getItem("subreddit_id"),
+                            "subreddit_user_id": localStorage.getItem("subreddit_user_id")
+                        },
+                        data: ({
+                            "post_id": postid,
+                        }),
+                        success: function(recent) {
+                            //console.log(recent)
+                            var j = 0
+                            let l = recent.length
+                                //console.log(l)
+                            var count = 1;
+                            while (j < recent.length) {
+                                var commentt = recent[j].comment_data
+                                    //console.log(commentt)
+                                var p = document.createElement("p");
+                                p.setAttribute('class', 'subcomments')
+                                p.innerHTML = commentt;
+                                $(value_v).parent().append(p);
+                                j++;
+                                count++;
+                            }
+                        },
+                        error: function(xhr, textStatus, errorThrown) {
+                            window.alert("no comments")
 
-                    }
-                });
-                }else {
-                   $(value_v).parent().children('.subcomments').hide()
-                   location.reload()
+                        }
+                    });
+                } else {
+                    $(value_v).parent().children('.subcomments').hide()
+                    location.reload()
                 }
-                
+
             }
 
             async function showuser() {
