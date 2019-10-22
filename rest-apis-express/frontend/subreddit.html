@@ -4,6 +4,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="moment.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/png" href="reddit.png" />
     <title>reddit: the front page of internet</title>
@@ -271,12 +273,10 @@
                                 var subred = await recent[i].data
                                 var title = await recent[i].post_title
                                 var post_id = await recent[i]._id
+                                let time = await recent[i].post_time
+                                    //    var m = moment(time).calender();
                                 var p = document.createElement("p");
-<<<<<<< HEAD
                                 p.innerHTML = "<div class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<div class='comment_div'>" + "<input type='text' placeholder='comments' id='comment_div'>" + "</div>" + "<i class='fa fa-comments-o c grow' id='comm' onclick='createcomment(comment_div)' postId='" + post_id + "' style='font-size:20px'>" + "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' id='delete' onclick='deletepost(this)' postId='" + post_id + "'  style='font-size:20px' >" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + "<div style=`display:none` >" + count + "</span>" + "</div>";
-=======
-                                p.innerHTML = "<div class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<div class='comment_div'>" + "<input type='text' placeholder='comments' id='comment_div'>" + "</div>" + "<i class='fa fa-comments-o c grow' id='comm' postId='" + post_id + "' style='font-size:20px'>" + "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' id='delete' onclick='deletepost(this)' postId='" + post_id + "'  style='font-size:20px' >" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + "<div style=`display:none` >" + count + "</span>" + "</div>";
->>>>>>> 1269381830911b28653971351ff6a5b5d1ce2bfa
                                 document.body.append(p);
                                 i++;
                                 count++;
@@ -330,11 +330,7 @@
                         "token": localStorage.getItem("token")
                     },
                     success: function(recent) {
-<<<<<<< HEAD
                         location.reload()
-=======
-                        //location.reload()
->>>>>>> 1269381830911b28653971351ff6a5b5d1ce2bfa
                         console.log(recent);
                     },
                     error: function(xhr, textStatus, errorThrown) {
@@ -345,11 +341,7 @@
 
             function createcomment(value) {
                 var postid = $(value).attr('postId');
-<<<<<<< HEAD
                 var commentdata = document.getElementById("comment_div").value;
-=======
-                var commentdata = $(value).getElementById().val();
->>>>>>> 1269381830911b28653971351ff6a5b5d1ce2bfa
                 $.ajax({
                     type: "POST",
                     url: "http://127.0.0.1:9000/api/comments",
@@ -365,14 +357,10 @@
                         "comment_data": commentdata
                     }),
                     success: function(recent) {
-<<<<<<< HEAD
                         location.reload()
                         console.log(recent);
                         showcomments();
 
-=======
-                        console.log(recent);
->>>>>>> 1269381830911b28653971351ff6a5b5d1ce2bfa
                     },
                     error: function(xhr, textStatus, errorThrown) {
                         console.log(errorThrown);
