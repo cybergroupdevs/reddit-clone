@@ -72,6 +72,10 @@
             float: right;
         }
         
+        .post {
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5)
+        }
+        
         .posts_all {
             width: 67%;
             height: 80px;
@@ -239,7 +243,8 @@
             border: 1px solid rgba(0, 0, 0, .2);
             padding: 2px;
             border-radius: 3px;
-            width: 78%;
+            width: 75%;
+            margin-left: 12px;
         }
         
         .input_comment placeholder {
@@ -255,6 +260,25 @@
             padding-right: 1px;
             border-radius: 3px;
             width: 140px;
+        }
+        
+        .subcomments {
+            font-family: "Noto Sans", Arial, sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            margin-left: -4px;
+            width: 100%;
+            border: 2px solid rgba(0, 0, 0, 0.15);
+            padding: 5px;
+            font-weight: 550;
+            color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .moment {
+            font-size: 11px;
+            margin-left: 20px;
+            color: rgba(0, 0, 0, 0.5);
+            font-weight: 700;
         }
     </style>
 </head>
@@ -300,9 +324,14 @@
                                 var subred = await recent[i].data
                                 var title = await recent[i].post_title
                                 var post_id = await recent[i]._id
-                                let time = await recent[i].post_time
+                                var time = await recent[i].post_time
+
+                                var time_now = moment(time).add(1, 'hours').add(20, 'minutes').calendar();
+
+                                //var time_now = moment(time_now).calendar();
+
                                 var p = document.createElement("p");
-                                p.innerHTML = "<div class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<div class='comment_div'>" + "<input type='text' placeholder='comments' id='commentdiv' class='input_comment'>" + "<button type='button' onclick='createcomment(this)' postId='" + post_id + "' class='btn_comm'>" + "comment!" + "</button>" + "</div>" + "<i class='fa fa-comments-o c grow' id='comm' onclick='showcomment(this)' postId='" + post_id + "' style='font-size:14px'>" + " Comments " + "</i>" + "<i class='fa fa-trash-o t grow' id='delete' onclick='deletepost(this)' postId='" + post_id + "'  style='font-size:14px' >" + " Delete " + "</i>" + "<i class='fa fa-ban b grow' style='font-size:14px'>" + " Report " + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + "<div style=`display:none` >" + count + "</span>" + "</div>";
+                                p.innerHTML = "<div class='post'>" + "<span class='sup'>" + title + "<span class='moment'>" + " Posted " + time_now + "</span>" + "</span>" + "<span class='sub'>" + subred + "</span>" + "<div class='comment_div'>" + "<input type='text' placeholder='comments' id='commentdiv' class='input_comment'>" + "<button type='button' onclick='createcomment(this)' postId='" + post_id + "' class='btn_comm'>" + "comment!" + "</button>" + "</div>" + "<i class='fa fa-comments-o c grow' id='comm' onclick='showcomment(this)' postId='" + post_id + "' style='font-size:14px'>" + " Comments " + "</i>" + "<i class='fa fa-trash-o t grow' id='delete' onclick='deletepost(this)' postId='" + post_id + "'  style='font-size:14px' >" + " Delete " + "</i>" + "<i class='fa fa-ban b grow' style='font-size:14px'>" + " Report " + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + "<div style=`display:none` >" + count + "</span>" + "</div>";
                                 document.body.append(p);
                                 i++;
                                 count++;
@@ -385,6 +414,7 @@
                     success: function(recent) {
                         if (recent.status == "200") {
                             window.alert("comment added")
+                            $(value).parent().children('#commentdiv').val("")
                         } else {
                             console.log(recent);
                         }
@@ -421,6 +451,7 @@
                             var commentt = recent[j].comment_data
                             console.log(commentt)
                             var p = document.createElement("p");
+                            p.setAttribute('class', 'subcomments')
                             p.innerHTML = commentt;
                             $(value_v).parent().append(p);
                             j++;
