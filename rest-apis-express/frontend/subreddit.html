@@ -186,19 +186,27 @@
         }
         
         i {
-            margin-top: 40px;
-        }
-        
-        .c {
-            margin-left: -210px;
             margin-top: 30px;
         }
         
-        .s,
+        .c {
+            margin-left: -20px;
+            margin-top: 30px;
+            color: rgba(0, 0, 0, 0.6);
+            font-weight: 600;
+        }
+        
         .t,
         .b,
         .e {
-            margin-left: 50px;
+            margin-left: 120px;
+            color: rgba(0, 0, 0, 0.6);
+            font-weight: 600;
+        }
+        
+        .e {
+            margin-left: 120px;
+            font-weight: 500;
         }
         
         .grow {
@@ -206,7 +214,7 @@
         }
         
         .grow:hover {
-            transform: scale(1.5);
+            transform: scale(1.2);
             color: #0079D3
         }
         
@@ -225,6 +233,12 @@
         .comment_div ::placeholder {
             font-size: 16px;
             color: rgba(73, 73, 73, 0.7);
+        }
+        
+        .btn_comm {
+            border: 1px solid #0079D3;
+            color: #0079D3;
+            background-color: none;
         }
     </style>
 </head>
@@ -276,7 +290,7 @@
                                 let time = await recent[i].post_time
                                     //    var m = moment(time).calender();
                                 var p = document.createElement("p");
-                                p.innerHTML = "<div class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<div class='comment_div'>" + "<input type='text' placeholder='comments' id='commentdiv'>" + "<button type='button'>" + "comment!" + "</button>" + "</div>" + "<i class='fa fa-comments-o c grow' id='comm' onclick='createcomment(this)' postId='" + post_id + "' style='font-size:20px'>" + "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' id='delete' onclick='deletepost(this)' postId='" + post_id + "'  style='font-size:20px' >" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + "<div style=`display:none` >" + count + "</span>" + "</div>";
+                                p.innerHTML = "<div class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<div class='comment_div'>" + "<input type='text' placeholder='comments' id='commentdiv'>" + "<button type='button' class='btn_comm'>" + "comment!" + "</button>" + "</div>" + "<i class='fa fa-comments-o c grow' id='comm' onclick='createcomment(this)' postId='" + post_id + "' style='font-size:14px'>" + " Comments" + "</i>" + "<i class='fa fa-trash-o t grow' id='delete' onclick='deletepost(this)' postId='" + post_id + "'  style='font-size:14px' >" + " Delete " + "</i>" + "<i class='fa fa-ban b grow' style='font-size:14px'>" + " Report " + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + "<div style=`display:none` >" + count + "</span>" + "</div>";
                                 document.body.append(p);
                                 i++;
                                 count++;
