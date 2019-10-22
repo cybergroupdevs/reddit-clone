@@ -6,7 +6,7 @@ module.exports = {
     deleteComments
 }
 
-async function getComments(req, res) {
+async function getComments(req) {
     const response = await usercomments.getComments(req);
     console.log(response);
     return response;
