@@ -415,6 +415,7 @@
                         if (recent.status == "200") {
                             window.alert("comment added")
                             $(value).parent().children('#commentdiv').val("")
+                            location.reload()
                         } else {
                             console.log(recent);
                         }
@@ -427,7 +428,8 @@
             }
 
             async function showcomment(value_v) {
-                var postid = $(value_v).attr('postId');
+                if($(value_v).parent().children('.subcomments').length==0){
+                    var postid = $(value_v).attr('postId');
                 $.ajax({
                     type: "GET",
                     url: "http://127.0.0.1:9000/api/comments",
@@ -442,14 +444,14 @@
                         "post_id": postid,
                     }),
                     success: function(recent) {
-                        console.log(recent)
+                        //console.log(recent)
                         var j = 0
                         let l = recent.length
-                        console.log(l)
+                        //console.log(l)
                         var count = 1;
                         while (j < recent.length) {
                             var commentt = recent[j].comment_data
-                            console.log(commentt)
+                            //console.log(commentt)
                             var p = document.createElement("p");
                             p.setAttribute('class', 'subcomments')
                             p.innerHTML = commentt;
@@ -463,6 +465,11 @@
 
                     }
                 });
+                }else {
+                   $(value_v).parent().children('.subcomments').hide()
+                   location.reload()
+                }
+                
             }
 
             async function showuser() {
