@@ -10,7 +10,7 @@ const { signIn } = require("../controllers");
 const middleware = require("../auth/middleware");
 
 const { post } = require("../controllers");
-const multer = require('multer');
+const  multer   = require('multer');
 const { userscomments } = require("../controllers");
 
 const { users } = require("../controllers");
@@ -35,8 +35,7 @@ function apiRouter() {
 
 
     app.get(`${baseURI}/users`,async function(req, res) {
-        const result = await users.getUsers(req, res)
-        console.log(res);
+        const result = await users.getUsers(req)
         res.send(result);
     });
 
@@ -66,12 +65,7 @@ function apiRouter() {
         const response = await api.signIn.createUsers(req)
         res.send(response)
     });
-
-    app.post(`${baseURI}/testToken`, middleware, async function(req, res) {
-        const result = ({ "message": "valid" })
-        res.send(result);
-    });
-
+    
     app.get(`${baseURI}/comments`, middleware, async function(req, res) {
         debugger
         const result = await userscomments.getComments(req);

@@ -2,20 +2,8 @@
 
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-   // <Latest compiled and minified CSS -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"> -->
-
-    <!-- Optional theme -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-        crossorigin="anonymous"></script> -->
 </head>
 <title>Testing</title>
 <style>
@@ -147,18 +135,13 @@
                 },
                 success: async function (recent) {
                     console.log("Authorized User");
-
                     console.log(recent);
-                    // var date = recent[0].Comments[0].subreddit[0].Post[0].Comment_on_post[0].Date
-                    // var comment = recent[0].Comments[0].subreddit[0].Post[0].Comment_on_post
-                    // var post = recent[0].Comments[0].subreddit[0].Post
                     var i = 0
                     var l = recent.length
                     console.log(l)
                     while (i < recent.length) {
                         var subred = await recent[i].data
                         var title = await recent[i].post_title
-
                         var p = document.createElement("p");
                         p.innerHTML = "<div id='x'><div  class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<i class='fa fa-comments-o c grow'  onclick='showcomments()' style='font-size:20px'>" + "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + " 100% Upvoted" + "</span>" + "</div></div>";
                         document.body.appendChild(p);
@@ -170,24 +153,17 @@
                     console.log("UnAunthorized User");
                     window.alert("Please Login first")
                     location.replace("../index.html")
-
                 }
             });
     }
     let flag = 0;
     function hide(divid) {
         console.log("rawat")
-
-
         document.getElementById("divshow").style.display = "none"
         document.getElementById("image").style.display = "none"
-        //document.getElementById().style.display="none"
-        //document.getElementById().style.display="none"
         document.getElementById(divid).style.display = "block";
     }
         $(document).ready(function () {
-
-            //const b = localStorage.setItem("token", "5da02df280ad372108d7d584")
             $.ajax({
                 type: "GET",
                 url: "http://localhost:9000/api/users",
@@ -203,8 +179,6 @@
                     var img= document.getElementById("profile");
                     img.setAttribute("src",data.imageurl)
                     console.log("Authorized User");
-                    //document.getElementById("posts").innerHTML=po;
-
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     console.log("UnAunthorized User");

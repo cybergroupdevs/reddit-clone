@@ -7,7 +7,7 @@ module.exports = {
   uploadPhoto
 }
 
-async function getUsers(req, res) {
+async function getUsers(req) {
   const response = await user.getUsers(req);
   return response;
 }

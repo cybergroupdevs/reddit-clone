@@ -1,6 +1,5 @@
 var model = require("../schema/signUpSignInDetails").signUpSignInModel;
 const bcrypt = require('bcrypt');
-const { createUser } = require("./users");
 var validator = require("email-validator");
 
 module.exports = {
