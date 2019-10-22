@@ -229,7 +229,7 @@
 
 <body onload="posts(),showuser()">
     <div class="main">
-        <nav class="navbar navbar-light navv" style="background-color: rgb(255, 255, 255);" id="nav">
+        <nav class="navbar navbar-light navv" style="background-color: rgb(255, 255, 255);" id="nav" >
             <a class="navbar-brand"><img src="reddit.png" style="height: 28px;"><span style="font-weight: 700; margin-left: 10px;">reddit</span></a>
 
             <form class="form-inline">
@@ -272,7 +272,7 @@
                                 var title = await recent[i].post_title
                                 var post_id = await recent[i]._id
                                 var p = document.createElement("p");
-                                p.innerHTML = "<div class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<div class='comment_div'>" + "<input type='text' placeholder='comments' id='commentdiv'>" + "</div>" + "<i class='fa fa-comments-o c grow' id='comm' onclick='createcomment(this)' postId='" + post_id + "' style='font-size:20px'>" + "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' id='delete' onclick='deletepost(this)' postId='" + post_id + "'  style='font-size:20px' >" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + "<div style=`display:none` >" + count + "</span>" + "</div>";
+                                p.innerHTML = "<div class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<div class='comment_div'>" + "<input type='text' placeholder='comments' id='commentdiv' postId='" + post_id + "' onkeypress='checkenter(this)'>" + "</div>" + "<i class='fa fa-comments-o c grow' id='comm' onclick='createcomment(this)' postId='" + post_id + "' style='font-size:20px'>" + "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' id='delete' onclick='deletepost(this)' postId='" + post_id + "'  style='font-size:20px' >" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + "<div style=`display:none` >" + count + "</span>" + "</div>";
                                 document.body.append(p);
                                 i++;
                                 count++;
@@ -312,7 +312,7 @@
                 });
             }
 
-            function comment(value) {
+            function showcomment(value) {
                 var postid = $(value).attr('postId');
                 $.ajax({
                     type: "DELETE",
@@ -335,11 +335,22 @@
                 });
             }
 
+            function checkenter(value_1){
+                $('#commentdiv').keypress(function (e,value_1) {
+                var key = e.which;
+                if(key == 13)  // the enter key code
+                {
+                   createcomment(value_1)
+                   return false;  
+                }
+            });   
+            }
+
             function createcomment(value) {
                 var postid = $(value).attr('postId');
-                var $commentdata = $(value).parent();//.find('.comment_div').text()
+                var Data = $(value).val()
+                var $commentdata = $(value).parent();
                 var Data= $commentdata.children().find('#commentdiv').val();
-                // var dat = $commentdata.find('commentdiv')
                 $.ajax({
                     type: "POST",
                     url: "http://127.0.0.1:9000/api/comments",
