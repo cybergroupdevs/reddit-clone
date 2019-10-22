@@ -6,6 +6,7 @@ module.exports = {
     deletePost
 }
 
+//async function ()
 async function getPost(req) {
     const response = await post.getPost(req);
     console.log(response);

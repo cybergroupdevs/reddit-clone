@@ -26,13 +26,6 @@ async function getUsers(req) {
     return det;
 }
 
-async function uploadPhoto(req,res){
-  if(req.file) {
-    const pic=info.findOne({"email":decoded.email})
-    res.json(req.file);
-}
-else throw 'error';
-};
 
 async function createUser(req) {
   
@@ -40,7 +33,7 @@ async function createUser(req) {
     const json = {
       "name": req.body.name,
       "email": decoded.email,
-      "sub_name": req.body.subreddit
+      "sub_name": req.body.subreddit,
     }
   
     await info.create(json,(err)=>{
@@ -69,6 +62,26 @@ async function updateUser(req, res) {
     "status": "200"
   });
 }
+async function uploadPhoto(req,res){
+  console.log("========= in uploadPhoto ======");
+  const decoded= decodeToken(req)
+  const pic =await info.findOneAndUpdate(
+
+
+    {
+      email:decoded.email
+    },
+    {
+      $set:{
+        "imageurl":req.body.imageurl
+      }
+    }
+  )
+
+  //console.log(req.body.imageurl)
+  console.log("======= end uploadPhoto ======");
+  return({"test" : 123});
+};
 
 async function deleteUser(req, res) {
   const id = req.query.email;
@@ -78,6 +91,8 @@ async function deleteUser(req, res) {
   res.send({
     "status": "200",
   });
+
+
 
   // users.pop(id);
 

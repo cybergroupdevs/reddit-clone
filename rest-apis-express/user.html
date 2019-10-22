@@ -59,81 +59,6 @@
         background-color: rgba(220, 224, 228, 0.3);
     }
 </style>
-<script>
-    let flag = 0;
-    function hide(divid) {
-        console.log("rawat")
-
-
-        document.getElementById("divshow").style.display = "none"
-        document.getElementById("image").style.display = "none"
-        //document.getElementById().style.display="none"
-        //document.getElementById().style.display="none"
-        document.getElementById(divid).style.display = "block";
-    }
-
-    function getSub() {
-        $(document).ready(function () {
-
-            const b = localStorage.setItem("token", "5da02df280ad372108d7d584")
-            $.ajax({
-                type: "GET",
-                url: "http://localhost:9000/api/users",
-                headers: {
-                    "_id": localStorage.getItem("token")
-                },
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
-                data: localStorage.getItem("token"),
-                success: function (data) {
-                    var po = JSON.stringify(data);
-                    console.log("Authorized User");
-                    console.log(data);
-                    console.log(data);
-                    console.log(data.subreddit.length)
-                    var s = JSON.stringify(data.subreddit)
-                    let i = 0;
-
-                    if (flag == 0) {
-                        while (i < data.subreddit.length) {
-
-
-                            var sub = data.subreddit[i].sub_name;
-                            var p = document.createElement("p");
-                            p.innerHTML = "<h6>" + " Subreddit created: " + sub + "</h6>";
-                            document.getElementById("divshow").appendChild(p);
-
-                            i++;
-                        }
-                        flag = 1;
-
-                    }
-                    //document.getElementById("posts").innerHTML=po;
-
-
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    console.log("UnAunthorized User");
-                }
-            });
-        });
-    }
-    function border(a) {
-        $(document).ready(function () {
-            document.getElementById("subname").style.borderBottom = "none"
-            document.getElementById("subname").style.color = "black"
-            document.getElementById("post").style.borderBottom = "none"
-            document.getElementById("post").style.color = "black"
-            document.getElementById("comments").style.borderBottom = "none"
-            document.getElementById("comments").style.color = "black"
-            document.getElementById("uploadpic").style.borderBottom = "none"
-            document.getElementById("uploadpic").style.color = "black"
-            document.getElementById(a).style.borderBottom = "3px solid #0079D3"
-            document.getElementById(a).style.color = "#0079D3"
-
-        });
-    };
-</script>
 
 <body>
     <div class="main">
@@ -142,9 +67,11 @@
                     style="font-weight: 700; margin-left: 10px;">reddit</span></a>
             <form class="form-inline">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-primary" type="submit" style="margin-left: 100px;" style="">Logout</button>
+                <button class="btn btn-outline-primary" type="submit" style="margin-left: 100px;">Logout</button>
             </form>
-            <img src="/router/uploads/images/01c82f87d9abc5b795c73c56b15ad7d7"  width="80px" height="80px" style="border-radius: 40px;">
+            <img src="/images"width="80px" height="80px" id="profile"
+                style="border-radius: 40px;">
+                <p id="username">USERNAME</p>
         </nav>
 
         <div>
@@ -163,7 +90,7 @@
                             <button onclick="border('comments')" href="#" id="comments"
                                 style="border: 0; margin-left: 200px;">Comments</a>
                         </li>
-                        <li class="nav-item">   
+                        <li class="nav-item">
                             <button onclick="border('uploadpic'),hide('image')" href="#" id="uploadpic"
                                 style="border: 0; margin-left: 200px;">Upload Picture</a>
                         </li>
@@ -177,11 +104,128 @@
 
     </div>
     <div class="image" id="image" style="text-align: center; padding: 10px;">
-        <form action="http://127.0.0.1:9000/upload" method="post" enctype="multipart/form-data">
-            <input type="file" accept="image/*" name="image">
-            <input type="submit" value="upload">
-        </form>
+        
+            <input type="file" accept="image/*" name="image"> 
+            <input type="submit" id="submit_btn">
+        
     </div>
 </body>
+
+<script>
+    $('#submit_btn').on('click', (e) => {
+        e.preventDefault();
+        console.log("testing");
+        var formData = new FormData();
+        formData.append('image', $('input[type=file]')[0].files[0]);
+        console.log(formData)
+        $.ajax({
+                type: "POST",
+                url: "http://localhost:9000/api/upload",
+                data: formData,
+                dataType:"json",
+                headers: {
+                    "token": localStorage.getItem("token")
+                },
+                contentType: false,
+                processData: false,
+                success: function (data, status) {
+                // location.reload(true);
+                console.log("+++++test=+++")
+                console.log(data);
+                console.log(status);
+            },
+        })
+    })
+    function posts() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:9000/api/post",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                headers: {
+                    "token": localStorage.getItem("token")
+                },
+                success: async function (recent) {
+                    console.log("Authorized User");
+
+                    console.log(recent);
+                    // var date = recent[0].Comments[0].subreddit[0].Post[0].Comment_on_post[0].Date
+                    // var comment = recent[0].Comments[0].subreddit[0].Post[0].Comment_on_post
+                    // var post = recent[0].Comments[0].subreddit[0].Post
+                    var i = 0
+                    var l = recent.length
+                    console.log(l)
+                    while (i < recent.length) {
+                        var subred = await recent[i].data
+                        var title = await recent[i].post_title
+
+                        var p = document.createElement("p");
+                        p.innerHTML = "<div id='x'><div  class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<i class='fa fa-comments-o c grow'  onclick='showcomments()' style='font-size:20px'>" + "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + " 100% Upvoted" + "</span>" + "</div></div>";
+                        document.body.appendChild(p);
+                        i++;
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    localStorage.removeItem("token");
+                    console.log("UnAunthorized User");
+                    window.alert("Please Login first")
+                    location.replace("../index.html")
+
+                }
+            });
+    }
+    let flag = 0;
+    function hide(divid) {
+        console.log("rawat")
+
+
+        document.getElementById("divshow").style.display = "none"
+        document.getElementById("image").style.display = "none"
+        //document.getElementById().style.display="none"
+        //document.getElementById().style.display="none"
+        document.getElementById(divid).style.display = "block";
+    }
+        $(document).ready(function () {
+
+            //const b = localStorage.setItem("token", "5da02df280ad372108d7d584")
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:9000/api/users",
+                headers: {
+                    "token": localStorage.getItem("token")
+                },
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: localStorage.getItem("token"),
+                success: function (data) {
+                    console.log(data);
+                    var user=document.getElementById("username").innerHTML=data.name;
+                    var img= document.getElementById("profile");
+                    img.setAttribute("src",data.imageurl)
+                    console.log("Authorized User");
+                    //document.getElementById("posts").innerHTML=po;
+
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("UnAunthorized User");
+                }
+            });
+        });
+    function border(a) {
+        $(document).ready(function () {
+            document.getElementById("subname").style.borderBottom = "none"
+            document.getElementById("subname").style.color = "black"
+            document.getElementById("post").style.borderBottom = "none"
+            document.getElementById("post").style.color = "black"
+            document.getElementById("comments").style.borderBottom = "none"
+            document.getElementById("comments").style.color = "black"
+            document.getElementById("uploadpic").style.borderBottom = "none"
+            document.getElementById("uploadpic").style.color = "black"
+            document.getElementById(a).style.borderBottom = "3px solid #0079D3"
+            document.getElementById(a).style.color = "#0079D3"
+
+        });
+    };
+</script>
 
 </html>
