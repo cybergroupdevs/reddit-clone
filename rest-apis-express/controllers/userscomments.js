@@ -8,7 +8,7 @@ module.exports = {
 
 async function getComments(req) {
     const response = await usercomments.getComments(req);
-    console.log(response);
+    // console.log(response);
     return response;
 }
 
