@@ -272,7 +272,7 @@
                                 var post_id = await recent[i]._id
                                 let time = await recent[i].post_time
                                 var p = document.createElement("p");
-                                p.innerHTML = "<div class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<div class='comment_div'>" + "<input type='text' placeholder='comments' id='commentdiv'>" + "<button type='button'>" + "comment!" + "</button>" + "</div>" + "<i class='fa fa-comments-o c grow' id='comm' onclick='createcomment(this)' postId='" + post_id + "' style='font-size:20px'>" + "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' id='delete' onclick='deletepost(this)' postId='" + post_id + "'  style='font-size:20px' >" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + "<div style=`display:none` >" + count + "</span>" + "</div>";
+                                p.innerHTML = "<div class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<div class='comment_div'>" + "<input type='text' placeholder='comments' id='commentdiv'>" + "<button type='button' onclick='createcomment(this)' postId='" + post_id + "'>" + "comment!" + "</button>" + "</div>" + "<i class='fa fa-comments-o c grow' id='comm' onclick='showcomment(this)' postId='" + post_id + "' style='font-size:20px'>" + "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' id='delete' onclick='deletepost(this)' postId='" + post_id + "'  style='font-size:20px' >" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + "<div style=`display:none` >" + count + "</span>" + "</div>";
                                 document.body.append(p);
                                 i++;
                                 count++;
@@ -337,8 +337,8 @@
 
             function createcomment(value) {
                 var postid = $(value).attr('postId');
-                var $commentdata = $(value).parent();
-                var Data = $commentdata.children().find('#commentdiv').val();
+                var Data = $(value).parent().children('#commentdiv').val()
+                //var Data = $commentdata.children().find('#commentdiv').val();
                 $.ajax({
                     type: "POST",
                     url: "http://127.0.0.1:9000/api/comments",
@@ -355,7 +355,8 @@
                     }),
                     success: function(recent) {
                         if (recent.status == "200") {
-                            showcomments(value);
+                            window.alert("comment added")
+                            //showcomments(value);
                         } else {
                             console.log(recent);
                         }
@@ -368,8 +369,8 @@
                     }
                 });
             }
-
-            async function showcomments(value_v) {
+            
+            async function showcomment(value_v) {
                 var postid = $(value_v).attr('postId');
                 $.ajax({
                     type: "GET",
