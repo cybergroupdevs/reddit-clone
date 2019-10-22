@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Upload Images to Server</title>
+    <meta charset="utf-8">
+    
+</head>
+<script>
+     function getSub() {
+        $(document).ready(function () {
+            
+        })
+    }
+    </script>
+<body>
+
+<h1>Upload Image</h1>
+ 
+<form action="http://127.0.0.1:9000/upload" method="post" enctype="multipart/form-data">
+        <input type="file" accept="image/*" name="image" >
+        <input type="submit" value="upload"> 
+</form>
+<img src="/router/uploads/images/8778c40ab4dafe10c8fb405efdc552dc"
+style="border-radius: 40px; size: 10px;">
+</body>
+</html>

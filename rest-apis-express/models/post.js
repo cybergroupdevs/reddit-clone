@@ -34,7 +34,7 @@ async function datapost(req) {
         "subreddit_id": req.headers.subreddit_id,
         "post_title": req.body.title,
         "data": req.body.data,
-        // "post_time" : {
+        // "post_time" : {   
         //             "type": Date,
         //             "default": Date.now()
         // }
