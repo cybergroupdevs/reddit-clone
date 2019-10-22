@@ -272,14 +272,16 @@
                         <div class="textarea">
                             <div class="ta1"><span style="padding: 10px;"><bold style="font-weight: 500;">B &nbsp;&nbsp;</bold><i>i</i></span></div>
                             <div class="ta2">
-                                <textarea rows="6" id="commentdata">
+                                <textarea rows="6" id="postdata">
                                 </textarea>
                                 <button type="button" class="postbutton" onclick="comments()">Comment</button>
                             </div>
                         </div>
                     </form>
                 </div>
-               
+                <div class="create3" style="font-size: 14px; font-weight: 400;">
+                    <input type="checkbox" style="border: none; background-color: blue;">&nbsp;&nbsp;Send me post reply notifications
+                </div>
 
             </div>
         </div>
@@ -296,13 +298,11 @@
                     dataType: "json",
                     headers: {
                         "token": localStorage.getItem("token"),
-                        "user_id": localStorage.getItem("user_id"),
-                        "subreddit_user_id": localStorage.getItem("subreddit_user_id"),
                         "subreddit_id": localStorage.getItem("subreddit_id"),
-                        "post_id": localStorage.getItem("post_id")
+                        "subreddit_user_id": localStorage.getItem("subreddit_user_id")
                     },
                     data: JSON.stringify({
-                        "comment_data" : $("#commentdata").val()
+                        "comment_data" : $("#postdata").val()
                         
                     }),
                     success: function(recent) {   

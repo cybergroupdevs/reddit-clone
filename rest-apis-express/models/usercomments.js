@@ -5,61 +5,58 @@ module.exports = {
     deleteComments
 };
 const { postCommentModel } = require("../schema/postComment");
-const { decodeToken } = require("../models/users");
-//const users = [];
-const { SECRET } = require("../config/config")
-const jwt = require("jsonwebtoken")
+const { decodeToken } = require("./users");
 
 async function getComments(req) {
-    // console.log(info.find());
-    try {
-        const token = req.headers.token
-        const decoded = jwt.verify(token, new Buffer(SECRET, 'base64'));
-        const det = await postCommentModel.find({ "user_id": decoded.id });
-       // console.log(det);
-        return det;
-    } catch (err) {
+    debugger
+    const id = req.query.post_id;
+    const det = await postCommentModel.find({ "post_id": id }, (err) => {
         console.log(err);
-    }
+    }); //TODO: Put where condition subreddit_user_id == headers.subreddit_user_id
+    return det;
 }
 
 async function createComments(req) {
-    let response;
-    let body, details;
-    // body=req.body;
-    // details= new info(body)
-    //console.log(details)
-    try{
-        const response =await createCommentdata(req);
-        return response
 
-    } catch (err) {
-        response = { error: err }
-        return response
-    }
-
-}
-async function createCommentdata(req){
     const decoded = decodeToken(req);
+    console.log("---------------")
+    console.log(req.body.comment_data)
+    console.log("---------------")
+
     const json = {
-        "user_id" : decoded.id,
-        "subreddit_user_id" : req.headers.subreddit_user_id,
-        "subreddit_id" : req.headers.subreddit_id,
+        "user_id": decoded.id,
+        "subreddit_user_id": req.headers.subreddit_user_id,
+        "subreddit_id": req.headers.subreddit_id,
         "post_id": req.body.post_id,
         "comment_data": req.body.comment_data,
     }
-    await postCommentModel.create(json).catch((err)=>{
+    await postCommentModel.create(json).catch((err) => {
         console.log(err);
+        return ({ "status": "409" })
     });
-    return ({"status":"200"})
+    return ({ "status": "200" })
 }
+
+// async function createCommentdata(req){
+//     const decoded = decodeToken(req);
+//     const json = {
+//         "user_id" : decoded.id,
+//         "subreddit_user_id" : req.headers.subreddit_user_id,
+//         "subreddit_id" : req.headers.subreddit_id,
+//         "post_id": req.body.title,
+//         "comment_data": req.body.data,
+//     }
+//     await postdataModel.create(json).catch((err)=>{
+//         console.log(err);
+//     });
+//     return ({"status":"200"})
+// }
 
 async function updateComments(req, res) {
     const body = req.body;
     const _id = req.query.id;
-    // console.log(id);
     console.log(body);
-    await postCommentModel.findByIdAndUpdate(_id, body)
+    await info.findByIdAndUpdate(_id, body)
     return ({
         status: 200,
         statusText: "OK",
@@ -70,7 +67,7 @@ async function updateComments(req, res) {
 async function deleteComments(req, res) {
     const id = req.query.id;
     console.log(id);
-    await postCommentModel.findByIdAndDelete(id);
+    await info.findByIdAndDelete(id);
 
     res.send({
         status: 200,
