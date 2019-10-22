@@ -4,12 +4,11 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
-  createfolder
+  uploadPhoto
 }
 
 async function getUsers(req, res) {
   const response = await user.getUsers(req);
-  console.log(response);
   return response;
 }
 
@@ -28,10 +27,11 @@ async function updateUser(req, res) {
   res.send(response);
 }
 
-async function createfolder(req){
-  const response = await user.createfolder(req)
-  return response;
+async function uploadPhoto(req, res) {
+  const response = await user.uploadPhoto(req, res);
+   return response;
 }
+
 
 async function deleteUser(req, res) {
   const id = req.query.id;

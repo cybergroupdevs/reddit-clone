@@ -10,18 +10,33 @@ const { signIn } = require("../controllers");
 const middleware = require("../auth/middleware");
 
 const { post } = require("../controllers");
-
+const multer = require('multer');
 const { userscomments } = require("../controllers");
 
 const { users } = require("../controllers");
+const path =require('path');
 
 const createToken = require("../auth/authenticator").checkAuth;
+const reqPath=path.join(__dirname,'../images');
+var storage= multer.diskStorage({
+    destination:function(req,file,cb){
+        cb(null,reqPath)
+    },
+    filename: function(req,file,cb){
+        cb(null,Date.now()+'-'+file.originalname)
+    }
+})
+
+const upload = multer({storage:storage});
 
 function apiRouter() {
     var app = express()
+    app.use("/uploads",express.static('public'));
 
-    app.get(`${baseURI}/users`, middleware, async function(req, res) {
+
+    app.get(`${baseURI}/users`,async function(req, res) {
         const result = await users.getUsers(req, res)
+        console.log(res);
         res.send(result);
     });
 
@@ -101,11 +116,13 @@ function apiRouter() {
         res.send(result);
     });
 
-    app.post(`${baseURI}/image`, function(req, res) {
-        const result = users.createfolder(req);
+    app.post(`${baseURI}/upload`, upload.single('image'),async (req, res)=>{
+        req.body['imageurl']='/images/'+req.file.filename;
+        console.log("====== Router ====");
+        // console.log(req.body.imageurl)
+          const result = await users.uploadPhoto(req,res);
         res.send(result);
-    });
-
+    })
     // TODO: Furter enhancement
     // app.patch(`${baseURI}/update`,function(req,res){   
     //   res.send(api.signIn.updateUsers)
