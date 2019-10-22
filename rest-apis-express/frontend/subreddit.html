@@ -186,19 +186,27 @@
         }
         
         i {
-            margin-top: 40px;
-        }
-        
-        .c {
-            margin-left: -210px;
             margin-top: 30px;
         }
         
-        .s,
+        .c {
+            margin-left: -20px;
+            margin-top: 30px;
+            color: rgba(0, 0, 0, 0.6);
+            font-weight: 600;
+        }
+        
         .t,
         .b,
         .e {
-            margin-left: 50px;
+            margin-left: 120px;
+            color: rgba(0, 0, 0, 0.6);
+            font-weight: 600;
+        }
+        
+        .e {
+            margin-left: 120px;
+            font-weight: 500;
         }
         
         .grow {
@@ -206,7 +214,7 @@
         }
         
         .grow:hover {
-            transform: scale(1.5);
+            transform: scale(1.2);
             color: #0079D3
         }
         
@@ -225,6 +233,12 @@
         .comment_div ::placeholder {
             font-size: 16px;
             color: rgba(73, 73, 73, 0.7);
+        }
+        
+        .btn_comm {
+            border: 1px solid #0079D3;
+            color: #0079D3;
+            background-color: none;
         }
     </style>
 </head>
@@ -338,7 +352,7 @@
             function createcomment(value) {
                 var postid = $(value).attr('postId');
                 var Data = $(value).parent().children('#commentdiv').val()
-                //var Data = $commentdata.children().find('#commentdiv').val();
+                    //var Data = $commentdata.children().find('#commentdiv').val();
                 $.ajax({
                     type: "POST",
                     url: "http://127.0.0.1:9000/api/comments",
@@ -356,7 +370,7 @@
                     success: function(recent) {
                         if (recent.status == "200") {
                             window.alert("comment added")
-                            //showcomments(value);
+                                //showcomments(value);
                         } else {
                             console.log(recent);
                         }
@@ -369,7 +383,7 @@
                     }
                 });
             }
-            
+
             async function showcomment(value_v) {
                 var postid = $(value_v).attr('postId');
                 $.ajax({
