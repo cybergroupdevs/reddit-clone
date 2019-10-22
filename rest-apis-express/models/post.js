@@ -5,6 +5,7 @@ module.exports = {
     deletePost
 };
 const { postModel } = require("../schema/postSchema")
+const { postCommentModel } = require("../schema/postComment")
 const { decodeToken } = require("../models/users");
 const { postdataModel } = require("../schema/postdata")
 async function getPost(req) {
@@ -60,12 +61,20 @@ async function deletePost(req) {
     debugger
     const id = req.body.postid;
     await postdataModel.findByIdAndDelete(id,(err)=>{
+        
         console.log(err);
         const response = {
             "status" : "409"
         }
         return response
     });
+    postCommentModel.remove({"post_id":id},(err)=>{
+        console.log(err);
+         const response = {
+        "status" : "409"
+    }
+    return response
+    })
 
     const response = {
         "status" : "200"

@@ -14,15 +14,16 @@ async function getComments(req) {
 }
 
 async function createComments(req) {
+    
     const decoded = decodeToken(req);
     const json = {
         "user_id" : decoded.id,
         "subreddit_user_id" : req.headers.subreddit_user_id,
         "subreddit_id" : req.headers.subreddit_id,
         "post_id": req.body.post_id,
-        "comment_data": req.body.data,
+        "comment_data": req.body.comment_data,
     }
-    await postdataModel.create(json).catch((err)=>{
+    await postCommentModel.create(json).catch((err)=>{
         console.log(err);
     });
     return ({"status":"200"})
