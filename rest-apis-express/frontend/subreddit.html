@@ -266,7 +266,7 @@
 
             <form class="form-inline">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <div style="margin-left: 10px; padding-right: 10px;" id="showuserhead"></div>
+                <div style="margin-left: 10px; padding-right: 10px;" id="showuserhead" onclick=""></div>
                 <button type="button" class="btn btn-danger" onclick="logout()">Logout</button>
             </form>
         </nav>
@@ -385,6 +385,7 @@
                     success: function(recent) {
                         if (recent.status == "200") {
                             window.alert("comment added")
+                            $(value).parent().children('#commentdiv').val("")
                         } else {
                             console.log(recent);
                         }
