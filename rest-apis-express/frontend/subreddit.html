@@ -368,7 +368,6 @@
             function createcomment(value) {
                 var postid = $(value).attr('postId');
                 var Data = $(value).parent().children('#commentdiv').val()
-                    //var Data = $commentdata.children().find('#commentdiv').val();
                 $.ajax({
                     type: "POST",
                     url: "http://127.0.0.1:9000/api/comments",
@@ -386,13 +385,10 @@
                     success: function(recent) {
                         if (recent.status == "200") {
                             window.alert("comment added")
-                                //showcomments(value);
                         } else {
                             console.log(recent);
                         }
                         console.log(recent);
-
-
                     },
                     error: function(xhr, textStatus, errorThrown) {
                         console.log(errorThrown);
