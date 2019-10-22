@@ -65,10 +65,6 @@
         <nav class="navbar navbar-light " style="background-color: rgb(255, 255, 255);">
             <a class="navbar-brand"><img src="Redditi.png" style="height: 28px;"><span
                     style="font-weight: 700; margin-left: 10px;">reddit</span></a>
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-primary" type="submit" style="margin-left: 100px;">Logout</button>
-            </form>
             <img src="/images" width="80px" height="80px" id="profile" style="border-radius: 40px;">
             <p id="username">USERNAME</p>
         </nav>
@@ -82,15 +78,15 @@
                                 style="border: 0;">Subname </a>
                         </li>
                         <li class="nav-item">
-                            <button onclick="border('post')" href="#" id="post"
+                            <button onclick="border('post');posts();hide('posts')" href="#" id="post"
                                 style="border: 0; margin-left: 200px;">Post</a>
                         </li>
                         <li class="nav-item">
-                            <button onclick="border('comments')" href="#" id="comments"
+                            <button onclick="border('comments');comm()" href="#" id="comments"
                                 style="border: 0; margin-left: 200px;">Comments</a>
                         </li>
                         <li class="nav-item">
-                            <button onclick="border('uploadpic'),hide('image')" href="#" id="uploadpic"
+                            <button onclick="border('uploadpic');hide('image')" href="#" id="uploadpic"
                                 style="border: 0; margin-left: 200px;">Upload Picture</a>
                         </li>
                     </ul>
@@ -108,6 +104,7 @@
         <input type="submit" id="submit_btn">
 
     </div>
+    <div class="post" style="text-align: center;"></div>
 </body>
 
 <script>
@@ -135,44 +132,6 @@
             },
         })
     })
-    function posts() {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:9000/api/post",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            headers: {
-                "token": localStorage.getItem("token")
-            },
-            success: async function (recent) {
-                console.log("Authorized User");
-
-                console.log(recent);
-                // var date = recent[0].Comments[0].subreddit[0].Post[0].Comment_on_post[0].Date
-                // var comment = recent[0].Comments[0].subreddit[0].Post[0].Comment_on_post
-                // var post = recent[0].Comments[0].subreddit[0].Post
-                var i = 0
-                var l = recent.length
-                console.log(l)
-                while (i < recent.length) {
-                    var subred = await recent[i].data
-                    var title = await recent[i].post_title
-
-                    var p = document.createElement("p");
-                    p.innerHTML = "<div id='x'><div  class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<i class='fa fa-comments-o c grow'  onclick='showcomments()' style='font-size:20px'>" + "</i>" + "<i class='fa fa-share-alt s grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-trash-o t grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ban b grow' style='font-size:20px'>" + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + " 100% Upvoted" + "</span>" + "</div></div>";
-                    document.body.appendChild(p);
-                    i++;
-                }
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                localStorage.removeItem("token");
-                console.log("UnAunthorized User");
-                window.alert("Please Login first")
-                location.replace("../index.html")
-
-            }
-        });
-    }
     let flag = 0;
     function hide(divid) {
         console.log("rawat")
@@ -180,8 +139,8 @@
 
         document.getElementById("divshow").style.display = "none"
         document.getElementById("image").style.display = "none"
-        //document.getElementById().style.display="none"
-        //document.getElementById().style.display="none"
+        //document.getElementById("posts").style.display="none"
+       // document.getElementById().style.display="none"
         document.getElementById(divid).style.display = "block";
     }
     $(document).ready(function () {
@@ -225,7 +184,10 @@
 
         });
     };
+
+    let f=0;    
     function posts() {
+    
         $(document).ready(function () {
             $.ajax({
                 type: "GET",
@@ -238,6 +200,9 @@
                 success: async function (recent) {
                     console.log("Authorized User");
                     console.log(recent);
+                     
+                    if(f==0)
+                    {
                     var i = 0
                     var l = recent.length
                     console.log(l)
@@ -248,11 +213,13 @@
                         var post_id = await recent[i]._id
                         let time = await recent[i].post_time
                         var p = document.createElement("p");
-                        p.innerHTML = "<div class='post'>" + "<span class='sup'>" + title + "</span>" + "<span class='sub'>" + subred + "</span>" + "<div class='comment_div'>" + "<input type='text' placeholder='comments' id='commentdiv' class='input_comment'>" + "<button type='button' onclick='createcomment(this)' postId='" + post_id + "' class='btn_comm'>" + "comment!" + "</button>" + "</div>" + "<i class='fa fa-comments-o c grow' id='comm' onclick='showcomment(this)' postId='" + post_id + "' style='font-size:14px'>" + " Comments " + "</i>" + "<i class='fa fa-trash-o t grow' id='delete' onclick='deletepost(this)' postId='" + post_id + "'  style='font-size:14px' >" + " Delete " + "</i>" + "<i class='fa fa-ban b grow' style='font-size:14px'>" + " Report " + "</i>" + "<i class='fa fa-ellipsis-h e grow' style='font-size:20px'>" + "</i>" + "<span style='float:right; font-size:12px; margin-top:40px; color:rgba(0,0,0,0.4); font-weight:700;'>" + "<div style=`display:none` >" + count + "</span>" + "</div>";
+                        p.innerHTML= "<div class='post' style='text-align:center;font-weight: bold'>" + "<span class='sup'>" +"<li>"+"<ul>"+title + "</span>" + "<div>" + subred + "</div"+"</div> ";
                         document.body.append(p);
                         i++;
                         count++;
+                        f=1;
                     }
+                }
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     localStorage.removeItem("token");
@@ -263,7 +230,67 @@
                 }
             });
         });
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+    let g=0;
+    function comm() {
+    
+    $(document).ready(function () {
+        debugger
+        $.ajax({
+            type: "GET",
+            url: "http://127.0.0.1:9000/api/comments",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            headers: {
+                "token": localStorage.getItem("token")
+            },
+            success: async function (recent) {
+                console.log("Authorized User");
+                console.log(recent);
+                 
+                if(g==0)
+                {
+                var i = 0
+                var l = recent.length
+                console.log(l)
+                var count = 1;
+                while (i < recent.length) {
+                    var comdata = await recent[i].comment_data
+                    var usid = await recent[i].user_id;
+                    var p = document.createElement("p");
+                    p.innerHTML= "<div class='post' style='text-align:center;font-weight: bold'>" + "<span class='sup'>" +"<li>"+"<ul>"+comdata+ "</span>" + "<div>" + usid + "</div"+"</div> ";
+                    document.body.append(p);
+                    i++;
+                    count++;
+                    g=1;
+                }
+            }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                localStorage.removeItem("token");
+                console.log("UnAunthorized User");
+                window.alert("Please Login first")
+                location.replace("../index.html")
+
+            }
+        });
+    });
+}
+
 </script>
 
 </html>

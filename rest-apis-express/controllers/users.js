@@ -3,12 +3,13 @@ module.exports = {
   getUsers,
   createUser,
   updateUser,
-  deleteUser,
+  deleteUser, 
   uploadPhoto
 }
 
 async function getUsers(req, res) {
   const response = await user.getUsers(req);
+  console.log(response);
   return response;
 }
 
